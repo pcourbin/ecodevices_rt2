@@ -13,23 +13,23 @@ from homeassistant.const import (
     CONF_HOST,
     CONF_PORT,
     CONF_NAME,
+    CONF_API_KEY,
+    CONF_ICON,
+    CONF_UNIT_OF_MEASUREMENT,
 )
 
 _LOGGER = logging.getLogger(__name__)
 
-CONF_APIKEY = "apikey"
 CONF_RT2_IN = "rt2_in"
 CONF_RT2_IN_DETAIL = "rt2_in_detail"
 CONF_RT2_NAME = "rt2_name"
-CONF_ICON = "icon"
-CONF_UNIT_OF_MEASUREMENT = "unit_of_measurement"
 CONF_DEVICE_CLASS = "device_class"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
         vol.Required(CONF_HOST): cv.string,
         vol.Optional(CONF_PORT, default=80): cv.port,
-        vol.Optional(CONF_APIKEY, default=""): cv.string,
+        vol.Optional(CONF_API_KEY, default=""): cv.string,
         vol.Optional(CONF_NAME): cv.string,
         vol.Optional(CONF_RT2_IN, default="Index"): cv.string,
         vol.Optional(CONF_RT2_IN_DETAIL, default="All"): cv.string,
@@ -43,7 +43,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 
 def setup_platform(hass, config, add_entities, discovery_info=None):
     """Set up the GCE Eco-Devices platform."""
-    controller = ecodevice(config.get(CONF_HOST), config.get(CONF_PORT), config.get(CONF_APIKEY))
+    controller = ecodevice(config.get(CONF_HOST), config.get(CONF_PORT), config.get(CONF_API_KEY))
     entities = []
 
     if controller.ping():

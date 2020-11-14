@@ -25,7 +25,7 @@ sensor:
   - platform: ecodevices
     host: "_ADDRESS_IP_"
     port: _PORT_   
-    apikey: "_API_KEY_"
+    api_key: "_API_KEY_"
     scan_interval: 5
     name: _SENSOR_NAME_IN_HA_
     rt2_in: "_COMMAND_"
@@ -43,7 +43,7 @@ sensor:
   - platform: ecodevices
     host: "192.168.0.20"
     port: 80    
-    apikey: "XxLzMY69z"
+    api_key: "XxLzMY69z"
     scan_interval: 5
     name: Elec Index HC
     rt2_in: "Index"
@@ -64,7 +64,7 @@ sensor:
       platform: ecodevices
       host: "192.168.0.20"
       port: 80    
-      apikey: "XxLzMY69z"
+      api_key: "XxLzMY69z"
       scan_interval: 5
     name: Elec Index HC
     rt2_in: "Index"
