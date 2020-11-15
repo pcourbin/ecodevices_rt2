@@ -16,14 +16,14 @@ from homeassistant.const import (
     CONF_API_KEY,
     CONF_ICON,
     CONF_UNIT_OF_MEASUREMENT,
+    CONF_DEVICE_CLASS,
 )
 
 _LOGGER = logging.getLogger(__name__)
 
-CONF_RT2_IN = "rt2_in"
-CONF_RT2_IN_DETAIL = "rt2_in_detail"
-CONF_RT2_NAME = "rt2_name"
-CONF_DEVICE_CLASS = "device_class"
+CONF_RT2_IN = "rt2_command"
+CONF_RT2_IN_DETAIL = "rt2_command_value"
+CONF_RT2_NAME = "rt2_command_entry"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
@@ -54,7 +54,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
         if config.get(CONF_NAME):
             _LOGGER.info("Add the device with name: %s.", config.get(CONF_NAME))
             entities.append(
-                EdDevice(
+                EcoDevice_Sensor(
                     controller,
                     config.get(CONF_RT2_IN),
                     config.get(CONF_RT2_IN_DETAIL),
@@ -74,7 +74,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
         add_entities(entities, True)
 
 
-class EdDevice(Entity):
+class EcoDevice_Sensor(Entity):
     """Representation of a Sensor."""
 
     def __init__(self, controller, request_in, resquest_in_detail, request_name, name, unit, icon, device_class):
