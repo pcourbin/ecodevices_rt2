@@ -18,7 +18,7 @@ It is a simple way to call the API of the Eco-Devices RT2 defined [here](https:/
 Copy the `ecodevices` folder to you `custom_components` folder and restart Home Assistant.
 
 ### Simple Example -- Sensor
-See [Eco-Devices RT2 API](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf) for details of `_COMMAND_`, `_VALUE_` parameter, and test the resquest in your web browser for `_ENTRY_`.
+See [Eco-Devices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf)) for details of `_COMMAND_`, `_VALUE_` parameter, and test the resquest in your web browser for `_ENTRY_`.
 ```yaml
 # Example configuration.yaml entry, which will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_COMMAND_=_VALUE_ and get _ENTRY_ in the JSON response. 
 sensor:
@@ -54,7 +54,7 @@ sensor:
 ```
 
 ### Simple Example -- Switch
-See [Eco-Devices RT2 API](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf) for details of `_COMMAND_`, `_PARAMETER_` parameter, and test the resquest in your web browser for `_NAME_`.
+See [Eco-Devices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf)) for details of `_COMMAND_`, `_VALUE_` parameter, and test the resquest in your web browser for `_ENTRY_`.
 ```yaml
 # Example configuration.yaml entry.
 # 1- VALUE -- To check the current value of the switch, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_COMMAND_=_VALUE_ and get _ENTRY_ in the JSON response.
