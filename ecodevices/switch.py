@@ -107,6 +107,7 @@ class EcoDevice_Switch(SwitchEntity):
 
         self._available = True
         self._is_on = False
+        self._is_on_command = self._is_on
 
         self._on_command = on_command
         self._on_command_value = on_command_value
@@ -151,24 +152,23 @@ class EcoDevice_Switch(SwitchEntity):
         """Return true if switch is available."""
         return self._available
 
-    async def async_turn_on(self, **kwargs):
-        """Turn the switch on."""
-        if self._controller.get(self._on_command, self._on_command_value, RT2_SWITCH_RESPONSE_ENTRY) == RT2_SWITCH_RESPONSE_SUCCESS_VALUE:
-            self._is_on = True
-        else:
-            _LOGGER.warning("Error while turning on device %s", self._name)
-            #self._available = False
-
+    def turn_on(self, **kwargs) -> None:
+        """Turn the switch on at next update."""
+        self._is_on_command = True
         self.schedule_update_ha_state()
 
-    async def async_turn_off(self, **kwargs):
-        if self._controller.get(self._off_command, self._off_command_value, RT2_SWITCH_RESPONSE_ENTRY) == RT2_SWITCH_RESPONSE_SUCCESS_VALUE:
-            self._is_on = False
-        else:
-            _LOGGER.warning("Error while turning off device %s", self._name)
-            #self._available = False
-
+    def turn_off(self, **kwargs) -> None:
+        """Turn the switch off at next update."""
+        self._is_on_command = False
         self.schedule_update_ha_state()
 
-    async def async_update(self):        
-        self._is_on = (self._controller.get(self._command, self._command_value, self._command_entry) == 1)
+    def update(self): #async def async_update(self):       
+        self._is_on = (self._controller.get(self._command, self._command_value, self._command_entry) == 1) 
+        if (self._is_on_command != self._is_on):
+            if (self._is_on_command == True):
+                if self._controller.get(self._on_command, self._on_command_value, RT2_SWITCH_RESPONSE_ENTRY) != RT2_SWITCH_RESPONSE_SUCCESS_VALUE:
+                    _LOGGER.warning("Error while turning on device %s", self._name)
+            else:
+                if self._controller.get(self._off_command, self._off_command_value, RT2_SWITCH_RESPONSE_ENTRY) != RT2_SWITCH_RESPONSE_SUCCESS_VALUE:
+                    _LOGGER.warning("Error while turning off device %s", self._name)
+        
