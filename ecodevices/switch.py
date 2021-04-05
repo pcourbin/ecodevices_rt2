@@ -1,4 +1,5 @@
 """Support for the GCE Eco-Devices RT2."""
+import asyncio
 import voluptuous as vol
 import logging
 
@@ -7,8 +8,6 @@ from .ecodevicesapi import ECODEVICE as ecodevice
 from homeassistant.components.switch import PLATFORM_SCHEMA, SwitchEntity
 from homeassistant.helpers.entity import Entity
 import homeassistant.helpers.config_validation as cv
-
-import asyncio
 
 from homeassistant.const import (
     CONF_HOST,
@@ -107,7 +106,7 @@ class EcoDevice_Switch(SwitchEntity):
         self._available = True
         self._is_on = False
         self._is_on_command = self._is_on
-        self._updated = False
+        self._updated = True
 
         self._on_command = on_command
         self._on_command_value = on_command_value

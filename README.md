@@ -101,6 +101,40 @@ switch:
     icon: "mdi:toggle-switch"
 ```
 
+### Simple Example -- Climate
+See [Eco-Devices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf)) for details of `_COMMAND_`, `_VALUE_` parameter, and test the resquest in your web browser for `_ENTRY_`.
+```yaml
+# Example configuration.yaml entry.
+# 1- Get FP value -- To check the current value of the FP Zone, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&Get=FP and get "FP%s Zone %s" in the JSON response with first %s is _FP_EXTENTION_ and second %s is _FP_ZONE_
+# 2- Set FP value -- To change the current value of the FP Zone to a specific mode, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_COMMAND_=_VALUE_ with _COMMAND_="SetFP0%s" (%s is computed using _FP_EXTENTION_ and _FP_ZONE_), _VALUE_ is equal to the right mode (0 for CONFORT, 1 for ECO, 2 for AWAY ans 3 for NONE) and it will check if the "status" in the JSON response is equal to "Success".
+climate:
+  - platform: ecodevices
+    host: "_ADDRESS_IP_"
+    port: _PORT_   
+    api_key: "_API_KEY_"
+    scan_interval: 5
+    name: _CLIMATE_NAME_IN_HA_
+    rt2_fp_ext: "_FP_EXTENTION_"
+    rt2_fp_zone: "_FP_ZONE_"
+```
+
+For example, to play with the first FP zone of the first extention.
+```yaml
+# Example configuration.yaml entry.
+# 1- Get FP value -- To check the current value of the FP Zone, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&Get=FP and get "FP%s Zone %s" in the JSON response with first %s is _FP_EXTENTION_ and second %s is _FP_ZONE_
+# 2- Set FP value -- To change the current value of the FP Zone to a specific mode, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_COMMAND_=_VALUE_ with _COMMAND_="SetFP0%s" (%s is computed using _FP_EXTENTION_ and _FP_ZONE_), _VALUE_ is equal to the right mode (0 for CONFORT, 1 for ECO, 2 for AWAY ans 3 for NONE) and it will check if the "status" in the JSON response is equal to "Success".
+climate:
+  - platform: ecodevices
+    host: "192.168.0.20"
+    port: 80    
+    api_key: "XxLzMY69z"
+    scan_interval: 5
+    name: Bedroom Heater
+    rt2_fp_ext: "1"
+    rt2_fp_zone: "1"
+```
+
+
 ### Full Example
 ```yaml
 # Example configuration.yaml entry
@@ -153,7 +187,6 @@ sensor:
     device_class: "power"
 
 
-
 switch:
   - <<: *ecodevices
   # Get value and change the first EnOcean Switch
@@ -167,4 +200,11 @@ switch:
     rt2_off_command_value: "1"
     device_class: "switch"
     icon: "mdi:toggle-switch"
+
+
+climate:
+  - <<: *ecodevices
+    name: Bedroom Heater
+    rt2_fp_ext: "1"
+    rt2_fp_zone: "1"
 ```
