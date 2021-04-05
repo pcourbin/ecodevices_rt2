@@ -166,9 +166,8 @@ class EcoDevice_Switch(SwitchEntity):
     async def async_update(self):
         try:
             temp = await self.hass.async_add_executor_job(self._controller.get, self._command, self._command_value, self._command_entry)
-            if temp:
-                self._is_on = (self._is_on == 1)
-                self._available = True
+            self._is_on = (temp == 1)
+            self._available = True
         except Exception as e:
             _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
             self._available = False     

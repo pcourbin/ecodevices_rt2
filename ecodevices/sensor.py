@@ -128,8 +128,7 @@ class EcoDevice_Sensor(Entity):
     async def async_update(self):  #def update(self):
         try:
             self._state = await self.hass.async_add_executor_job(self._controller.get, self._request_in, self._request_in_detail, self._request_name)
-            if self._state:
-                self._available = True
+            self._available = True
         except Exception as e:
             _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
             self._available = False
