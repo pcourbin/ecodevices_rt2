@@ -4,5 +4,6 @@
   "documentation": "https://github.com/pcourbin/ha-ecodevices-rt2",
   "requirements": [],
   "dependencies": [],
-  "codeowners": ["@pcourbin"]
+  "codeowners": ["@pcourbin"],
+  "version": "0.1.0"
 }

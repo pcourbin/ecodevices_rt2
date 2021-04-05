@@ -1,8 +1,5 @@
 """Support for the GCE Eco-Devices RT2."""
 import voluptuous as vol
-
-import asyncio
-
 import logging
 
 from .ecodevicesapi import ECODEVICE as ecodevice
@@ -10,6 +7,8 @@ from .ecodevicesapi import ECODEVICE as ecodevice
 from homeassistant.components.switch import PLATFORM_SCHEMA, SwitchEntity
 from homeassistant.helpers.entity import Entity
 import homeassistant.helpers.config_validation as cv
+
+import asyncio
 
 from homeassistant.const import (
     CONF_HOST,
@@ -108,6 +107,7 @@ class EcoDevice_Switch(SwitchEntity):
         self._available = True
         self._is_on = False
         self._is_on_command = self._is_on
+        self._updated = False
 
         self._on_command = on_command
         self._on_command_value = on_command_value
@@ -155,20 +155,29 @@ class EcoDevice_Switch(SwitchEntity):
     def turn_on(self, **kwargs) -> None:
         """Turn the switch on at next update."""
         self._is_on_command = True
+        self._updated = False
         self.schedule_update_ha_state()
 
     def turn_off(self, **kwargs) -> None:
         """Turn the switch off at next update."""
         self._is_on_command = False
+        self._updated = False
         self.schedule_update_ha_state()
 
     def update(self): #async def async_update(self):       
         self._is_on = (self._controller.get(self._command, self._command_value, self._command_entry) == 1) 
         if (self._is_on_command != self._is_on):
-            if (self._is_on_command == True):
-                if self._controller.get(self._on_command, self._on_command_value, RT2_SWITCH_RESPONSE_ENTRY) != RT2_SWITCH_RESPONSE_SUCCESS_VALUE:
-                    _LOGGER.warning("Error while turning on device %s", self._name)
+            if (self._updated == False):
+                if (self._is_on_command == True):
+                    if self._controller.get(self._on_command, self._on_command_value, RT2_SWITCH_RESPONSE_ENTRY) != RT2_SWITCH_RESPONSE_SUCCESS_VALUE:
+                        _LOGGER.warning("Error while turning on device %s", self._name)
+                    else:
+                        self._updated = True
+                else:
+                    if self._controller.get(self._off_command, self._off_command_value, RT2_SWITCH_RESPONSE_ENTRY) != RT2_SWITCH_RESPONSE_SUCCESS_VALUE:
+                        _LOGGER.warning("Error while turning off device %s", self._name)
+                    else:
+                        self._updated = True
             else:
-                if self._controller.get(self._off_command, self._off_command_value, RT2_SWITCH_RESPONSE_ENTRY) != RT2_SWITCH_RESPONSE_SUCCESS_VALUE:
-                    _LOGGER.warning("Error while turning off device %s", self._name)
+                self._is_on_command = self._is_on
         
