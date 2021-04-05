@@ -215,8 +215,13 @@ class EcoDevice_Thermostat(ClimateEntity):
         if force_update is True:
             # Updated temperature to HA state to avoid flapping (API confirmation is slow)
             await asyncio.sleep(1)
-        self._fp_state = self._controller.get(RT2_FP_GET_COMMAND, RT2_FP_GET_COMMAND_VALUE, self._get_command_entry)
-        self._available = True
+        try:
+            self._fp_state = await self.hass.async_add_executor_job(self._controller.get, RT2_FP_GET_COMMAND, RT2_FP_GET_COMMAND_VALUE, self._get_command_entry)
+            if self._fp_state:
+                self._available = True
+        except Exception as e:
+            _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
+            self._available = False
 
     @Throttle(SCAN_INTERVAL)
     async def async_update(self):
@@ -233,8 +238,16 @@ class EcoDevice_Thermostat(ClimateEntity):
 
     async def async_set_preset_mode(self, preset_mode):
         """Set new preset mode."""
-        if self._controller.get(self._set_command, self.HA_TO_RT2_STATE.get(preset_mode), RT2_RESPONSE_ENTRY) != RT2_RESPONSE_SUCCESS_VALUE:
-            _LOGGER.warning("Error while turning off device %s", self._name)
+        try:
+            temp = await self.hass.async_add_executor_job(self._controller.get, self._set_command, self.HA_TO_RT2_STATE.get(preset_mode), RT2_RESPONSE_ENTRY)
+            if temp == RT2_RESPONSE_SUCCESS_VALUE:
+                self._available = True
+            else:
+                _LOGGER.warning("Error while changing mode (%s) device %s", preset_mode, self._name)
+        except Exception as e:
+            _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
+            self._available = False
+
         await self.async_update_heater(True)
 
         

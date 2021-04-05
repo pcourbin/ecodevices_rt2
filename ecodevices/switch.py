@@ -163,20 +163,40 @@ class EcoDevice_Switch(SwitchEntity):
         self._updated = False
         self.schedule_update_ha_state()
 
-    def update(self): #async def async_update(self):       
-        self._is_on = (self._controller.get(self._command, self._command_value, self._command_entry) == 1) 
+    async def async_update(self):
+        try:
+            temp = await self.hass.async_add_executor_job(self._controller.get, self._command, self._command_value, self._command_entry)
+            if temp:
+                self._is_on = (self._is_on == 1)
+                self._available = True
+        except Exception as e:
+            _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
+            self._available = False     
+        
         if (self._is_on_command != self._is_on):
             if (self._updated == False):
                 if (self._is_on_command == True):
-                    if self._controller.get(self._on_command, self._on_command_value, RT2_SWITCH_RESPONSE_ENTRY) != RT2_SWITCH_RESPONSE_SUCCESS_VALUE:
-                        _LOGGER.warning("Error while turning on device %s", self._name)
-                    else:
-                        self._updated = True
+                    try:
+                        temp = await self.hass.async_add_executor_job(self._controller.get, self._on_command, self._on_command_value, RT2_SWITCH_RESPONSE_ENTRY)
+                        if temp == RT2_SWITCH_RESPONSE_SUCCESS_VALUE:
+                            self._available = True
+                            self._updated = True
+                        else:
+                            _LOGGER.warning("Error while turning on device %s", self._name)
+                    except Exception as e:
+                        _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
+                        self._available = False   
                 else:
-                    if self._controller.get(self._off_command, self._off_command_value, RT2_SWITCH_RESPONSE_ENTRY) != RT2_SWITCH_RESPONSE_SUCCESS_VALUE:
-                        _LOGGER.warning("Error while turning off device %s", self._name)
-                    else:
-                        self._updated = True
+                    try:
+                        temp = await self.hass.async_add_executor_job(self._controller.get, self._off_command, self._off_command_value, RT2_SWITCH_RESPONSE_ENTRY)
+                        if temp == RT2_SWITCH_RESPONSE_SUCCESS_VALUE:
+                            self._available = True
+                            self._updated = True
+                        else:
+                            _LOGGER.warning("Error while turning off device %s", self._name)
+                    except Exception as e:
+                        _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
+                        self._available = False
             else:
                 self._is_on_command = self._is_on
         
