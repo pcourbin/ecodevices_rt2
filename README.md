@@ -8,7 +8,6 @@ If you have:
 - [GCE Ecodevices](http://gce-electronics.com/fr/carte-relais-ethernet-module-rail-din/409-teleinformation-ethernet-ecodevices.html), see the great work of [Aohzan](https://github.com/Aohzan/ecodevices)
 
 ## Table of contents
-- [GCE Ecodevices RT2 component for [Home Assistant](https://www.home-assistant.io/)](#gce-ecodevices-rt2-component-for-home-assistant)
   - [Table of contents](#table-of-contents)
   - [Installation](#installation)
   - [Examples](#examples)
