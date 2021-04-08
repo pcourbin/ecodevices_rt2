@@ -1,24 +1,30 @@
 # [GCE Ecodevices RT2](http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html) component for [Home Assistant](https://www.home-assistant.io/)
 
-This a *custom component* for [Home Assistant](https://www.home-assistant.io/) for [GCE Ecodevices RT2](http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html).
-This work is based on the work of [Aohzan](https://github.com/Aohzan/ecodevices).
+This is a *custom component* for [Home Assistant](https://www.home-assistant.io/) for [GCE Ecodevices RT2](http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html). This work is based on the work of [Aohzan](https://github.com/Aohzan/ecodevices).
+It uses python package [pyecodevices-rt2](https://github.com/pcourbin/pyecodevices_rt2) to call the [Ecodevices RT2 API](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf).
 
 If you have:
 - [GCE Ecodevices RT2](http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html), this repository is for you.
 - [GCE Ecodevices](http://gce-electronics.com/fr/carte-relais-ethernet-module-rail-din/409-teleinformation-ethernet-ecodevices.html), see the great work of [Aohzan](https://github.com/Aohzan/ecodevices)
 
+## Table of contents
+- [GCE Ecodevices RT2 component for [Home Assistant](https://www.home-assistant.io/)](#gce-ecodevices-rt2-component-for-home-assistant)
+  - [Table of contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Examples](#examples)
+    - [Simple Example -- Sensor](#simple-example----sensor)
+    - [Simple Example -- Switch](#simple-example----switch)
+    - [Simple Example -- Climate](#simple-example----climate)
+    - [Full Example](#full-example)
 
-## Sensors and [Ecodevices RT2 API](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf)
+    
+## Installation
+Copy the `ecodevices-rt2` folder to your `custom_components` folder and restart Home Assistant.
 
-It is a simple way to call the API of the Ecodevices RT2 defined [here](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf).
-
-## Configuration
-### Installation
-
-Copy the `ecodevices-rt2` folder to you `custom_components` folder and restart Home Assistant.
+## Examples
 
 ### Simple Example -- Sensor
-See [Ecodevices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf)) for details of `_COMMAND_`, `_VALUE_` parameter, and test the resquest in your web browser for `_ENTRY_`.
+See [Ecodevices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf)) for details of `_COMMAND_`, `_VALUE_` parameters, and test the request in your web browser for `_ENTRY_`.
 ```yaml
 # Example configuration.yaml entry, which will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_COMMAND_=_VALUE_ and get _ENTRY_ in the JSON response. 
 sensor:
@@ -54,7 +60,7 @@ sensor:
 ```
 
 ### Simple Example -- Switch
-See [Ecodevices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf)) for details of `_COMMAND_`, `_VALUE_` parameter, and test the resquest in your web browser for `_ENTRY_`.
+See [Ecodevices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf)) for details of `_COMMAND_`, `_VALUE_` parameters, and test the request in your web browser for `_ENTRY_`.
 ```yaml
 # Example configuration.yaml entry.
 # 1- VALUE -- To check the current value of the switch, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_COMMAND_=_VALUE_ and get _ENTRY_ in the JSON response.
@@ -78,7 +84,7 @@ switch:
     icon: "mdi:toggle-switch" # default=mdi:toggle-switch
 ```
 
-For example, to play with the first EnOcean swith.
+For example, to play with the first EnOcean switch.
 ```yaml
 # 1- VALUE -- To check the current value of the switch: http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=XxLzMY69z&Get=XENO and get "ENO ACTIONNEUR1" in the JSON response.
 # 2- ON -- To change the current value of the switch to ON: http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=XxLzMY69z&SetEnoPC=1 and it will check if the "status" in the JSON response is equal to "Success".
@@ -102,11 +108,11 @@ switch:
 ```
 
 ### Simple Example -- Climate
-See [Ecodevices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf)) for details of `_COMMAND_`, `_VALUE_` parameter, and test the resquest in your web browser for `_ENTRY_`.
+See [Ecodevices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf)) for details of `_COMMAND_`, `_VALUE_` parameters, and test the request in your web browser for `_ENTRY_`.
 ```yaml
 # Example configuration.yaml entry.
 # 1- Get FP value -- To check the current value of the FP Zone, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&Get=FP and get "FP%s Zone %s" in the JSON response with first %s is _FP_EXTENTION_ and second %s is _FP_ZONE_
-# 2- Set FP value -- To change the current value of the FP Zone to a specific mode, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_COMMAND_=_VALUE_ with _COMMAND_="SetFP0%s" (%s is computed using _FP_EXTENTION_ and _FP_ZONE_), _VALUE_ is equal to the right mode (0 for CONFORT, 1 for ECO, 2 for AWAY ans 3 for NONE) and it will check if the "status" in the JSON response is equal to "Success".
+# 2- Set FP value -- To change the current value of the FP Zone to a specific mode, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_COMMAND_=_VALUE_ with _COMMAND_="SetFP0%s" (%s is computed using _FP_EXTENTION_ and _FP_ZONE_), _VALUE_ is equal to the right mode (0 for CONFORT, 1 for ECO, 2 for AWAY and 3 for NONE) and it will check if the "status" in the JSON response is equal to "Success".
 climate:
   - platform: ecodevices-rt2
     host: "_ADDRESS_IP_"
@@ -118,11 +124,11 @@ climate:
     rt2_fp_zone: "_FP_ZONE_"
 ```
 
-For example, to play with the first FP zone of the first extention.
+For example, to play with the first FP zone of the first extension.
 ```yaml
 # Example configuration.yaml entry.
 # 1- Get FP value -- To check the current value of the FP Zone, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&Get=FP and get "FP%s Zone %s" in the JSON response with first %s is _FP_EXTENTION_ and second %s is _FP_ZONE_
-# 2- Set FP value -- To change the current value of the FP Zone to a specific mode, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_COMMAND_=_VALUE_ with _COMMAND_="SetFP0%s" (%s is computed using _FP_EXTENTION_ and _FP_ZONE_), _VALUE_ is equal to the right mode (0 for CONFORT, 1 for ECO, 2 for AWAY ans 3 for NONE) and it will check if the "status" in the JSON response is equal to "Success".
+# 2- Set FP value -- To change the current value of the FP Zone to a specific mode, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_COMMAND_=_VALUE_ with _COMMAND_="SetFP0%s" (%s is computed using _FP_EXTENTION_ and _FP_ZONE_), _VALUE_ is equal to the right mode (0 for CONFORT, 1 for ECO, 2 for AWAY and 3 for NONE) and it will check if the "status" in the JSON response is equal to "Success".
 climate:
   - platform: ecodevices-rt2
     host: "192.168.0.20"
