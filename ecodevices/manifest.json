@@ -1,9 +1,0 @@
-{
-  "domain": "ecodevices",
-  "name": "Eco-DevicesRT2",
-  "documentation": "https://github.com/pcourbin/ha-ecodevices-rt2",
-  "requirements": [],
-  "dependencies": [],
-  "codeowners": ["@pcourbin"],
-  "version": "0.1.0"
-}

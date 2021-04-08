@@ -1,18 +1,32 @@
-"""Support for the GCE Eco-Devices RT2."""
+"""Support for the GCE controller."""
 import asyncio
 import voluptuous as vol
 import logging
 
-from .ecodevicesapi import ECODEVICE as ecodevice
+from pyecodevices_rt2 import EcoDevicesRT2
+from .const import (
+    DOMAIN,
+    CONFIG,
+    CONTROLLER,
+    RT2_RESPONSE_ENTRY,
+    RT2_RESPONSE_SUCCESS_VALUE,
+    CONF_RT2_COMMAND,
+    CONF_RT2_COMMAND_VALUE,
+    CONF_RT2_COMMAND_ENTRY,
+    CONF_RT2_ON_COMMAND,
+    CONF_RT2_ON_COMMAND_VALUE,
+    CONF_RT2_OFF_COMMAND,
+    CONF_RT2_OFF_COMMAND_VALUE,
+)
 
-from homeassistant.components.switch import PLATFORM_SCHEMA, SwitchEntity
-from homeassistant.helpers.entity import Entity
+from homeassistant.config_entries import SOURCE_IMPORT
 import homeassistant.helpers.config_validation as cv
+from homeassistant.components.switch import PLATFORM_SCHEMA, SwitchEntity
 
 from homeassistant.const import (
     CONF_HOST,
     CONF_PORT,
-    CONF_NAME,
+    CONF_FRIENDLY_NAME,
     CONF_API_KEY,
     CONF_ICON,
     CONF_DEVICE_CLASS,
@@ -24,23 +38,12 @@ from homeassistant.const import (
 
 _LOGGER = logging.getLogger(__name__)
 
-RT2_SWITCH_RESPONSE_ENTRY = "status"
-RT2_SWITCH_RESPONSE_SUCCESS_VALUE = "Success"
-
-CONF_RT2_COMMAND = "rt2_command"
-CONF_RT2_COMMAND_VALUE = "rt2_command_value"
-CONF_RT2_COMMAND_ENTRY = "rt2_command_entry"
-CONF_RT2_ON_COMMAND = "rt2_on_command"
-CONF_RT2_ON_COMMAND_VALUE = "rt2_on_command_value"
-CONF_RT2_OFF_COMMAND = "rt2_off_command"
-CONF_RT2_OFF_COMMAND_VALUE = "rt2_off_command_value"
-
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
         vol.Required(CONF_HOST): cv.string,
         vol.Optional(CONF_PORT, default=80): cv.port,
         vol.Optional(CONF_API_KEY, default=""): cv.string,
-        vol.Optional(CONF_NAME): cv.string,
+        vol.Required(CONF_FRIENDLY_NAME): cv.string,
         vol.Optional(CONF_RT2_COMMAND, default="Get"): cv.string,
         vol.Optional(CONF_RT2_COMMAND_VALUE, default="XENO"): cv.string,
         vol.Optional(CONF_RT2_COMMAND_ENTRY, default="ENO ACTIONNEUR1"): cv.string,
@@ -53,26 +56,32 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     }
 )
 
-
-def setup_platform(hass, config, add_entities, discovery_info=None):
-    """Set up the GCE Eco-Devices platform."""
-    controller = ecodevice(config.get(CONF_HOST), config.get(CONF_PORT), config.get(CONF_API_KEY))
+async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
+    """Set up the GCE Ecodevices RT2 platform."""
+    controller = EcoDevicesRT2(config.get(CONF_HOST), config.get(CONF_PORT), config.get(CONF_API_KEY))
     entities = []
+    try:
+        if(await hass.async_add_executor_job(controller.ping) == True):
+            available = True
+        else:
+            available = False
+    except Exception:
+        available = False
 
-    if controller.ping():
+    if available == True:
         _LOGGER.info(
-            "Successfully connected to the Eco-Device RT2 gateway: %s.",
+            "Successfully connected to the Ecodevice RT2 gateway: %s.",
             config.get(CONF_HOST, CONF_PORT),
         )
-        if config.get(CONF_NAME):
-            _LOGGER.info("Add the device with name: %s.", config.get(CONF_NAME))
+        if config.get(CONF_FRIENDLY_NAME):
+            _LOGGER.info("Add the device with name: %s.", config.get(CONF_FRIENDLY_NAME))
             entities.append(
                 EcoDevice_Switch(
                     controller,
                     config.get(CONF_RT2_COMMAND),
                     config.get(CONF_RT2_COMMAND_VALUE),
                     config.get(CONF_RT2_COMMAND_ENTRY),
-                    config.get(CONF_NAME),
+                    config.get(CONF_FRIENDLY_NAME),
                     config.get(CONF_ICON),
                     config.get(CONF_DEVICE_CLASS),
                     config.get(CONF_RT2_ON_COMMAND),
@@ -86,9 +95,9 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
             "Can't connect to the plateform %s, please check host and port.",
             config.get(CONF_HOST),
         )
-    if entities:
-        add_entities(entities, True)
 
+    if entities:
+        async_add_entities(entities, True)
 
 class EcoDevice_Switch(SwitchEntity):
     """Representation of a Switch."""
@@ -113,21 +122,21 @@ class EcoDevice_Switch(SwitchEntity):
         self._off_command = off_command
         self._off_command_value = off_command_value
 
-        self._uid = f"{self._controller.host}_{str(self._command_entry)}_switch"
+        self._uid = f"{self._controller.host}_{str(self._command)}_{str(self._command_value)}_{str(self._command_entry)}_switch"
 
     @property
     def device_info(self):
         return {
-            "identifiers": {("ecodevices", self._uid)},
+            "identifiers": {(DOMAIN, self._uid)},
             "name": self._name,
             "manufacturer": "GCE",
-            "model": "ECO-DEVICES-RT2",
-            "via_device": ("ecodevices", self._controller.host),
+            "model": "Ecodevices RT2",
+            "via_device": (DOMAIN, self._uid),
         }
 
     @property
     def unique_id(self):
-        return self._uid
+        return f"ecodevices-rt2_{self._controller.host}_{str(self._command)}_{str(self._command_value)}_{str(self._command_entry)}"
 
     @property
     def device_class(self):
@@ -176,8 +185,8 @@ class EcoDevice_Switch(SwitchEntity):
             if (self._updated == False):
                 if (self._is_on_command == True):
                     try:
-                        temp = await self.hass.async_add_executor_job(self._controller.get, self._on_command, self._on_command_value, RT2_SWITCH_RESPONSE_ENTRY)
-                        if temp == RT2_SWITCH_RESPONSE_SUCCESS_VALUE:
+                        temp = await self.hass.async_add_executor_job(self._controller.get, self._on_command, self._on_command_value, RT2_RESPONSE_ENTRY)
+                        if temp == RT2_RESPONSE_SUCCESS_VALUE:
                             self._available = True
                             self._updated = True
                         else:
@@ -187,8 +196,8 @@ class EcoDevice_Switch(SwitchEntity):
                         self._available = False   
                 else:
                     try:
-                        temp = await self.hass.async_add_executor_job(self._controller.get, self._off_command, self._off_command_value, RT2_SWITCH_RESPONSE_ENTRY)
-                        if temp == RT2_SWITCH_RESPONSE_SUCCESS_VALUE:
+                        temp = await self.hass.async_add_executor_job(self._controller.get, self._off_command, self._off_command_value, RT2_RESPONSE_ENTRY)
+                        if temp == RT2_RESPONSE_SUCCESS_VALUE:
                             self._available = True
                             self._updated = True
                         else:

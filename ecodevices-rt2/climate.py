@@ -1,14 +1,28 @@
-"""Support for the GCE Eco-Devices RT2."""
+"""Support for the GCE Ecodevices RT2."""
 import asyncio
 import voluptuous as vol
 import logging
 from datetime import timedelta
 
-from .ecodevicesapi import ECODEVICE as ecodevice
+from pyecodevices_rt2 import EcoDevicesRT2
+from .const import (
+    DOMAIN,
+    CONFIG,
+    CONTROLLER,
+    RT2_RESPONSE_ENTRY,
+    RT2_RESPONSE_SUCCESS_VALUE,
+    RT2_FP_GET_COMMAND,
+    RT2_FP_GET_COMMAND_VALUE,
+    RT2_FP_GET_COMMAND_ENTRY,
+    RT2_FP_SET_COMMAND,
+    CONF_RT2_FP_EXT,
+    CONF_RT2_FP_ZONE,
+)
 
-from homeassistant.components.sensor import PLATFORM_SCHEMA
+
+from homeassistant.config_entries import SOURCE_IMPORT
 import homeassistant.helpers.config_validation as cv
-from homeassistant.components.climate import ClimateEntity
+from homeassistant.components.climate import PLATFORM_SCHEMA, ClimateEntity
 from homeassistant.components.climate.const import (
     HVAC_MODE_HEAT,
     HVAC_MODE_OFF,
@@ -22,7 +36,7 @@ from homeassistant.util import Throttle
 from homeassistant.const import (
     CONF_HOST,
     CONF_PORT,
-    CONF_NAME,
+    CONF_FRIENDLY_NAME,
     CONF_API_KEY,
     CONF_ICON,
     CONF_DEVICE_CLASS,
@@ -38,45 +52,41 @@ PRESET_LIST = [PRESET_NONE, PRESET_COMFORT, PRESET_ECO, PRESET_AWAY]
 
 _LOGGER = logging.getLogger(__name__)
 
-RT2_RESPONSE_ENTRY = "status"
-RT2_RESPONSE_SUCCESS_VALUE = "Success"
-RT2_FP_GET_COMMAND = "Get"
-RT2_FP_GET_COMMAND_VALUE = "FP"
-RT2_FP_GET_COMMAND_ENTRY = "FP%s Zone %s"
-RT2_FP_SET_COMMAND = "SetFP0%s"
-
-CONF_RT2_FP_EXT = "rt2_fp_ext"
-CONF_RT2_FP_ZONE = "rt2_fp_zone"
-SCAN_INTERVAL = timedelta(minutes=1)
-
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
         vol.Required(CONF_HOST): cv.string,
         vol.Optional(CONF_PORT, default=80): cv.port,
         vol.Optional(CONF_API_KEY, default=""): cv.string,
-        vol.Optional(CONF_NAME): cv.string,
+        vol.Required(CONF_FRIENDLY_NAME): cv.string,
         vol.Optional(CONF_RT2_FP_EXT, default="1"): cv.string,
         vol.Optional(CONF_RT2_FP_ZONE, default="1"): cv.string,
     }
 )
 
-
-def setup_platform(hass, config, add_entities, discovery_info=None):
-    """Set up the GCE Eco-Devices platform."""
-    controller = ecodevice(config.get(CONF_HOST), config.get(CONF_PORT), config.get(CONF_API_KEY))
+async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
+    """Set up the GCE Ecodevices RT2 platform."""
+    controller = EcoDevicesRT2(config.get(CONF_HOST), config.get(CONF_PORT), config.get(CONF_API_KEY))
     entities = []
 
-    if controller.ping():
+    try:
+        if(await hass.async_add_executor_job(controller.ping) == True):
+            available = True
+        else:
+            available = False
+    except Exception:
+        available = False
+
+    if available == True:
         _LOGGER.info(
-            "Successfully connected to the Eco-Device RT2 gateway: %s.",
+            "Successfully connected to the Ecodevice RT2 gateway: %s.",
             config.get(CONF_HOST, CONF_PORT),
         )
-        if config.get(CONF_NAME):
-            _LOGGER.info("Add the device with name: %s.", config.get(CONF_NAME))
+        if config.get(CONF_FRIENDLY_NAME):
+            _LOGGER.info("Add the device with name: %s.", config.get(CONF_FRIENDLY_NAME))
             entities.append(
                 EcoDevice_Thermostat(
                     controller,
-                    config.get(CONF_NAME),
+                    config.get(CONF_FRIENDLY_NAME),
                     config.get(CONF_ICON),
                     config.get(CONF_DEVICE_CLASS),
                     config.get(CONF_RT2_FP_EXT),
@@ -85,21 +95,21 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
             )
     else:
         _LOGGER.error(
-            "Can't connect to the plateform %s, please check host and port.",
+            "Can't connect to the plateform %s, please check host, port and api_key.",
             config.get(CONF_HOST),
         )
     if entities:
-        add_entities(entities, True)
+        async_add_entities(entities, True)
 
 
 class EcoDevice_Thermostat(ClimateEntity):
     """Representation of a Switch."""
 
     RT2_TO_HA_STATE = {
-    "Confort": PRESET_COMFORT,
-    "Eco": PRESET_ECO,
-    "Hors Gel": PRESET_AWAY,
-    "Arret": PRESET_NONE,
+        "Confort": PRESET_COMFORT,
+        "Eco": PRESET_ECO,
+        "Hors Gel": PRESET_AWAY,
+        "Arret": PRESET_NONE,
     }
     HA_TO_RT2_STATE = {
         PRESET_COMFORT: 0,
@@ -131,11 +141,11 @@ class EcoDevice_Thermostat(ClimateEntity):
     @property
     def device_info(self):
         return {
-            "identifiers": {("ecodevices", self._uid)},
+            "identifiers": {(DOMAIN, self._uid)},
             "name": self._name,
             "manufacturer": "GCE",
-            "model": "ECO-DEVICES-RT2",
-            "via_device": ("ecodevices", self._controller.host),
+            "model": "Ecodevices RT2",
+            "via_device": (DOMAIN, self._uid),
         }
 
     @property
@@ -223,7 +233,7 @@ class EcoDevice_Thermostat(ClimateEntity):
             _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
             self._available = False
 
-    @Throttle(SCAN_INTERVAL)
+    #@Throttle(SCAN_INTERVAL)
     async def async_update(self):
         """Update device."""
         await self.async_update_heater()

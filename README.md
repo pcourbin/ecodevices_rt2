@@ -1,33 +1,33 @@
-# [GCE Eco-Devices RT2](http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html) component for [Home Assistant](https://www.home-assistant.io/)
+# [GCE Ecodevices RT2](http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html) component for [Home Assistant](https://www.home-assistant.io/)
 
-This a *custom component* for [Home Assistant](https://www.home-assistant.io/) for [GCE Eco-Devices RT2](http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html).
+This a *custom component* for [Home Assistant](https://www.home-assistant.io/) for [GCE Ecodevices RT2](http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html).
 This work is based on the work of [Aohzan](https://github.com/Aohzan/ecodevices).
 
 If you have:
-- [GCE Eco-Devices RT2](http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html), this repository is for you.
-- [GCE Eco-Devices](http://gce-electronics.com/fr/carte-relais-ethernet-module-rail-din/409-teleinformation-ethernet-ecodevices.html), see the great work of [Aohzan](https://github.com/Aohzan/ecodevices)
+- [GCE Ecodevices RT2](http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html), this repository is for you.
+- [GCE Ecodevices](http://gce-electronics.com/fr/carte-relais-ethernet-module-rail-din/409-teleinformation-ethernet-ecodevices.html), see the great work of [Aohzan](https://github.com/Aohzan/ecodevices)
 
 
-## Sensors and [Eco-Devices RT2 API](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf)
+## Sensors and [Ecodevices RT2 API](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf)
 
-It is a simple way to call the API of the Eco-Devices RT2 defined [here](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf).
+It is a simple way to call the API of the Ecodevices RT2 defined [here](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf).
 
 ## Configuration
 ### Installation
 
-Copy the `ecodevices` folder to you `custom_components` folder and restart Home Assistant.
+Copy the `ecodevices-rt2` folder to you `custom_components` folder and restart Home Assistant.
 
 ### Simple Example -- Sensor
-See [Eco-Devices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf)) for details of `_COMMAND_`, `_VALUE_` parameter, and test the resquest in your web browser for `_ENTRY_`.
+See [Ecodevices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf)) for details of `_COMMAND_`, `_VALUE_` parameter, and test the resquest in your web browser for `_ENTRY_`.
 ```yaml
 # Example configuration.yaml entry, which will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_COMMAND_=_VALUE_ and get _ENTRY_ in the JSON response. 
 sensor:
-  - platform: ecodevices
+  - platform: ecodevices-rt2
     host: "_ADDRESS_IP_"
     port: _PORT_   
     api_key: "_API_KEY_"
     scan_interval: 5
-    name: _SENSOR_NAME_IN_HA_
+    friendly_name: _SENSOR_NAME_IN_HA_
     rt2_command: "_COMMAND_"
     rt2_command_value: "_VALUE_"
     rt2_command_entry: "_ENTRY_"
@@ -39,12 +39,12 @@ For example, to get "Index_TI1" which is the first "Télé-Information", the "HC
 ```yaml
 # Example configuration.yaml entry, which will call http://192.168.0.20:80/api/xdevices.json?key=XxLzMY69z&Index=All and get "Index_TI1" in the JSON response.
 sensor:
-  - platform: ecodevices
+  - platform: ecodevices-rt2
     host: "192.168.0.20"
     port: 80    
     api_key: "XxLzMY69z"
     scan_interval: 5
-    name: Elec Index HC
+    friendly_name: Elec Index HC
     rt2_command: "Index"
     rt2_command_value: "All"
     rt2_command_entry: "Index_TI1"
@@ -54,19 +54,19 @@ sensor:
 ```
 
 ### Simple Example -- Switch
-See [Eco-Devices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf)) for details of `_COMMAND_`, `_VALUE_` parameter, and test the resquest in your web browser for `_ENTRY_`.
+See [Ecodevices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf)) for details of `_COMMAND_`, `_VALUE_` parameter, and test the resquest in your web browser for `_ENTRY_`.
 ```yaml
 # Example configuration.yaml entry.
 # 1- VALUE -- To check the current value of the switch, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_COMMAND_=_VALUE_ and get _ENTRY_ in the JSON response.
 # 2- ON -- To change the current value of the switch to ON, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_ON_COMMAND_=_ON_VALUE_ and it will check if the "status" in the JSON response is equal to "Success".
 # 3- OFF -- To change the current value of the switch to OFF, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_OFF_COMMAND_=_OFF_VALUE_ and it will check if the "status" in the JSON response is equal to "Success".
 switch:
-  - platform: ecodevices
+  - platform: ecodevices-rt2
     host: "_ADDRESS_IP_"
     port: _PORT_   
     api_key: "_API_KEY_"
     scan_interval: 5
-    name: _SWITCH_NAME_IN_HA_
+    friendly_name: _SWITCH_NAME_IN_HA_
     rt2_command: "_COMMAND_"
     rt2_command_value: "_VALUE_"
     rt2_command_entry: "_ENTRY_"
@@ -84,12 +84,12 @@ For example, to play with the first EnOcean swith.
 # 2- ON -- To change the current value of the switch to ON: http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=XxLzMY69z&SetEnoPC=1 and it will check if the "status" in the JSON response is equal to "Success".
 # 3- OFF -- To change the current value of the switch to OFF: http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=XxLzMY69z&ClearEnoPC=1 and it will check if the "status" in the JSON response is equal to "Success".
 switch:
-  - platform: ecodevices
+  - platform: ecodevices-rt2
     host: "192.168.0.20"
     port: 80    
     api_key: "XxLzMY69z"
     scan_interval: 5
-    name: First EnOcean Switch
+    friendly_name: First EnOcean Switch
     rt2_command: "Get"
     rt2_command_value: "XENO"
     rt2_command_entry: "ENO ACTIONNEUR1"
@@ -102,18 +102,18 @@ switch:
 ```
 
 ### Simple Example -- Climate
-See [Eco-Devices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf)) for details of `_COMMAND_`, `_VALUE_` parameter, and test the resquest in your web browser for `_ENTRY_`.
+See [Ecodevices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf)) for details of `_COMMAND_`, `_VALUE_` parameter, and test the resquest in your web browser for `_ENTRY_`.
 ```yaml
 # Example configuration.yaml entry.
 # 1- Get FP value -- To check the current value of the FP Zone, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&Get=FP and get "FP%s Zone %s" in the JSON response with first %s is _FP_EXTENTION_ and second %s is _FP_ZONE_
 # 2- Set FP value -- To change the current value of the FP Zone to a specific mode, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_COMMAND_=_VALUE_ with _COMMAND_="SetFP0%s" (%s is computed using _FP_EXTENTION_ and _FP_ZONE_), _VALUE_ is equal to the right mode (0 for CONFORT, 1 for ECO, 2 for AWAY ans 3 for NONE) and it will check if the "status" in the JSON response is equal to "Success".
 climate:
-  - platform: ecodevices
+  - platform: ecodevices-rt2
     host: "_ADDRESS_IP_"
     port: _PORT_   
     api_key: "_API_KEY_"
     scan_interval: 5
-    name: _CLIMATE_NAME_IN_HA_
+    friendly_name: _CLIMATE_NAME_IN_HA_
     rt2_fp_ext: "_FP_EXTENTION_"
     rt2_fp_zone: "_FP_ZONE_"
 ```
@@ -124,12 +124,12 @@ For example, to play with the first FP zone of the first extention.
 # 1- Get FP value -- To check the current value of the FP Zone, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&Get=FP and get "FP%s Zone %s" in the JSON response with first %s is _FP_EXTENTION_ and second %s is _FP_ZONE_
 # 2- Set FP value -- To change the current value of the FP Zone to a specific mode, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_COMMAND_=_VALUE_ with _COMMAND_="SetFP0%s" (%s is computed using _FP_EXTENTION_ and _FP_ZONE_), _VALUE_ is equal to the right mode (0 for CONFORT, 1 for ECO, 2 for AWAY ans 3 for NONE) and it will check if the "status" in the JSON response is equal to "Success".
 climate:
-  - platform: ecodevices
+  - platform: ecodevices-rt2
     host: "192.168.0.20"
     port: 80    
     api_key: "XxLzMY69z"
     scan_interval: 5
-    name: Bedroom Heater
+    friendly_name: Bedroom Heater
     rt2_fp_ext: "1"
     rt2_fp_zone: "1"
 ```
@@ -140,21 +140,21 @@ climate:
 # Example configuration.yaml entry
 sensor:
   # Get Elec Index HC
-  - <<: &ecodevices
-      platform: ecodevices
+  - <<: &ecodevices-rt2
+      platform: ecodevices-rt2
       host: "192.168.0.20"
       port: 80    
       api_key: "XxLzMY69z"
       scan_interval: 5
-    name: Elec Index HC
+    friendly_name: Elec Index HC
     rt2_command: "Index"
     rt2_command_value: "All"
     rt2_command_entry: "Index_TI1"
     unit_of_measurement: "kWh"
     device_class: "energy"
   # Get Elec Index HP
-  - <<: *ecodevices
-    name: Elec Index HP
+  - <<: *ecodevices-rt2
+    friendly_name: Elec Index HP
     rt2_command: "Index"
     rt2_command_value: "All"
     rt2_command_entry: "Index_TI2"
@@ -170,16 +170,16 @@ sensor:
         device_class: "energy"
         value_template: "{{ states('sensor.elec_index_hp') | float + states('sensor.elec_index_hc') | float }}"
   # Get Elec HP/HC (If your are currently in HP or HC hours, according to your electrical counter)
-  - <<: *ecodevices
-    name: Elec HP/HC
+  - <<: *ecodevices-rt2
+    friendly_name: Elec HP/HC
     rt2_command: "Get"
     rt2_command_value: "TI"
     rt2_command_entry: "PTEC"
     unit_of_measurement: ""
     device_class: "None"
   # Get Elec Puissance Appelée
-  - <<: *ecodevices
-    name: Elec Puissance Appelée
+  - <<: *ecodevices-rt2
+    friendly_name: Elec Puissance Appelée
     rt2_command: "Get"
     rt2_command_value: "P"
     rt2_command_entry: "INSTANT_POSTE1"
@@ -188,9 +188,9 @@ sensor:
 
 
 switch:
-  - <<: *ecodevices
+  - <<: *ecodevices-rt2
   # Get value and change the first EnOcean Switch
-    name: First EnOcean Switch
+    friendly_name: First EnOcean Switch
     rt2_command: "Get"
     rt2_command_value: "XENO"
     rt2_command_entry: "ENO ACTIONNEUR1"
@@ -203,8 +203,8 @@ switch:
 
 
 climate:
-  - <<: *ecodevices
-    name: Bedroom Heater
+  - <<: *ecodevices-rt2
+    friendly_name: Bedroom Heater
     rt2_fp_ext: "1"
     rt2_fp_zone: "1"
 ```

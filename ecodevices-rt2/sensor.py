@@ -1,18 +1,27 @@
-"""Support for the GCE Eco-Devices RT2."""
+"""Support for the GCE Ecodevices RT2."""
 """ Based on work of @Mati24 -- https://github.com/Aohzan/ecodevices"""
 import voluptuous as vol
 import logging
 
-from .ecodevicesapi import ECODEVICE as ecodevice
+from pyecodevices_rt2 import EcoDevicesRT2
+from .const import (
+    DOMAIN,    
+    CONFIG,
+    CONTROLLER,
+    CONF_RT2_COMMAND,
+    CONF_RT2_COMMAND_VALUE,
+    CONF_RT2_COMMAND_ENTRY,
+)
 
-from homeassistant.components.sensor import PLATFORM_SCHEMA
-from homeassistant.helpers.entity import Entity
+from homeassistant.config_entries import SOURCE_IMPORT
 import homeassistant.helpers.config_validation as cv
+from homeassistant.helpers.entity import Entity
+from homeassistant.components.sensor import PLATFORM_SCHEMA
 
 from homeassistant.const import (
     CONF_HOST,
     CONF_PORT,
-    CONF_NAME,
+    CONF_FRIENDLY_NAME,
     CONF_API_KEY,
     CONF_ICON,
     CONF_UNIT_OF_MEASUREMENT,
@@ -21,19 +30,15 @@ from homeassistant.const import (
 
 _LOGGER = logging.getLogger(__name__)
 
-CONF_RT2_IN = "rt2_command"
-CONF_RT2_IN_DETAIL = "rt2_command_value"
-CONF_RT2_NAME = "rt2_command_entry"
-
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
         vol.Required(CONF_HOST): cv.string,
         vol.Optional(CONF_PORT, default=80): cv.port,
         vol.Optional(CONF_API_KEY, default=""): cv.string,
-        vol.Optional(CONF_NAME): cv.string,
-        vol.Optional(CONF_RT2_IN, default="Index"): cv.string,
-        vol.Optional(CONF_RT2_IN_DETAIL, default="All"): cv.string,
-        vol.Optional(CONF_RT2_NAME): cv.string,
+        vol.Optional(CONF_FRIENDLY_NAME): cv.string,
+        vol.Optional(CONF_RT2_COMMAND, default="Index"): cv.string,
+        vol.Optional(CONF_RT2_COMMAND_VALUE, default="All"): cv.string,
+        vol.Optional(CONF_RT2_COMMAND_ENTRY): cv.string,
         vol.Optional(CONF_ICON, default="mdi:flash"): cv.string,
         vol.Optional(CONF_UNIT_OF_MEASUREMENT, default="W"): cv.string,
         vol.Optional(CONF_DEVICE_CLASS, default="power"): cv.string,
@@ -41,25 +46,33 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 )
 
 
-def setup_platform(hass, config, add_entities, discovery_info=None):
-    """Set up the GCE Eco-Devices platform."""
-    controller = ecodevice(config.get(CONF_HOST), config.get(CONF_PORT), config.get(CONF_API_KEY))
+async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
+    """Set up the GCE Ecodevices RT2 platform."""
+    controller = EcoDevicesRT2(config.get(CONF_HOST), config.get(CONF_PORT), config.get(CONF_API_KEY))
     entities = []
 
-    if controller.ping():
+    try:
+        if(await hass.async_add_executor_job(controller.ping) == True):
+            available = True
+        else:
+            available = False
+    except Exception:
+        available = False
+
+    if available == True:
         _LOGGER.info(
-            "Successfully connected to the Eco-Device RT2 gateway: %s.",
+            "Successfully connected to the Ecodevice RT2 gateway: %s.",
             config.get(CONF_HOST, CONF_PORT),
         )
-        if config.get(CONF_NAME):
-            _LOGGER.info("Add the device with name: %s.", config.get(CONF_NAME))
+        if config.get(CONF_FRIENDLY_NAME):
+            _LOGGER.info("Add the device with name: %s.", config.get(CONF_FRIENDLY_NAME))
             entities.append(
                 EcoDevice_Sensor(
                     controller,
-                    config.get(CONF_RT2_IN),
-                    config.get(CONF_RT2_IN_DETAIL),
-                    config.get(CONF_RT2_NAME),
-                    config.get(CONF_NAME),
+                    config.get(CONF_RT2_COMMAND),
+                    config.get(CONF_RT2_COMMAND_VALUE),
+                    config.get(CONF_RT2_COMMAND_ENTRY),
+                    config.get(CONF_FRIENDLY_NAME),
                     config.get(CONF_UNIT_OF_MEASUREMENT),
                     config.get(CONF_ICON),
                     config.get(CONF_DEVICE_CLASS),
@@ -71,34 +84,35 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
             config.get(CONF_HOST),
         )
     if entities:
-        add_entities(entities, True)
-
+        async_add_entities(entities, True)
+    
 
 class EcoDevice_Sensor(Entity):
     """Representation of a Sensor."""
 
-    def __init__(self, controller, request_in, resquest_in_detail, request_name, name, unit, icon, device_class):
+    def __init__(self, controller, command, command_value, command_entry, name, unit, icon, device_class):
         """Initialize the sensor."""
         self._controller = controller
-        self._request_in = request_in
-        self._request_in_detail = resquest_in_detail
-        self._request_name = request_name
+
+        self._command = command
+        self._command_value = command_value
+        self._command_entry = command_entry
         self._name = name
         self._unit = unit
         self._icon = icon
         self._device_class = device_class
 
         self._state = None
-        self._uid = f"{self._controller.host}_{str(self._request_name)}"
+        self._uid = f"{self._controller.host}_{str(self._command)}_{str(self._command_value)}_{str(self._command_entry)}"
 
     @property
     def device_info(self):
         return {
-            "identifiers": {("ecodevices", self._uid)},
+            "identifiers": {(DOMAIN, self._uid)},
             "name": self._name,
             "manufacturer": "GCE",
-            "model": "ECO-DEVICES-RT2",
-            "via_device": ("ecodevices", self._controller.host),
+            "model": "Ecodevices RT2",
+            "via_device": (DOMAIN, self._uid),
         }
 
     @property
@@ -127,7 +141,7 @@ class EcoDevice_Sensor(Entity):
 
     async def async_update(self):  #def update(self):
         try:
-            self._state = await self.hass.async_add_executor_job(self._controller.get, self._request_in, self._request_in_detail, self._request_name)
+            self._state = await self.hass.async_add_executor_job(self._controller.get, self._command, self._command_value, self._command_entry)
             self._available = True
         except Exception as e:
             _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
