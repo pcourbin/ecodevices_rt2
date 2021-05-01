@@ -18,7 +18,7 @@ If you have:
 
     
 ## Installation
-Copy the `ecodevices-rt2` folder to your `custom_components` folder and restart Home Assistant.
+Copy the `custom_components/ecodevices-rt2` folder into the config folder.
 
 ## Examples
 
