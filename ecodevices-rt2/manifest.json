@@ -2,9 +2,11 @@
   "name": "Ecodevices RT2",
   "domain": "ecodevices-rt2",
   "documentation": "https://github.com/pcourbin/ecodevices_rt2",
+  "issue_tracker": "https://github.com/pcourbin/ecodevices_rt2/issues",
   "codeowners": ["@pcourbin"],
   "config_flow": false,
   "requirements": ["pyecodevices-rt2==1.0.0"],
   "dependencies": [],
-  "version": "0.1.0"
+  "version": "0.2.0",
+  "iot_class": "local_polling"
 }

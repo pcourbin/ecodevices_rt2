@@ -1,0 +1,6 @@
+{
+    "name": "Ecodevices RT2",
+    "render_readme": true,
+    "domains": ["sensor", "switch", "climate"],
+    "iot_class": ["Local Polling"]
+}
