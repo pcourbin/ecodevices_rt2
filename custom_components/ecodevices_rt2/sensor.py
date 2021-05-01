@@ -1,32 +1,24 @@
-"""Support for the GCE Ecodevices RT2."""
-""" Based on work of @Mati24 -- https://github.com/Aohzan/ecodevices"""
-import voluptuous as vol
+"""Support for the GCE Ecodevices RT2.
+Based on work of @Mati24 -- https://github.com/Aohzan/ecodevices"""
 import logging
 
-from pyecodevices_rt2 import EcoDevicesRT2
-from .const import (
-    DOMAIN,    
-    CONFIG,
-    CONTROLLER,
-    CONF_RT2_COMMAND,
-    CONF_RT2_COMMAND_VALUE,
-    CONF_RT2_COMMAND_ENTRY,
-)
-
-from homeassistant.config_entries import SOURCE_IMPORT
 import homeassistant.helpers.config_validation as cv
-from homeassistant.helpers.entity import Entity
+import voluptuous as vol
 from homeassistant.components.sensor import PLATFORM_SCHEMA
+from homeassistant.const import CONF_API_KEY
+from homeassistant.const import CONF_DEVICE_CLASS
+from homeassistant.const import CONF_FRIENDLY_NAME
+from homeassistant.const import CONF_HOST
+from homeassistant.const import CONF_ICON
+from homeassistant.const import CONF_PORT
+from homeassistant.const import CONF_UNIT_OF_MEASUREMENT
+from homeassistant.helpers.entity import Entity
+from pyecodevices_rt2 import EcoDevicesRT2
 
-from homeassistant.const import (
-    CONF_HOST,
-    CONF_PORT,
-    CONF_FRIENDLY_NAME,
-    CONF_API_KEY,
-    CONF_ICON,
-    CONF_UNIT_OF_MEASUREMENT,
-    CONF_DEVICE_CLASS,
-)
+from .const import CONF_RT2_COMMAND
+from .const import CONF_RT2_COMMAND_ENTRY
+from .const import CONF_RT2_COMMAND_VALUE
+from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -48,24 +40,28 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the GCE Ecodevices RT2 platform."""
-    controller = EcoDevicesRT2(config.get(CONF_HOST), config.get(CONF_PORT), config.get(CONF_API_KEY))
+    controller = EcoDevicesRT2(
+        config.get(CONF_HOST), config.get(CONF_PORT), config.get(CONF_API_KEY)
+    )
     entities = []
 
     try:
-        if(await hass.async_add_executor_job(controller.ping) == True):
+        if await hass.async_add_executor_job(controller.ping):
             available = True
         else:
             available = False
     except Exception:
         available = False
 
-    if available == True:
+    if available:
         _LOGGER.info(
             "Successfully connected to the Ecodevice RT2 gateway: %s.",
             config.get(CONF_HOST, CONF_PORT),
         )
         if config.get(CONF_FRIENDLY_NAME):
-            _LOGGER.info("Add the device with name: %s.", config.get(CONF_FRIENDLY_NAME))
+            _LOGGER.info(
+                "Add the device with name: %s.", config.get(CONF_FRIENDLY_NAME)
+            )
             entities.append(
                 EcoDevice_Sensor(
                     controller,
@@ -85,12 +81,22 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
         )
     if entities:
         async_add_entities(entities, True)
-    
+
 
 class EcoDevice_Sensor(Entity):
     """Representation of a Sensor."""
 
-    def __init__(self, controller, command, command_value, command_entry, name, unit, icon, device_class):
+    def __init__(
+        self,
+        controller,
+        command,
+        command_value,
+        command_entry,
+        name,
+        unit,
+        icon,
+        device_class,
+    ):
         """Initialize the sensor."""
         self._controller = controller
 
@@ -139,9 +145,14 @@ class EcoDevice_Sensor(Entity):
     def icon(self):
         return self._icon
 
-    async def async_update(self):  #def update(self):
+    async def async_update(self):  # def update(self):
         try:
-            self._state = await self.hass.async_add_executor_job(self._controller.get, self._command, self._command_value, self._command_entry)
+            self._state = await self.hass.async_add_executor_job(
+                self._controller.get,
+                self._command,
+                self._command_value,
+                self._command_entry,
+            )
             self._available = True
         except Exception as e:
             _LOGGER.error("Device data no retrieve %s: %s", self.name, e)

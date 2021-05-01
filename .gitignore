@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Home Assistant Secrets values
+.devcontainer/secrets.yaml

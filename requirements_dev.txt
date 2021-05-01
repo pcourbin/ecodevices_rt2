@@ -1,0 +1,4 @@
+homeassistant
+pre-commit
+black
+reorder-python-imports

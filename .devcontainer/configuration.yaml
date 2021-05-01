@@ -1,0 +1,35 @@
+default_config:
+
+logger:
+  default: info
+  logs:
+    custom_components.ecodevices_rt2: debug
+# If you need to debug uncommment the line below (doc: https://www.home-assistant.io/integrations/debugpy/)
+# debugpy:
+
+sensor:
+  - <<: &ecodevices_rt2
+      platform: ecodevices_rt2
+      host: "192.168.0.20"
+      api_key: "API_KEY" #!secret rt2_api_key
+    friendly_name: Elec Index HC
+    rt2_command: "Index"
+    rt2_command_value: "All"
+    rt2_command_entry: "Index_TI1"
+    unit_of_measurement: "Wh"
+    device_class: "power"
+  - <<: *ecodevices_rt2
+    friendly_name: Elec Index HP
+    rt2_command: "Index"
+    rt2_command_value: "All"
+    rt2_command_entry: "Index_TI2"
+    unit_of_measurement: "Wh"
+    device_class: "power"
+  - platform: template
+    sensors:
+      elec_index:
+        friendly_name: "Elec Index"
+        unit_of_measurement: "kWh"
+        icon_template: "mdi:flash"
+        device_class: "power"
+        value_template: "{{ (states('sensor.elec_index_hp')|float /1000 + states('sensor.elec_index_hc')|float /1000)|round(3) }}"

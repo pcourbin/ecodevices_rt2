@@ -1,51 +1,36 @@
 """Support for the GCE Ecodevices RT2."""
 import asyncio
-import voluptuous as vol
 import logging
-from datetime import timedelta
 
-from pyecodevices_rt2 import EcoDevicesRT2
-from .const import (
-    DOMAIN,
-    CONFIG,
-    CONTROLLER,
-    RT2_RESPONSE_ENTRY,
-    RT2_RESPONSE_SUCCESS_VALUE,
-    RT2_FP_GET_COMMAND,
-    RT2_FP_GET_COMMAND_VALUE,
-    RT2_FP_GET_COMMAND_ENTRY,
-    RT2_FP_SET_COMMAND,
-    CONF_RT2_FP_EXT,
-    CONF_RT2_FP_ZONE,
-)
-
-
-from homeassistant.config_entries import SOURCE_IMPORT
 import homeassistant.helpers.config_validation as cv
-from homeassistant.components.climate import PLATFORM_SCHEMA, ClimateEntity
-from homeassistant.components.climate.const import (
-    HVAC_MODE_HEAT,
-    HVAC_MODE_OFF,
-    PRESET_AWAY,
-    PRESET_COMFORT,
-    PRESET_ECO,
-    PRESET_NONE,
-    SUPPORT_PRESET_MODE,
-)
-from homeassistant.util import Throttle
-from homeassistant.const import (
-    CONF_HOST,
-    CONF_PORT,
-    CONF_FRIENDLY_NAME,
-    CONF_API_KEY,
-    CONF_ICON,
-    CONF_DEVICE_CLASS,
-    STATE_OFF,
-    STATE_ON,
-    STATE_STANDBY,
-    STATE_UNKNOWN,
-    TEMP_CELSIUS
-)
+import voluptuous as vol
+from homeassistant.components.climate import ClimateEntity
+from homeassistant.components.climate import PLATFORM_SCHEMA
+from homeassistant.components.climate.const import HVAC_MODE_HEAT
+from homeassistant.components.climate.const import HVAC_MODE_OFF
+from homeassistant.components.climate.const import PRESET_AWAY
+from homeassistant.components.climate.const import PRESET_COMFORT
+from homeassistant.components.climate.const import PRESET_ECO
+from homeassistant.components.climate.const import PRESET_NONE
+from homeassistant.components.climate.const import SUPPORT_PRESET_MODE
+from homeassistant.const import CONF_API_KEY
+from homeassistant.const import CONF_DEVICE_CLASS
+from homeassistant.const import CONF_FRIENDLY_NAME
+from homeassistant.const import CONF_HOST
+from homeassistant.const import CONF_ICON
+from homeassistant.const import CONF_PORT
+from homeassistant.const import TEMP_CELSIUS
+from pyecodevices_rt2 import EcoDevicesRT2
+
+from .const import CONF_RT2_FP_EXT
+from .const import CONF_RT2_FP_ZONE
+from .const import DOMAIN
+from .const import RT2_FP_GET_COMMAND
+from .const import RT2_FP_GET_COMMAND_ENTRY
+from .const import RT2_FP_GET_COMMAND_VALUE
+from .const import RT2_FP_SET_COMMAND
+from .const import RT2_RESPONSE_ENTRY
+from .const import RT2_RESPONSE_SUCCESS_VALUE
 
 MODE_LIST = [HVAC_MODE_HEAT, HVAC_MODE_OFF]
 PRESET_LIST = [PRESET_NONE, PRESET_COMFORT, PRESET_ECO, PRESET_AWAY]
@@ -63,26 +48,31 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     }
 )
 
+
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the GCE Ecodevices RT2 platform."""
-    controller = EcoDevicesRT2(config.get(CONF_HOST), config.get(CONF_PORT), config.get(CONF_API_KEY))
+    controller = EcoDevicesRT2(
+        config.get(CONF_HOST), config.get(CONF_PORT), config.get(CONF_API_KEY)
+    )
     entities = []
 
     try:
-        if(await hass.async_add_executor_job(controller.ping) == True):
+        if await hass.async_add_executor_job(controller.ping):
             available = True
         else:
             available = False
     except Exception:
         available = False
 
-    if available == True:
+    if available:
         _LOGGER.info(
             "Successfully connected to the Ecodevice RT2 gateway: %s.",
             config.get(CONF_HOST, CONF_PORT),
         )
         if config.get(CONF_FRIENDLY_NAME):
-            _LOGGER.info("Add the device with name: %s.", config.get(CONF_FRIENDLY_NAME))
+            _LOGGER.info(
+                "Add the device with name: %s.", config.get(CONF_FRIENDLY_NAME)
+            )
             entities.append(
                 EcoDevice_Thermostat(
                     controller,
@@ -128,13 +118,16 @@ class EcoDevice_Thermostat(ClimateEntity):
         self._fp_ext = fp_ext
         self._fp_zone = fp_zone
         self._fp_zone_get = fp_zone
-        if (self._fp_ext == 2):
+        if self._fp_ext == 2:
             self._fp_zone_get = self._fp_zone_get + 4
         self._fp_state = None
         self._available = True
 
         self._set_command = RT2_FP_SET_COMMAND % (str(self._fp_zone_get))
-        self._get_command_entry = RT2_FP_GET_COMMAND_ENTRY % (str(self._fp_ext), str(self._fp_zone))
+        self._get_command_entry = RT2_FP_GET_COMMAND_ENTRY % (
+            str(self._fp_ext),
+            str(self._fp_zone),
+        )
 
         self._uid = f"{self._controller.host}_FP{str(self._fp_ext)}_Zone{str(self._fp_zone)}_thermostat"
 
@@ -226,14 +219,19 @@ class EcoDevice_Thermostat(ClimateEntity):
             # Updated temperature to HA state to avoid flapping (API confirmation is slow)
             await asyncio.sleep(1)
         try:
-            self._fp_state = await self.hass.async_add_executor_job(self._controller.get, RT2_FP_GET_COMMAND, RT2_FP_GET_COMMAND_VALUE, self._get_command_entry)
+            self._fp_state = await self.hass.async_add_executor_job(
+                self._controller.get,
+                RT2_FP_GET_COMMAND,
+                RT2_FP_GET_COMMAND_VALUE,
+                self._get_command_entry,
+            )
             if self._fp_state:
                 self._available = True
         except Exception as e:
             _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
             self._available = False
 
-    #@Throttle(SCAN_INTERVAL)
+    # @Throttle(SCAN_INTERVAL)
     async def async_update(self):
         """Update device."""
         await self.async_update_heater()
@@ -249,15 +247,20 @@ class EcoDevice_Thermostat(ClimateEntity):
     async def async_set_preset_mode(self, preset_mode):
         """Set new preset mode."""
         try:
-            temp = await self.hass.async_add_executor_job(self._controller.get, self._set_command, self.HA_TO_RT2_STATE.get(preset_mode), RT2_RESPONSE_ENTRY)
+            temp = await self.hass.async_add_executor_job(
+                self._controller.get,
+                self._set_command,
+                self.HA_TO_RT2_STATE.get(preset_mode),
+                RT2_RESPONSE_ENTRY,
+            )
             if temp == RT2_RESPONSE_SUCCESS_VALUE:
                 self._available = True
             else:
-                _LOGGER.warning("Error while changing mode (%s) device %s", preset_mode, self._name)
+                _LOGGER.warning(
+                    "Error while changing mode (%s) device %s", preset_mode, self._name
+                )
         except Exception as e:
             _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
             self._available = False
 
         await self.async_update_heater(True)
-
-        
