@@ -1,5 +1,5 @@
 """Constants for the EcoDevices component."""
-DOMAIN = "ecodevices-rt2"
+DOMAIN = "ecodevices_rt2"
 
 CONTROLLER = "controller"
 CONFIG = "config"

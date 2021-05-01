@@ -1,6 +1,6 @@
 {
   "name": "Ecodevices RT2",
-  "domain": "ecodevices-rt2",
+  "domain": "ecodevices_rt2",
   "documentation": "https://github.com/pcourbin/ecodevices_rt2",
   "issue_tracker": "https://github.com/pcourbin/ecodevices_rt2/issues",
   "codeowners": ["@pcourbin"],

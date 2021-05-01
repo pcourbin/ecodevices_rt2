@@ -18,7 +18,7 @@ If you have:
 
     
 ## Installation
-Copy the `custom_components/ecodevices-rt2` folder into the config folder.
+Copy the `custom_components/ecodevices_rt2` folder into the config folder.
 
 ## Examples
 
@@ -27,7 +27,7 @@ See [Ecodevices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF
 ```yaml
 # Example configuration.yaml entry, which will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_COMMAND_=_VALUE_ and get _ENTRY_ in the JSON response. 
 sensor:
-  - platform: ecodevices-rt2
+  - platform: ecodevices_rt2
     host: "_ADDRESS_IP_"
     port: _PORT_   
     api_key: "_API_KEY_"
@@ -44,7 +44,7 @@ For example, to get "Index_TI1" which is the first "Télé-Information", the "HC
 ```yaml
 # Example configuration.yaml entry, which will call http://192.168.0.20:80/api/xdevices.json?key=XxLzMY69z&Index=All and get "Index_TI1" in the JSON response.
 sensor:
-  - platform: ecodevices-rt2
+  - platform: ecodevices_rt2
     host: "192.168.0.20"
     port: 80    
     api_key: "XxLzMY69z"
@@ -66,7 +66,7 @@ See [Ecodevices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF
 # 2- ON -- To change the current value of the switch to ON, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_ON_COMMAND_=_ON_VALUE_ and it will check if the "status" in the JSON response is equal to "Success".
 # 3- OFF -- To change the current value of the switch to OFF, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_OFF_COMMAND_=_OFF_VALUE_ and it will check if the "status" in the JSON response is equal to "Success".
 switch:
-  - platform: ecodevices-rt2
+  - platform: ecodevices_rt2
     host: "_ADDRESS_IP_"
     port: _PORT_   
     api_key: "_API_KEY_"
@@ -89,7 +89,7 @@ For example, to play with the first EnOcean switch.
 # 2- ON -- To change the current value of the switch to ON: http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=XxLzMY69z&SetEnoPC=1 and it will check if the "status" in the JSON response is equal to "Success".
 # 3- OFF -- To change the current value of the switch to OFF: http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=XxLzMY69z&ClearEnoPC=1 and it will check if the "status" in the JSON response is equal to "Success".
 switch:
-  - platform: ecodevices-rt2
+  - platform: ecodevices_rt2
     host: "192.168.0.20"
     port: 80    
     api_key: "XxLzMY69z"
@@ -113,7 +113,7 @@ See [Ecodevices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF
 # 1- Get FP value -- To check the current value of the FP Zone, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&Get=FP and get "FP%s Zone %s" in the JSON response with first %s is _FP_EXTENTION_ and second %s is _FP_ZONE_
 # 2- Set FP value -- To change the current value of the FP Zone to a specific mode, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_COMMAND_=_VALUE_ with _COMMAND_="SetFP0%s" (%s is computed using _FP_EXTENTION_ and _FP_ZONE_), _VALUE_ is equal to the right mode (0 for CONFORT, 1 for ECO, 2 for AWAY and 3 for NONE) and it will check if the "status" in the JSON response is equal to "Success".
 climate:
-  - platform: ecodevices-rt2
+  - platform: ecodevices_rt2
     host: "_ADDRESS_IP_"
     port: _PORT_   
     api_key: "_API_KEY_"
@@ -129,7 +129,7 @@ For example, to play with the first FP zone of the first extension.
 # 1- Get FP value -- To check the current value of the FP Zone, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&Get=FP and get "FP%s Zone %s" in the JSON response with first %s is _FP_EXTENTION_ and second %s is _FP_ZONE_
 # 2- Set FP value -- To change the current value of the FP Zone to a specific mode, it will call http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&_COMMAND_=_VALUE_ with _COMMAND_="SetFP0%s" (%s is computed using _FP_EXTENTION_ and _FP_ZONE_), _VALUE_ is equal to the right mode (0 for CONFORT, 1 for ECO, 2 for AWAY and 3 for NONE) and it will check if the "status" in the JSON response is equal to "Success".
 climate:
-  - platform: ecodevices-rt2
+  - platform: ecodevices_rt2
     host: "192.168.0.20"
     port: 80    
     api_key: "XxLzMY69z"
@@ -145,8 +145,8 @@ climate:
 # Example configuration.yaml entry
 sensor:
   # Get Elec Index HC
-  - <<: &ecodevices-rt2
-      platform: ecodevices-rt2
+  - <<: &ecodevices_rt2
+      platform: ecodevices_rt2
       host: "192.168.0.20"
       port: 80    
       api_key: "XxLzMY69z"
@@ -158,7 +158,7 @@ sensor:
     unit_of_measurement: "kWh"
     device_class: "energy"
   # Get Elec Index HP
-  - <<: *ecodevices-rt2
+  - <<: *ecodevices_rt2
     friendly_name: Elec Index HP
     rt2_command: "Index"
     rt2_command_value: "All"
@@ -175,7 +175,7 @@ sensor:
         device_class: "energy"
         value_template: "{{ states('sensor.elec_index_hp') | float + states('sensor.elec_index_hc') | float }}"
   # Get Elec HP/HC (If your are currently in HP or HC hours, according to your electrical counter)
-  - <<: *ecodevices-rt2
+  - <<: *ecodevices_rt2
     friendly_name: Elec HP/HC
     rt2_command: "Get"
     rt2_command_value: "TI"
@@ -183,7 +183,7 @@ sensor:
     unit_of_measurement: ""
     device_class: "None"
   # Get Elec Puissance Appelée
-  - <<: *ecodevices-rt2
+  - <<: *ecodevices_rt2
     friendly_name: Elec Puissance Appelée
     rt2_command: "Get"
     rt2_command_value: "P"
@@ -193,7 +193,7 @@ sensor:
 
 
 switch:
-  - <<: *ecodevices-rt2
+  - <<: *ecodevices_rt2
   # Get value and change the first EnOcean Switch
     friendly_name: First EnOcean Switch
     rt2_command: "Get"
@@ -208,7 +208,7 @@ switch:
 
 
 climate:
-  - <<: *ecodevices-rt2
+  - <<: *ecodevices_rt2
     friendly_name: Bedroom Heater
     rt2_fp_ext: "1"
     rt2_fp_zone: "1"
