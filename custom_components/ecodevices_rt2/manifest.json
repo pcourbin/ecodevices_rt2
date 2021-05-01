@@ -5,8 +5,8 @@
   "issue_tracker": "https://github.com/pcourbin/ecodevices_rt2/issues",
   "codeowners": ["@pcourbin"],
   "config_flow": false,
-  "requirements": ["pyecodevices-rt2==1.0.0"],
+  "requirements": ["pyecodevices-rt2==1.1.1"],
   "dependencies": [],
-  "version": "0.2.0",
+  "version": "1.0.0",
   "iot_class": "local_polling"
 }
