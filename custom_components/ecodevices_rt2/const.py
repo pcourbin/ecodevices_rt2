@@ -1,4 +1,4 @@
-"""Constants for the EcoDevices component."""
+"""Constants for the GCE Ecodevices RT2 component."""
 DOMAIN = "ecodevices_rt2"
 
 CONTROLLER = "controller"

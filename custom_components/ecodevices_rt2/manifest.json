@@ -1,10 +1,10 @@
 {
-  "name": "Ecodevices RT2",
+  "name": "GCE Ecodevices RT2",
   "domain": "ecodevices_rt2",
   "documentation": "https://github.com/pcourbin/ecodevices_rt2",
   "issue_tracker": "https://github.com/pcourbin/ecodevices_rt2/issues",
   "codeowners": ["@pcourbin"],
-  "config_flow": false,
+  "config_flow": true,
   "requirements": ["pyecodevices-rt2==1.1.1"],
   "dependencies": [],
   "version": "1.0.0",

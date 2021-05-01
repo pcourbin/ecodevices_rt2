@@ -1,4 +1,4 @@
-"""Support for the GCE controller."""
+"""Support for the GCE Ecodevices RT2 controller."""
 import logging
 
 import homeassistant.helpers.config_validation as cv
