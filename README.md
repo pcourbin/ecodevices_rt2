@@ -1,5 +1,4 @@
 [![License][license-shield]](LICENSE)
-[![hacs][hacsbadge]][hacs]
 [![Community Forum][forum-shield]][forum]
 
 [![pre-commit][pre-commit-shield]][pre-commit]
@@ -17,6 +16,7 @@ If you have:
 
 - [GCE Ecodevices RT2](http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html), this repository is for you.
 - [GCE Ecodevices](http://gce-electronics.com/fr/carte-relais-ethernet-module-rail-din/409-teleinformation-ethernet-ecodevices.html), see the great work of [Aohzan](https://github.com/Aohzan/ecodevices)
+- [GCE IPX800 V4](https://www.gce-electronics.com/fr/carte-relais-ethernet-module-rail-din/1483-domotique-ethernet-webserver-ipx800-v4-3760309690001.html), see the great work of [Aohzan](https://github.com/Aohzan/ipx800)
 
 ## Table of contents
 
