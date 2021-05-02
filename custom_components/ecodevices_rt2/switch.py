@@ -1,235 +1,76 @@
 """Support for the GCE Ecodevices RT2 controller."""
 import logging
 
-import homeassistant.helpers.config_validation as cv
-import voluptuous as vol
-from homeassistant.components.switch import PLATFORM_SCHEMA
-from homeassistant.components.switch import SwitchEntity
-from homeassistant.const import CONF_API_KEY
-from homeassistant.const import CONF_DEVICE_CLASS
-from homeassistant.const import CONF_FRIENDLY_NAME
-from homeassistant.const import CONF_HOST
-from homeassistant.const import CONF_ICON
-from homeassistant.const import CONF_PORT
-from pyecodevices_rt2 import EcoDevicesRT2
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant
 
-from .const import CONF_RT2_COMMAND
-from .const import CONF_RT2_COMMAND_ENTRY
-from .const import CONF_RT2_COMMAND_VALUE
-from .const import CONF_RT2_OFF_COMMAND
-from .const import CONF_RT2_OFF_COMMAND_VALUE
-from .const import CONF_RT2_ON_COMMAND
-from .const import CONF_RT2_ON_COMMAND_VALUE
+from .const import CONF_API_GET
+from .const import CONF_API_GET_ENTRY
+from .const import CONF_API_GET_VALUE
+from .const import CONF_API_OFF_GET
+from .const import CONF_API_OFF_GET_VALUE
+from .const import CONF_API_ON_GET
+from .const import CONF_API_ON_GET_VALUE
+from .const import CONF_DEVICES
+from .const import CONF_MODULE_ID
+from .const import CONF_TYPE
+from .const import CONF_ZONE_ID
+from .const import CONTROLLER
 from .const import DOMAIN
-from .const import RT2_RESPONSE_ENTRY
-from .const import RT2_RESPONSE_SUCCESS_VALUE
+from .const import TYPE_API
+from .const import TYPE_ENOCEAN
+from .const import TYPE_RELAY
+from .const import TYPE_VIRTUALOUTPUT
+from .const import TYPE_X4FP
+from .switches import Switch_API
+from .switches import Switch_EnOcean
+from .switches import Switch_Relay
+from .switches import Switch_VirtualOutput
+from .switches import Switch_X4FP
 
 _LOGGER = logging.getLogger(__name__)
 
-PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
-    {
-        vol.Required(CONF_HOST): cv.string,
-        vol.Optional(CONF_PORT, default=80): cv.port,
-        vol.Optional(CONF_API_KEY, default=""): cv.string,
-        vol.Required(CONF_FRIENDLY_NAME): cv.string,
-        vol.Optional(CONF_RT2_COMMAND, default="Get"): cv.string,
-        vol.Optional(CONF_RT2_COMMAND_VALUE, default="XENO"): cv.string,
-        vol.Optional(CONF_RT2_COMMAND_ENTRY, default="ENO ACTIONNEUR1"): cv.string,
-        vol.Optional(CONF_ICON, default="mdi:toggle-switch"): cv.string,
-        vol.Optional(CONF_DEVICE_CLASS, default="switch"): cv.string,
-        vol.Optional(CONF_RT2_ON_COMMAND, default="SetEnoPC"): cv.string,
-        vol.Optional(CONF_RT2_ON_COMMAND_VALUE, default="1"): cv.string,
-        vol.Optional(CONF_RT2_OFF_COMMAND, default="ClearEnoPC"): cv.string,
-        vol.Optional(CONF_RT2_OFF_COMMAND_VALUE, default="1"): cv.string,
-    }
-)
 
+async def async_setup_entry(
+    hass: HomeAssistant,
+    entry: ConfigEntry,
+    async_add_entities,
+) -> None:
+    """Set up the GCE Ecodevices RT2 switches."""
+    controller = hass.data[DOMAIN][entry.entry_id][CONTROLLER]
+    devices = hass.data[DOMAIN][entry.entry_id][CONF_DEVICES]["switch"]
 
-async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
-    """Set up the GCE Ecodevices RT2 platform."""
-    controller = EcoDevicesRT2(
-        config.get(CONF_HOST), config.get(CONF_PORT), config.get(CONF_API_KEY)
-    )
     entities = []
-    try:
-        if await hass.async_add_executor_job(controller.ping):
-            available = True
-        else:
-            available = False
-    except Exception:
-        available = False
 
-    if available:
-        _LOGGER.info(
-            "Successfully connected to the Ecodevice RT2 gateway: %s.",
-            config.get(CONF_HOST, CONF_PORT),
-        )
-        if config.get(CONF_FRIENDLY_NAME):
-            _LOGGER.info(
-                "Add the device with name: %s.", config.get(CONF_FRIENDLY_NAME)
-            )
+    for device in devices:
+        if device.get(CONF_TYPE) == TYPE_API:
             entities.append(
-                EcoDevice_Switch(
+                Switch_API(
+                    device,
                     controller,
-                    config.get(CONF_RT2_COMMAND),
-                    config.get(CONF_RT2_COMMAND_VALUE),
-                    config.get(CONF_RT2_COMMAND_ENTRY),
-                    config.get(CONF_FRIENDLY_NAME),
-                    config.get(CONF_ICON),
-                    config.get(CONF_DEVICE_CLASS),
-                    config.get(CONF_RT2_ON_COMMAND),
-                    config.get(CONF_RT2_ON_COMMAND_VALUE),
-                    config.get(CONF_RT2_OFF_COMMAND),
-                    config.get(CONF_RT2_OFF_COMMAND_VALUE),
+                    device.get(CONF_API_GET),
+                    device.get(CONF_API_GET_VALUE),
+                    device.get(CONF_API_GET_ENTRY),
+                    device.get(CONF_API_ON_GET),
+                    device.get(CONF_API_ON_GET_VALUE),
+                    device.get(CONF_API_OFF_GET),
+                    device.get(CONF_API_OFF_GET_VALUE),
                 )
             )
-    else:
-        _LOGGER.error(
-            "Can't connect to the plateform %s, please check host and port.",
-            config.get(CONF_HOST),
-        )
-
-    if entities:
-        async_add_entities(entities, True)
-
-
-class EcoDevice_Switch(SwitchEntity):
-    """Representation of a Switch."""
-
-    def __init__(
-        self,
-        controller,
-        command,
-        command_value,
-        command_entry,
-        name,
-        icon,
-        device_class,
-        on_command,
-        on_command_value,
-        off_command,
-        off_command_value,
-    ):
-        """Initialize the switch."""
-        self._controller = controller
-        self._command = command
-        self._command_value = command_value
-        self._command_entry = command_entry
-        self._name = name
-        self._icon = icon
-        self._device_class = device_class
-
-        self._available = True
-        self._is_on = False
-        self._is_on_command = self._is_on
-        self._updated = True
-
-        self._on_command = on_command
-        self._on_command_value = on_command_value
-        self._off_command = off_command
-        self._off_command_value = off_command_value
-
-        self._uid = f"{self._controller.host}_{str(self._command)}_{str(self._command_value)}_{str(self._command_entry)}_switch"
-
-    @property
-    def device_info(self):
-        return {
-            "identifiers": {(DOMAIN, self._uid)},
-            "name": self._name,
-            "manufacturer": "GCE",
-            "model": "Ecodevices RT2",
-            "via_device": (DOMAIN, self._uid),
-        }
-
-    @property
-    def unique_id(self):
-        return f"ecodevices-rt2_{self._controller.host}_{str(self._command)}_{str(self._command_value)}_{str(self._command_entry)}"
-
-    @property
-    def device_class(self):
-        return self._device_class
-
-    @property
-    def name(self):
-        return self._name
-
-    @property
-    def icon(self):
-        return self._icon
-
-    @property
-    def is_on(self):
-        """Return true if switch is on. Standby is on."""
-        return self._is_on
-
-    @property
-    def available(self):
-        """Return true if switch is available."""
-        return self._available
-
-    def turn_on(self, **kwargs) -> None:
-        """Turn the switch on at next update."""
-        self._is_on_command = True
-        self._updated = False
-        self.schedule_update_ha_state()
-
-    def turn_off(self, **kwargs) -> None:
-        """Turn the switch off at next update."""
-        self._is_on_command = False
-        self._updated = False
-        self.schedule_update_ha_state()
-
-    async def async_update(self):
-        try:
-            temp = await self.hass.async_add_executor_job(
-                self._controller.get,
-                self._command,
-                self._command_value,
-                self._command_entry,
+        elif device.get(CONF_TYPE) == TYPE_ENOCEAN:
+            entities.append(Switch_EnOcean(device, controller))
+        elif device.get(CONF_TYPE) == TYPE_RELAY:
+            entities.append(Switch_Relay(device, controller))
+        elif device.get(CONF_TYPE) == TYPE_VIRTUALOUTPUT:
+            entities.append(Switch_VirtualOutput(device, controller))
+        elif device.get(CONF_TYPE) == TYPE_X4FP:
+            entities.append(
+                Switch_X4FP(
+                    device,
+                    controller,
+                    device.get(CONF_MODULE_ID),
+                    device.get(CONF_ZONE_ID),
+                )
             )
-            self._is_on = temp == 1
-            self._available = True
-        except Exception as e:
-            _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
-            self._available = False
 
-        if self._is_on_command != self._is_on:
-            if self._updated is False:
-                if self._is_on_command:
-                    try:
-                        temp = await self.hass.async_add_executor_job(
-                            self._controller.get,
-                            self._on_command,
-                            self._on_command_value,
-                            RT2_RESPONSE_ENTRY,
-                        )
-                        if temp == RT2_RESPONSE_SUCCESS_VALUE:
-                            self._available = True
-                            self._updated = True
-                        else:
-                            _LOGGER.warning(
-                                "Error while turning on device %s", self._name
-                            )
-                    except Exception as e:
-                        _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
-                        self._available = False
-                else:
-                    try:
-                        temp = await self.hass.async_add_executor_job(
-                            self._controller.get,
-                            self._off_command,
-                            self._off_command_value,
-                            RT2_RESPONSE_ENTRY,
-                        )
-                        if temp == RT2_RESPONSE_SUCCESS_VALUE:
-                            self._available = True
-                            self._updated = True
-                        else:
-                            _LOGGER.warning(
-                                "Error while turning off device %s", self._name
-                            )
-                    except Exception as e:
-                        _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
-                        self._available = False
-            else:
-                self._is_on_command = self._is_on
+    async_add_entities(entities, True)

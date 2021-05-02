@@ -7,29 +7,72 @@ logger:
 # If you need to debug uncommment the line below (doc: https://www.home-assistant.io/integrations/debugpy/)
 # debugpy:
 
-sensor:
-  - <<: &ecodevices_rt2
-      platform: ecodevices_rt2
-      host: "192.168.0.20"
-      api_key: "API_KEY" #!secret rt2_api_key
-    friendly_name: Elec Index HC
-    rt2_command: "Index"
-    rt2_command_value: "All"
-    rt2_command_entry: "Index_TI1"
-    unit_of_measurement: "Wh"
-    device_class: "power"
-  - <<: *ecodevices_rt2
-    friendly_name: Elec Index HP
-    rt2_command: "Index"
-    rt2_command_value: "All"
-    rt2_command_entry: "Index_TI2"
-    unit_of_measurement: "Wh"
-    device_class: "power"
-  - platform: template
-    sensors:
-      elec_index:
-        friendly_name: "Elec Index"
-        unit_of_measurement: "kWh"
-        icon_template: "mdi:flash"
+ecodevices_rt2:
+  - name: EcoRT2
+    host: "192.168.0.20"
+    api_key: #!secret rt2_api_key
+    scan_interval: 15
+    devices:
+      - name: Elec Puissance Appelee
+        type: "api"
+        component: "sensor"
+        api_get: "Get"
+        api_get_value: "P"
+        api_get_entry: "INSTANT_POSTE1"
         device_class: "power"
-        value_template: "{{ (states('sensor.elec_index_hp')|float /1000 + states('sensor.elec_index_hc')|float /1000)|round(3) }}"
+      - name: Counter 1
+        type: "counter"
+        id: 1
+      - name: Temp Chambre
+        icon: mdi:water-boiler
+        type: "enocean"
+        id: 1
+      - name: Index Total Poste 1
+        type: "post"
+        id: 1
+      - name: Index Sous Poste 1-2
+        type: "post"
+        id: 1
+        subpost: 2
+      - name: Index TI1
+        type: "supplierindex"
+        id: 1
+      - name: Toroid 1
+        type: "toroid"
+        id: 1
+      - name: XHTL 1
+        type: "xthl"
+        id: 1
+      - name: API EnOcean1
+        type: "api"
+        component: "switch"
+        api_get: "Get"
+        api_get_value: "XENO"
+        api_get_entry: "ENO ACTIONNEUR1"
+        api_on_get: "SetEnoPC"
+        api_on_get_value: "1"
+        api_off_get: "ClearEnoPC"
+        api_off_get_value: "1"
+      - name: EnOcean2
+        type: "enocean"
+        component: "switch"
+        id: 2
+      - name: Relay1
+        type: "relay"
+        id: 1
+      - name: VirtualOutput 1
+        type: "virtualoutput"
+        id: 1
+      - name: X4FP Switch 1-2
+        type: "x4fp"
+        component: "switch"
+        module: 1
+        zone: 2
+      - name: Heater 1-1
+        type: "x4fp"
+        component: "climate"
+        module: 1
+        zone: 1
+      - name: DigitalInput 1
+        type: "digitalinput"
+        id: 1
