@@ -1,9 +1,9 @@
 """Get information from GCE Ecodevices RT2."""
+from .sensor_ecodevicesrt2 import Sensor_EcoDevicesRT2  # noreorder
 from .sensor_api import Sensor_API
 from .sensor_counter import Sensor_Counter
 from .sensor_counter import Sensor_Counter_Index
 from .sensor_counter import Sensor_Counter_Price
-from .sensor_ecodevicesrt2 import Sensor_EcoDevicesRT2
 from .sensor_enocean import Sensor_EnOcean
 from .sensor_post import Sensor_Post
 from .sensor_post import Sensor_Post_Index

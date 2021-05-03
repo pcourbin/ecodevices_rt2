@@ -14,7 +14,7 @@ from pyecodevices_rt2 import EcoDevicesRT2
 from pyecodevices_rt2 import X4FP
 from pyecodevices_rt2.exceptions import EcoDevicesRT2RequestError
 
-from .. import EcoDevicesRT2Device
+from ..device_ecodevicesrt2 import EcoDevicesRT2Device
 
 _LOGGER = logging.getLogger(__name__)
 

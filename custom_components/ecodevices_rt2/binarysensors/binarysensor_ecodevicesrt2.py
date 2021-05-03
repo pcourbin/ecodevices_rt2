@@ -3,7 +3,7 @@ import logging
 from homeassistant.components.binary_sensor import BinarySensorEntity
 from pyecodevices_rt2 import EcoDevicesRT2
 
-from .. import EcoDevicesRT2Device
+from ..device_ecodevicesrt2 import EcoDevicesRT2Device
 
 _LOGGER = logging.getLogger(__name__)
 

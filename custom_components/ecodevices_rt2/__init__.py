@@ -1,6 +1,5 @@
 """Support for the GCE Ecodevices RT2."""
 import logging
-import re
 
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
@@ -223,69 +222,7 @@ def build_device_list(devices_config: list) -> list:
                     )
             if not param_ok:
                 continue
-        """
-        # Check if component is supported
-        if device_config[CONF_COMPONENT] not in CONF_COMPONENT_ALLOWED:
-            _LOGGER.error(
-                "Device %s skipped: %s %s not correct or supported.",
-                device_config[CONF_NAME],
-                CONF_COMPONENT,
-                device_config[CONF_COMPONENT],
-            )
-            continue
 
-        # Check if type is supported
-        if device_config[CONF_TYPE] not in CONF_TYPE_ALLOWED:
-            _LOGGER.error(
-                "Device %s skipped: %s %s not correct or supported.",
-                device_config[CONF_NAME],
-                CONF_TYPE,
-                device_config[CONF_TYPE],
-            )
-            continue
-
-        # Check if X4FP have Zone and Module set
-        if device_config[CONF_TYPE] == TYPE_X4FP and (
-            CONF_ZONE_ID not in device_config or CONF_MODULE_ID not in device_config
-        ):
-            _LOGGER.error(
-                "Device %s skipped: X4FP must have %s and %s set.",
-                device_config[CONF_NAME],
-                CONF_MODULE_ID,
-                CONF_ZONE_ID,
-            )
-            continue
-
-        # Check for sensor component
-        if device_config[CONF_COMPONENT] == "sensor":
-            # Check if type API have CONF_API_GET, CONF_API_GET_VALUE and CONF_API_GET_ENTRY
-            if device_config[CONF_TYPE] == TYPE_API and (
-                CONF_API_GET not in device_config
-                or CONF_API_GET_VALUE not in device_config
-                or CONF_API_GET_ENTRY not in device_config
-            ):
-                _LOGGER.error(
-                    "Device %s skipped: %s must have %s, %s and %s set.",
-                    device_config[CONF_NAME],
-                    CONF_API_GET,
-                    CONF_API_GET_VALUE,
-                    CONF_API_GET_ENTRY,
-                )
-                continue
-
-            # Check if type others have CONF_ID
-            if (
-                device_config[CONF_TYPE] != TYPE_API
-                and device_config[CONF_TYPE] != TYPE_X4FP
-                and CONF_ID not in device_config
-            ):
-                _LOGGER.error(
-                    "Device %s skipped: %s must have %s set.",
-                    device_config[CONF_NAME],
-                    CONF_ID,
-                )
-                continue
-        """
         devices.append(device_config)
         _LOGGER.info(
             "Device '%s' added (component: '%s').",
@@ -298,82 +235,3 @@ def build_device_list(devices_config: list) -> list:
 def filter_device_list(devices: list, component: str) -> list:
     """Filter device list by component."""
     return list(filter(lambda d: d[CONF_COMPONENT] == component, devices))
-
-
-class EcoDevicesRT2Device:
-    """Representation of a GCE Ecodevices RT2 generic device entity."""
-
-    def __init__(
-        self,
-        device_config: dict,
-        ecort2: EcoDevicesRT2,
-        suffix_name: str = "",
-    ):
-        """Initialize the device."""
-        self.ecort2 = ecort2
-
-        self._name = device_config.get(CONF_NAME)
-        self._device_name = self._name
-        if suffix_name:
-            self._name += f" {suffix_name}"
-
-        self._device_class = device_config.get(CONF_DEVICE_CLASS)
-        self._unit_of_measurement = device_config.get(CONF_UNIT_OF_MEASUREMENT)
-        self._icon = device_config.get(CONF_ICON)
-        self._ecort2_type = device_config.get(CONF_TYPE)
-        self._component = device_config.get(CONF_COMPONENT)
-        self._id = device_config.get(CONF_ID)
-        self._zone_id = device_config.get(CONF_ZONE_ID, "")
-        self._subpost_id = device_config.get(CONF_SUBPOST_ID, "")
-
-        self._supported_features = 0
-
-    @property
-    def name(self):
-        """Return the display name."""
-        return self._name
-
-    @property
-    def unique_id(self):
-        """Return an unique id."""
-        return "_".join(
-            [
-                DOMAIN,
-                self.ecort2.host,
-                self._component,
-                re.sub("[^A-Za-z0-9_]+", "", self._name.replace(" ", "_")).lower(),
-            ]
-        )
-
-    @property
-    def device_info(self):
-        """Return device info."""
-        return {
-            "identifiers": {
-                (
-                    DOMAIN,
-                    re.sub(
-                        "[^A-Za-z0-9_]+", "", self._device_name.replace(" ", "_")
-                    ).lower(),
-                )
-            },
-            "name": self._device_name,
-            "manufacturer": "GCE",
-            "model": "Ecodevices RT2",
-            "via_device": (DOMAIN, self.ecort2.host),
-        }
-
-    @property
-    def icon(self):
-        """Icon to use in the frontend, if any."""
-        return self._icon
-
-    @property
-    def device_class(self):
-        """Return the device class."""
-        return self._device_class
-
-    @property
-    def unit_of_measurement(self):
-        """Return the unit of measurement."""
-        return self._unit_of_measurement

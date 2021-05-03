@@ -1,6 +1,6 @@
 """Get information from GCE Ecodevices RT2."""
+from .switch_ecodevicesrt2 import Switch_EcoDevicesRT2  # noreorder
 from .switch_api import Switch_API
-from .switch_ecodevicesrt2 import Switch_EcoDevicesRT2
 from .switch_enocean import Switch_EnOcean
 from .switch_relay import Switch_Relay
 from .switch_virtualoutput import Switch_VirtualOutput
