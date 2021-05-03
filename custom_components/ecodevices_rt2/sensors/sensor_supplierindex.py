@@ -4,6 +4,8 @@ from pyecodevices_rt2 import EcoDevicesRT2
 from pyecodevices_rt2 import SupplierIndex
 
 from . import Sensor_EcoDevicesRT2
+from ..const import DEFAULT_ICON_CURRENCY
+from ..const import DEFAULT_ICON_ENERGY
 
 
 class Sensor_SupplierIndex(Sensor_EcoDevicesRT2, Entity):
@@ -20,6 +22,16 @@ class Sensor_SupplierIndex(Sensor_EcoDevicesRT2, Entity):
         self.control = SupplierIndex(ecort2, self._id)
         self._device_class = device_class
 
+        # Allow overriding of currency unit and icon if specified in the conf
+        if device_class is None:
+            if not self._unit_of_measurement:
+                self._unit_of_measurement = "€"
+            if not self._icon:
+                self._icon = DEFAULT_ICON_CURRENCY
+        elif device_class == DEVICE_CLASS_ENERGY:
+            self._unit_of_measurement = "kWh"
+            self._icon = DEFAULT_ICON_ENERGY
+
 
 class Sensor_SupplierIndex_Index(Sensor_SupplierIndex):
     def __init__(self, device_config: dict, ecort2: EcoDevicesRT2):
@@ -32,7 +44,6 @@ class Sensor_SupplierIndex_Index(Sensor_SupplierIndex):
 class Sensor_SupplierIndex_Price(Sensor_SupplierIndex):
     def __init__(self, device_config: dict, ecort2: EcoDevicesRT2):
         super().__init__(device_config, ecort2, None, "Price")
-        self._icon = "mdi:cash-multiple"
 
     def _async_get_property(self):
         return self.control.price

@@ -20,12 +20,15 @@ ecodevices_rt2:
         api_get_value: "P"
         api_get_entry: "INSTANT_POSTE1"
         device_class: "power"
+        unit_of_measurement: "kW"
       - name: Counter 1
         type: "counter"
         id: 1
+        unit_of_measurement: "$"
       - name: Temp Chambre
         icon: mdi:water-boiler
         type: "enocean"
+        unit_of_measurement: "°C"
         id: 1
       - name: Index Total Poste 1
         type: "post"
@@ -33,16 +36,18 @@ ecodevices_rt2:
       - name: Index Sous Poste 1-2
         type: "post"
         id: 1
-        subpost: 2
+        subpost: 1
       - name: Index TI1
         type: "supplierindex"
         id: 1
       - name: Toroid 1
         type: "toroid"
         id: 1
+        unit_of_measurement: "$"
       - name: XHTL 1
         type: "xthl"
         id: 1
+        unit_of_measurement: "°F"
       - name: API EnOcean1
         type: "api"
         component: "switch"
@@ -76,3 +81,25 @@ ecodevices_rt2:
       - name: DigitalInput 1
         type: "digitalinput"
         id: 1
+      - name: API EnOcean2 Light
+        type: "api"
+        component: "light"
+        api_get: "Get"
+        api_get_value: "XENO"
+        api_get_entry: "ENO ACTIONNEUR2"
+        api_on_get: "SetEnoPC"
+        api_on_get_value: "2"
+        api_off_get: "ClearEnoPC"
+        api_off_get_value: "2"
+      - name: RelayLight
+        type: "relay"
+        component: "light"
+        id: 2
+      - name: EnOcean3 Light
+        type: "enocean"
+        component: "light"
+        id: 3
+      - name: VirtualOutput3 Light
+        type: "virtualoutput"
+        component: "light"
+        id: 3

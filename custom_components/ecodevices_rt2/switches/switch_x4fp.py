@@ -3,6 +3,7 @@ from pyecodevices_rt2 import EcoDevicesRT2
 from pyecodevices_rt2 import X4FP
 
 from . import Switch_EcoDevicesRT2
+from ..const import DEFAULT_ICON_HEATER
 
 
 class Switch_X4FP(Switch_EcoDevicesRT2, Entity):
@@ -21,6 +22,9 @@ class Switch_X4FP(Switch_EcoDevicesRT2, Entity):
         self._module_id = module_id
         self._zone_id = zone_id
         self.control = X4FP(ecort2, self._module_id, self._zone_id)
+
+        if not self._icon:
+            self._icon = DEFAULT_ICON_HEATER
 
     def _async_get_status(self) -> bool:
         return self.control.mode == 0

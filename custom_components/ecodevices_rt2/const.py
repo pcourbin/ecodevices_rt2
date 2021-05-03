@@ -4,9 +4,14 @@ DOMAIN = "ecodevices_rt2"
 CONTROLLER = "controller"
 CONFIG = "config"
 
-PLATFORMS = ["sensor", "switch", "climate", "binary_sensor"]
 UNDO_UPDATE_LISTENER = "undo_update_listener"
-DEFAULT_SCAN_INTERVAL = 10
+DEFAULT_SCAN_INTERVAL = 5
+
+DEFAULT_ICON_SWITCH = "mdi:toggle-switch"
+DEFAULT_ICON_CURRENCY = "mdi:currency-eur"
+DEFAULT_ICON_ENERGY = "mdi:flash"
+DEFAULT_ICON_HEATER = "mdi:radiator"
+
 
 CONF_API_RESPONSE_ENTRY = "status"
 CONF_API_RESPONSE_SUCCESS_VALUE = "Success"
@@ -45,6 +50,7 @@ CONF_COMPONENT_ALLOWED = [
     "sensor",
     "climate",
     "binary_sensor",
+    "light",
 ]
 
 CONF_TYPE_COMPONENT_ALLOWED = {
@@ -53,6 +59,15 @@ CONF_TYPE_COMPONENT_ALLOWED = {
         "parameters": {
             "sensor": [CONF_API_GET, CONF_API_GET_VALUE, CONF_API_GET_ENTRY],
             "switch": [
+                CONF_API_GET,
+                CONF_API_GET_VALUE,
+                CONF_API_GET_ENTRY,
+                CONF_API_ON_GET,
+                CONF_API_ON_GET_VALUE,
+                CONF_API_OFF_GET,
+                CONF_API_OFF_GET_VALUE,
+            ],
+            "light": [
                 CONF_API_GET,
                 CONF_API_GET_VALUE,
                 CONF_API_GET_ENTRY,
@@ -80,6 +95,7 @@ CONF_TYPE_COMPONENT_ALLOWED = {
         "parameters": {
             "sensor": [CONF_ID],
             "switch": [CONF_ID],
+            "light": [CONF_ID],
         },
     },
     TYPE_POST: {
@@ -92,6 +108,7 @@ CONF_TYPE_COMPONENT_ALLOWED = {
         "default": "switch",
         "parameters": {
             "switch": [CONF_ID],
+            "light": [CONF_ID],
         },
     },
     TYPE_SUPPLIERINDEX: {
@@ -110,6 +127,7 @@ CONF_TYPE_COMPONENT_ALLOWED = {
         "default": "switch",
         "parameters": {
             "switch": [CONF_ID],
+            "light": [CONF_ID],
         },
     },
     TYPE_X4FP: {
@@ -126,18 +144,3 @@ CONF_TYPE_COMPONENT_ALLOWED = {
         },
     },
 }
-
-CONF_TYPE_ALLOWED = [
-    TYPE_RELAY,
-    TYPE_ENOCEANSENSOR,
-    TYPE_ENOCEANSWITCH,
-    TYPE_TOROID,
-    TYPE_VIRTUALOUTPUT,
-    TYPE_DIGITALLINPUT,
-    TYPE_XTHL,
-    TYPE_X4FP,
-    TYPE_COUNTER,
-    TYPE_POST,
-    TYPE_SUPPLIERINDEX,
-    TYPE_API,
-]

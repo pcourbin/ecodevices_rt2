@@ -1,13 +1,12 @@
 from homeassistant.helpers.entity import Entity
 from pyecodevices_rt2 import EcoDevicesRT2
-from pyecodevices_rt2 import VirtualOutput
+from pyecodevices_rt2 import Relay
 
-from . import Switch_EcoDevicesRT2
-from ..const import DEFAULT_ICON_SWITCH
+from . import Light_EcoDevicesRT2
 
 
-class Switch_VirtualOutput(Switch_EcoDevicesRT2, Entity):
-    """Representation of an VirtualOutput switch."""
+class Light_Relay(Light_EcoDevicesRT2, Entity):
+    """Representation of an Relay switch."""
 
     def __init__(
         self,
@@ -15,10 +14,7 @@ class Switch_VirtualOutput(Switch_EcoDevicesRT2, Entity):
         ecort2: EcoDevicesRT2,
     ):
         super().__init__(device_config, ecort2)
-        self.control = VirtualOutput(ecort2, self._id)
-
-        if not self._icon:
-            self._icon = DEFAULT_ICON_SWITCH
+        self.control = Relay(ecort2, self._id)
 
     def _async_get_status(self) -> bool:
         return self.control.status

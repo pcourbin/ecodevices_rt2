@@ -1,6 +1,6 @@
 import logging
 
-from homeassistant.components.switch import SwitchEntity
+from homeassistant.components.light import LightEntity
 from pyecodevices_rt2 import EcoDevicesRT2
 
 from ..device_ecodevicesrt2 import EcoDevicesRT2Device
@@ -8,7 +8,7 @@ from ..device_ecodevicesrt2 import EcoDevicesRT2Device
 _LOGGER = logging.getLogger(__name__)
 
 
-class Switch_EcoDevicesRT2(EcoDevicesRT2Device, SwitchEntity):
+class Light_EcoDevicesRT2(EcoDevicesRT2Device, LightEntity):
     def __init__(
         self,
         device_config: dict,
