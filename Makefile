@@ -40,8 +40,8 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-lint: ## check style with flake8
-	flake8 custom_components tests
+lint: ## check style with pre-commit (flake8, black, etc.)
+	pre-commit run --all-files
 
 test: ## run tests quickly with the default Python
 	pytest
@@ -60,7 +60,7 @@ coverage-publish:
 	set -a && . ./.env && set +a && bash <(curl -s https://codecov.io/bash)
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	rm -f docs/ecodevices_rt2.rst
+	rm -f docs/ecodevices_rt2*.rst
 	rm -f docs/modules.rst
 	sphinx-apidoc -o docs/ custom_components/ecodevices_rt2
 	$(MAKE) -C docs clean
