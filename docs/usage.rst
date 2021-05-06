@@ -204,7 +204,7 @@ You can define a Counter (see from the `GCE Ecodevices RT2 API`_ (or `PDF`_)).
      - Description
      - Parameters
    * - `sensor` (**DEFAULT**)
-     - Create 2 `sensor` which represent a `counter` connected to the `GCE Ecodevices RT2`_:
+     - Create 2 `sensor` which represents a `counter` connected to the `GCE Ecodevices RT2`_:
 
        #. `Index` of the counter
        #. `Price` of the counter
@@ -237,7 +237,7 @@ You can define a DigitalInput (see from the `GCE Ecodevices RT2 API`_ (or `PDF`_
      - Description
      - Parameters
    * - `binary_sensor` (**DEFAULT**)
-     - Create a `binary_sensor` which represent a `digitalinput` connected to the `GCE Ecodevices RT2`_
+     - Create a `binary_sensor` which represents  a `digitalinput` connected to the `GCE Ecodevices RT2`_
      - - `id`: **REQUIRED** Number of the digitalinput (between 1 and 12)
 
 
@@ -267,13 +267,13 @@ You can define a EnOcean Switch or Sensor (see from the `GCE Ecodevices RT2 API`
      - Description
      - Parameters
    * - `sensor` (**DEFAULT**)
-     - Create a `sensor` which represent a `enocean` **analog sensor** connected to the `GCE Ecodevices RT2`_
+     - Create a `sensor` which represents a `enocean` **analog sensor** connected to the `GCE Ecodevices RT2`_
      - - `id`: **REQUIRED** Number of the enocean sensor (between 1 and 24)
    * - `switch`
-     - Create a `switch` which represent a `enocean` **actuator** connected to the `GCE Ecodevices RT2`_
+     - Create a `switch` which represents a `enocean` **actuator** connected to the `GCE Ecodevices RT2`_
      - - `id`: **REQUIRED** Number of the enocean actuator (between 1 and 24)
    * - `light`
-     - Create a `light` which represent a `enocean` **actuator** connected to the `GCE Ecodevices RT2`_
+     - Create a `light` which represents a `enocean` **actuator** connected to the `GCE Ecodevices RT2`_
      - - `id`: **REQUIRED** Number of the enocean actuator (between 1 and 24)
 
 
@@ -313,7 +313,7 @@ You can define a Post and Sub-post (see from the `GCE Ecodevices RT2 API`_ (or `
      - Description
      - Parameters
    * - `sensor` (**DEFAULT**)
-     - Create 5 `sensor` which represent a `post` defined on the `GCE Ecodevices RT2`_
+     - Create 5 `sensor` which represents a `post` defined on the `GCE Ecodevices RT2`_
 
        #. `Index` of the Post/Subpost
        #. `IndexDay` of the Post/Subpost
@@ -356,10 +356,10 @@ You can define a Relay (see from the `GCE Ecodevices RT2 API`_ (or `PDF`_)).
      - Description
      - Parameters
    * - `switch` (**DEFAULT**)
-     - Create a `switch` which represent a `relay` connected on the `GCE Ecodevices RT2`_
+     - Create a `switch` which represents a `relay` connected on the `GCE Ecodevices RT2`_
      - - `id`: **REQUIRED** Number of the post (between 1 and 8)
    * - `light`
-     - Create a `light` which represent a `relay` connected on the `GCE Ecodevices RT2`_
+     - Create a `light` which represents a `relay` connected on the `GCE Ecodevices RT2`_
      - - `id`: **REQUIRED** Number of the post (between 1 and 8)
 
 
@@ -427,13 +427,13 @@ You can define a Toroid (see from the `GCE Ecodevices RT2 API`_ (or `PDF`_)).
      - Description
      - Parameters
    * - `sensor` (**DEFAULT**)
-     - - If `id` is between 1 and 4, create 4 `sensor` which represent a `Toroid` defined on the `GCE Ecodevices RT2`_
+     - - If `id` is between 1 and 4, create 4 `sensor` which represents a `Toroid` defined on the `GCE Ecodevices RT2`_
 
           #. `ConsumptionIndex` of the Toroid
           #. `ConsumptionPrice` of the Toroid
           #. `ProductionIndex` of the Toroid
           #. `ProductionPrice` of the Toroid
-       - Else (`id`>4), create 2 `sensor` which represent a `Toroid` defined on the `GCE Ecodevices RT2`_
+       - Else (`id`>4), create 2 `sensor` which represents a `Toroid` defined on the `GCE Ecodevices RT2`_
 
           #. `Index` of the Toroid
           #. `Price` of the Toroid
@@ -470,10 +470,10 @@ You can define a VirtualOutput (see from the `GCE Ecodevices RT2 API`_ (or `PDF`
      - Description
      - Parameters
    * - `switch` (**DEFAULT**)
-     - Create a `switch` which represent a `VirtualOutput` connected on the `GCE Ecodevices RT2`_
+     - Create a `switch` which represents a `VirtualOutput` connected on the `GCE Ecodevices RT2`_
      - - `id`: **REQUIRED** Number of the VirtualOutput (between 1 and 128)
    * - `light`
-     - Create a `light` which represent a `VirtualOutput` connected on the `GCE Ecodevices RT2`_
+     - Create a `light` which represents a `VirtualOutput` connected on the `GCE Ecodevices RT2`_
      - - `id`: **REQUIRED** Number of the VirtualOutput (between 1 and 128)
 
 ----------
@@ -507,11 +507,11 @@ You can define a X4FP (see from the `GCE Ecodevices RT2 API`_ (or `PDF`_)).
      - Description
      - Parameters
    * - `climate` (**DEFAULT**)
-     - Create a `climate` which represent a `X4FP` connected on the `GCE Ecodevices RT2`_
+     - Create a `climate` which represents a `X4FP` connected on the `GCE Ecodevices RT2`_
      - - `module`: **REQUIRED** Number of the X4FP module (1 or 2)
        - `zone`: **REQUIRED** Number of the X4FP zone on the seleted module (between 1 and 4. 0 if you want to control all zone of the module.)
    * - `switch`
-     - Create a `switch` which represent a `X4FP` connected on the `GCE Ecodevices RT2`_
+     - Create a `switch` which represents a `X4FP` connected on the `GCE Ecodevices RT2`_
      - - `module`: **REQUIRED** Number of the X4FP module (1 or 2)
        - `zone`: **REQUIRED** Number of the X4FP zone on the seleted module (between 1 and 4. 0 if you want to control all zone of the module.)
 
@@ -548,7 +548,7 @@ You can define a XTHL (see from the `GCE Ecodevices RT2 API`_ (or `PDF`_)).
      - Description
      - Parameters
    * - `sensor` (**DEFAULT**)
-     - Create 3 `sensor` which represent a `XTHL` defined on the `GCE Ecodevices RT2`_
+     - Create 3 `sensor` which represents a `XTHL` defined on the `GCE Ecodevices RT2`_
 
        #. `Temperature` of the XTHL
        #. `Humidity` of the XTHL
