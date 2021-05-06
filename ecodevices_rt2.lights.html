@@ -105,15 +105,15 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices-rt2-binary-sensor-module">ecodevices_rt2.binary_sensor module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices-rt2-climate-module">ecodevices_rt2.climate module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices-rt2-config-flow-module">ecodevices_rt2.config_flow module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices-rt2-const-module">ecodevices_rt2.const module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices-rt2-device-ecodevicesrt2-module">ecodevices_rt2.device_ecodevicesrt2 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices-rt2-light-module">ecodevices_rt2.light module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices-rt2-sensor-module">ecodevices_rt2.sensor module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices-rt2-switch-module">ecodevices_rt2.switch module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#module-contents">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.binary_sensor">ecodevices_rt2.binary_sensor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.climate">ecodevices_rt2.climate module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.config_flow">ecodevices_rt2.config_flow module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.const">ecodevices_rt2.const module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.device_ecodevicesrt2">ecodevices_rt2.device_ecodevicesrt2 module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.light">ecodevices_rt2.light module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.sensor">ecodevices_rt2.sensor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.switch">ecodevices_rt2.switch module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -197,23 +197,162 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="ecodevices-rt2-lights-light-api-module">
-<h2>ecodevices_rt2.lights.light_api module<a class="headerlink" href="#ecodevices-rt2-lights-light-api-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-ecodevices_rt2.lights.light_api">
+<span id="ecodevices-rt2-lights-light-api-module"></span><h2>ecodevices_rt2.lights.light_api module<a class="headerlink" href="#module-ecodevices_rt2.lights.light_api" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="ecodevices_rt2.lights.light_api.Light_API">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ecodevices_rt2.lights.light_api.</span></code><code class="sig-name descname"><span class="pre">Light_API</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ecort2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyecodevices_rt2.ecodevices_rt2.EcoDevicesRT2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_entry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_get</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_get_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">off_get</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">off_get_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ecodevices_rt2/lights/light_api.html#Light_API"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecodevices_rt2.lights.light_api.Light_API" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2" title="ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2"><code class="xref py py-class docutils literal notranslate"><span class="pre">ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">homeassistant.helpers.entity.Entity</span></code></p>
+<p>Representation of an EnOcean sensor.</p>
+</dd></dl>
+
 </div>
-<div class="section" id="ecodevices-rt2-lights-light-ecodevicesrt2-module">
-<h2>ecodevices_rt2.lights.light_ecodevicesrt2 module<a class="headerlink" href="#ecodevices-rt2-lights-light-ecodevicesrt2-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-ecodevices_rt2.lights.light_ecodevicesrt2">
+<span id="ecodevices-rt2-lights-light-ecodevicesrt2-module"></span><h2>ecodevices_rt2.lights.light_ecodevicesrt2 module<a class="headerlink" href="#module-ecodevices_rt2.lights.light_ecodevicesrt2" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ecodevices_rt2.lights.light_ecodevicesrt2.</span></code><code class="sig-name descname"><span class="pre">Light_EcoDevicesRT2</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ecort2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyecodevices_rt2.ecodevices_rt2.EcoDevicesRT2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ecodevices_rt2/lights/light_ecodevicesrt2.html#Light_EcoDevicesRT2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.device_ecodevicesrt2.EcoDevicesRT2Device" title="ecodevices_rt2.device_ecodevicesrt2.EcoDevicesRT2Device"><code class="xref py py-class docutils literal notranslate"><span class="pre">ecodevices_rt2.device_ecodevicesrt2.EcoDevicesRT2Device</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">homeassistant.components.light.LightEntity</span></code></p>
+<dl class="py method">
+<dt id="ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.async_toggle">
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">async_toggle</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="_modules/ecodevices_rt2/lights/light_ecodevicesrt2.html#Light_EcoDevicesRT2.async_toggle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.async_toggle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Toggle the switch.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.async_update">
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">async_update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ecodevices_rt2/lights/light_ecodevicesrt2.html#Light_EcoDevicesRT2.async_update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.async_update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.available">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">available</span></code><a class="headerlink" href="#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if switch is available.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.is_on">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">is_on</span></code><a class="headerlink" href="#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.is_on" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if switch is on. Standby is on.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.turn_off">
+<code class="sig-name descname"><span class="pre">turn_off</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="_modules/ecodevices_rt2/lights/light_ecodevicesrt2.html#Light_EcoDevicesRT2.turn_off"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.turn_off" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn the switch off at next update.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.turn_on">
+<code class="sig-name descname"><span class="pre">turn_on</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="_modules/ecodevices_rt2/lights/light_ecodevicesrt2.html#Light_EcoDevicesRT2.turn_on"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.turn_on" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn the switch on at next update.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="ecodevices-rt2-lights-light-enocean-module">
-<h2>ecodevices_rt2.lights.light_enocean module<a class="headerlink" href="#ecodevices-rt2-lights-light-enocean-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-ecodevices_rt2.lights.light_enocean">
+<span id="ecodevices-rt2-lights-light-enocean-module"></span><h2>ecodevices_rt2.lights.light_enocean module<a class="headerlink" href="#module-ecodevices_rt2.lights.light_enocean" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="ecodevices_rt2.lights.light_enocean.Light_EnOcean">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ecodevices_rt2.lights.light_enocean.</span></code><code class="sig-name descname"><span class="pre">Light_EnOcean</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ecort2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyecodevices_rt2.ecodevices_rt2.EcoDevicesRT2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ecodevices_rt2/lights/light_enocean.html#Light_EnOcean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecodevices_rt2.lights.light_enocean.Light_EnOcean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2" title="ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2"><code class="xref py py-class docutils literal notranslate"><span class="pre">ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">homeassistant.helpers.entity.Entity</span></code></p>
+<p>Representation of an EnOcean switch.</p>
+</dd></dl>
+
 </div>
-<div class="section" id="ecodevices-rt2-lights-light-relay-module">
-<h2>ecodevices_rt2.lights.light_relay module<a class="headerlink" href="#ecodevices-rt2-lights-light-relay-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-ecodevices_rt2.lights.light_relay">
+<span id="ecodevices-rt2-lights-light-relay-module"></span><h2>ecodevices_rt2.lights.light_relay module<a class="headerlink" href="#module-ecodevices_rt2.lights.light_relay" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="ecodevices_rt2.lights.light_relay.Light_Relay">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ecodevices_rt2.lights.light_relay.</span></code><code class="sig-name descname"><span class="pre">Light_Relay</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ecort2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyecodevices_rt2.ecodevices_rt2.EcoDevicesRT2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ecodevices_rt2/lights/light_relay.html#Light_Relay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecodevices_rt2.lights.light_relay.Light_Relay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2" title="ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2"><code class="xref py py-class docutils literal notranslate"><span class="pre">ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">homeassistant.helpers.entity.Entity</span></code></p>
+<p>Representation of an Relay switch.</p>
+</dd></dl>
+
 </div>
-<div class="section" id="ecodevices-rt2-lights-light-virtualoutput-module">
-<h2>ecodevices_rt2.lights.light_virtualoutput module<a class="headerlink" href="#ecodevices-rt2-lights-light-virtualoutput-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-ecodevices_rt2.lights.light_virtualoutput">
+<span id="ecodevices-rt2-lights-light-virtualoutput-module"></span><h2>ecodevices_rt2.lights.light_virtualoutput module<a class="headerlink" href="#module-ecodevices_rt2.lights.light_virtualoutput" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="ecodevices_rt2.lights.light_virtualoutput.Light_VirtualOutput">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ecodevices_rt2.lights.light_virtualoutput.</span></code><code class="sig-name descname"><span class="pre">Light_VirtualOutput</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ecort2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyecodevices_rt2.ecodevices_rt2.EcoDevicesRT2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ecodevices_rt2/lights/light_virtualoutput.html#Light_VirtualOutput"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecodevices_rt2.lights.light_virtualoutput.Light_VirtualOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2" title="ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2"><code class="xref py py-class docutils literal notranslate"><span class="pre">ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">homeassistant.helpers.entity.Entity</span></code></p>
+<p>Representation of an VirtualOutput switch.</p>
+</dd></dl>
+
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-ecodevices_rt2.lights">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ecodevices_rt2.lights" title="Permalink to this headline">¶</a></h2>
+<p>Get information from GCE Ecodevices RT2.</p>
+<dl class="py class">
+<dt id="ecodevices_rt2.lights.Light_API">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ecodevices_rt2.lights.</span></code><code class="sig-name descname"><span class="pre">Light_API</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ecort2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyecodevices_rt2.ecodevices_rt2.EcoDevicesRT2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_entry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_get</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_get_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">off_get</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">off_get_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ecodevices_rt2/lights/light_api.html#Light_API"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecodevices_rt2.lights.Light_API" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2" title="ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2"><code class="xref py py-class docutils literal notranslate"><span class="pre">ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">homeassistant.helpers.entity.Entity</span></code></p>
+<p>Representation of an EnOcean sensor.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="ecodevices_rt2.lights.Light_EcoDevicesRT2">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ecodevices_rt2.lights.</span></code><code class="sig-name descname"><span class="pre">Light_EcoDevicesRT2</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ecort2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyecodevices_rt2.ecodevices_rt2.EcoDevicesRT2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ecodevices_rt2/lights/light_ecodevicesrt2.html#Light_EcoDevicesRT2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecodevices_rt2.lights.Light_EcoDevicesRT2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.device_ecodevicesrt2.EcoDevicesRT2Device" title="ecodevices_rt2.device_ecodevicesrt2.EcoDevicesRT2Device"><code class="xref py py-class docutils literal notranslate"><span class="pre">ecodevices_rt2.device_ecodevicesrt2.EcoDevicesRT2Device</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">homeassistant.components.light.LightEntity</span></code></p>
+<dl class="py method">
+<dt id="ecodevices_rt2.lights.Light_EcoDevicesRT2.async_toggle">
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">async_toggle</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="_modules/ecodevices_rt2/lights/light_ecodevicesrt2.html#Light_EcoDevicesRT2.async_toggle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecodevices_rt2.lights.Light_EcoDevicesRT2.async_toggle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Toggle the switch.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ecodevices_rt2.lights.Light_EcoDevicesRT2.async_update">
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">async_update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ecodevices_rt2/lights/light_ecodevicesrt2.html#Light_EcoDevicesRT2.async_update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecodevices_rt2.lights.Light_EcoDevicesRT2.async_update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="ecodevices_rt2.lights.Light_EcoDevicesRT2.available">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">available</span></code><a class="headerlink" href="#ecodevices_rt2.lights.Light_EcoDevicesRT2.available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if switch is available.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ecodevices_rt2.lights.Light_EcoDevicesRT2.is_on">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">is_on</span></code><a class="headerlink" href="#ecodevices_rt2.lights.Light_EcoDevicesRT2.is_on" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if switch is on. Standby is on.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ecodevices_rt2.lights.Light_EcoDevicesRT2.turn_off">
+<code class="sig-name descname"><span class="pre">turn_off</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="_modules/ecodevices_rt2/lights/light_ecodevicesrt2.html#Light_EcoDevicesRT2.turn_off"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecodevices_rt2.lights.Light_EcoDevicesRT2.turn_off" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn the switch off at next update.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ecodevices_rt2.lights.Light_EcoDevicesRT2.turn_on">
+<code class="sig-name descname"><span class="pre">turn_on</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="_modules/ecodevices_rt2/lights/light_ecodevicesrt2.html#Light_EcoDevicesRT2.turn_on"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecodevices_rt2.lights.Light_EcoDevicesRT2.turn_on" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn the switch on at next update.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="ecodevices_rt2.lights.Light_EnOcean">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ecodevices_rt2.lights.</span></code><code class="sig-name descname"><span class="pre">Light_EnOcean</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ecort2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyecodevices_rt2.ecodevices_rt2.EcoDevicesRT2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ecodevices_rt2/lights/light_enocean.html#Light_EnOcean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecodevices_rt2.lights.Light_EnOcean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2" title="ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2"><code class="xref py py-class docutils literal notranslate"><span class="pre">ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">homeassistant.helpers.entity.Entity</span></code></p>
+<p>Representation of an EnOcean switch.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="ecodevices_rt2.lights.Light_Relay">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ecodevices_rt2.lights.</span></code><code class="sig-name descname"><span class="pre">Light_Relay</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ecort2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyecodevices_rt2.ecodevices_rt2.EcoDevicesRT2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ecodevices_rt2/lights/light_relay.html#Light_Relay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecodevices_rt2.lights.Light_Relay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2" title="ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2"><code class="xref py py-class docutils literal notranslate"><span class="pre">ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">homeassistant.helpers.entity.Entity</span></code></p>
+<p>Representation of an Relay switch.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="ecodevices_rt2.lights.Light_VirtualOutput">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ecodevices_rt2.lights.</span></code><code class="sig-name descname"><span class="pre">Light_VirtualOutput</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ecort2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pyecodevices_rt2.ecodevices_rt2.EcoDevicesRT2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ecodevices_rt2/lights/light_virtualoutput.html#Light_VirtualOutput"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ecodevices_rt2.lights.Light_VirtualOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2" title="ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2"><code class="xref py py-class docutils literal notranslate"><span class="pre">ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">homeassistant.helpers.entity.Entity</span></code></p>
+<p>Representation of an VirtualOutput switch.</p>
+</dd></dl>
+
 </div>
 </div>
 
