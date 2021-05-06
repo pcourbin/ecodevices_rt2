@@ -1,17 +1,35 @@
-default_config:
+# [GCE Ecodevices RT2](http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html) component for [Home Assistant](https://www.home-assistant.io/)
 
-logger:
-  default: info
-  logs:
-    custom_components.ecodevices_rt2: debug
-# If you need to debug uncommment the line below (doc: https://www.home-assistant.io/integrations/debugpy/)
-# debugpy:
+This is a _custom component_ for [Home Assistant](https://www.home-assistant.io/) for [GCE Ecodevices RT2](http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html).
 
+If you have:
+
+- [GCE Ecodevices RT2](http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html), this package is for you.
+- [GCE Ecodevices](http://gce-electronics.com/fr/carte-relais-ethernet-module-rail-din/409-teleinformation-ethernet-ecodevices.html), see the great work of [Aohzan](https://github.com/Aohzan/ecodevices)
+- [GCE IPX800 V4](https://www.gce-electronics.com/fr/carte-relais-ethernet-module-rail-din/1483-domotique-ethernet-webserver-ipx800-v4-3760309690001.html), see the great work of [Aohzan](https://github.com/Aohzan/ipx800)
+
+### [Docs (installation, config, and issues)](https://pcourbin.github.io/ecodevices_rt2)
+
+### Features
+
+- Add Counter as sensor (Index and Price)
+- Add Digital Input as sensor
+- Add EnOcean device as sensor, switch or light
+- Add Post/SubPost ad sensor (Index, IndexDay, Price, PriceDay and InstantPower)
+- Add Relay as switch or light
+- Add SupplierIndex as sensor (Index and Price)
+- Add Toroid as sensor (Consumption/Production Index and Price)
+- Add Virtual Output as switch or light
+- Add X4FP (Heater) as climate or switch
+- Add XTHL as sensor (Temperature, Humidity and Luminance)
+- Add any sensor/actuator from your EcoRT2 from [Ecodevices RT2 API](https://gce.ovh/wiki/index.php?title=API_EDRT) (or [PDF](https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf))
+
+```yaml
 ecodevices_rt2:
   - name: EcoRT2
     host: "192.168.0.20"
     port: 80 # Optional
-    api_key: #!secret rt2_api_key
+    api_key: !secret rt2_api_key
     scan_interval: 15
     devices:
       #### API Example
@@ -116,3 +134,4 @@ ecodevices_rt2:
       - name: XHTL 1
         type: "xthl"
         id: 1
+```

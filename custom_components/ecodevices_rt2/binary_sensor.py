@@ -4,14 +4,12 @@ import logging
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 
-from .climates import Climate_X4FP
+from .binarysensors import BinarySensor_DigitalInput
 from .const import CONF_DEVICES
-from .const import CONF_MODULE_ID
 from .const import CONF_TYPE
-from .const import CONF_ZONE_ID
 from .const import CONTROLLER
 from .const import DOMAIN
-from .const import TYPE_X4FP
+from .const import TYPE_DIGITALLINPUT
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -21,21 +19,14 @@ async def async_setup_entry(
     entry: ConfigEntry,
     async_add_entities,
 ) -> None:
-    """Set up the GCE Ecodevices RT2 climates."""
+    """Set up the GCE Ecodevices RT2 binary_sensors."""
     controller = hass.data[DOMAIN][entry.entry_id][CONTROLLER]
-    devices = hass.data[DOMAIN][entry.entry_id][CONF_DEVICES]["climate"]
+    devices = hass.data[DOMAIN][entry.entry_id][CONF_DEVICES]["binary_sensor"]
 
     entities = []
 
     for device in devices:
-        if device.get(CONF_TYPE) == TYPE_X4FP:
-            entities.append(
-                Climate_X4FP(
-                    device,
-                    controller,
-                    device.get(CONF_MODULE_ID),
-                    device.get(CONF_ZONE_ID),
-                )
-            )
+        if device.get(CONF_TYPE) == TYPE_DIGITALLINPUT:
+            entities.append(BinarySensor_DigitalInput(device, controller))
 
     async_add_entities(entities, True)

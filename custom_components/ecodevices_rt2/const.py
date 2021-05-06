@@ -1,26 +1,144 @@
-"""Constants for the EcoDevices component."""
+"""Constants for the GCE Ecodevices RT2 component."""
 DOMAIN = "ecodevices_rt2"
 
 CONTROLLER = "controller"
 CONFIG = "config"
-PLATFORMS = ["sensor", "switch", "climate"]
+
 UNDO_UPDATE_LISTENER = "undo_update_listener"
+DEFAULT_SCAN_INTERVAL = 5
 
-RT2_RESPONSE_ENTRY = "status"
-RT2_RESPONSE_SUCCESS_VALUE = "Success"
+DEFAULT_ICON_SWITCH = "mdi:toggle-switch"
+DEFAULT_ICON_CURRENCY = "mdi:currency-eur"
+DEFAULT_ICON_ENERGY = "mdi:flash"
+DEFAULT_ICON_HEATER = "mdi:radiator"
 
-CONF_RT2_COMMAND = "rt2_command"
-CONF_RT2_COMMAND_VALUE = "rt2_command_value"
-CONF_RT2_COMMAND_ENTRY = "rt2_command_entry"
-CONF_RT2_ON_COMMAND = "rt2_on_command"
-CONF_RT2_ON_COMMAND_VALUE = "rt2_on_command_value"
-CONF_RT2_OFF_COMMAND = "rt2_off_command"
-CONF_RT2_OFF_COMMAND_VALUE = "rt2_off_command_value"
 
-RT2_FP_GET_COMMAND = "Get"
-RT2_FP_GET_COMMAND_VALUE = "FP"
-RT2_FP_GET_COMMAND_ENTRY = "FP%s Zone %s"
-RT2_FP_SET_COMMAND = "SetFP0%s"
+CONF_API_RESPONSE_ENTRY = "status"
+CONF_API_RESPONSE_SUCCESS_VALUE = "Success"
+CONF_API_GET = "api_get"
+CONF_API_GET_VALUE = "api_get_value"
+CONF_API_GET_ENTRY = "api_get_entry"
+CONF_API_ON_GET = "api_on_get"
+CONF_API_ON_GET_VALUE = "api_on_get_value"
+CONF_API_OFF_GET = "api_off_get"
+CONF_API_OFF_GET_VALUE = "api_off_get_value"
 
-CONF_RT2_FP_EXT = "rt2_fp_ext"
-CONF_RT2_FP_ZONE = "rt2_fp_zone"
+CONF_DEVICES = "devices"
+CONF_COMPONENT = "component"
+CONF_TYPE = "type"
+CONF_ID = "id"
+CONF_SUBPOST_ID = "subpost"
+CONF_ZONE_ID = "zone"
+CONF_MODULE_ID = "module"
+
+TYPE_API = "api"
+TYPE_COUNTER = "counter"
+TYPE_DIGITALLINPUT = "digitalinput"
+TYPE_ENOCEAN = "enocean"
+TYPE_POST = "post"
+TYPE_RELAY = "relay"
+TYPE_SUPPLIERINDEX = "supplierindex"
+TYPE_TOROID = "toroid"
+TYPE_VIRTUALOUTPUT = "virtualoutput"
+TYPE_X4FP = "x4fp"
+TYPE_XTHL = "xthl"
+
+CONF_COMPONENT_ALLOWED = [
+    "switch",
+    "sensor",
+    "climate",
+    "binary_sensor",
+    "light",
+]
+
+CONF_TYPE_COMPONENT_ALLOWED = {
+    TYPE_API: {
+        "default": "sensor",
+        "parameters": {
+            "sensor": [CONF_API_GET, CONF_API_GET_VALUE, CONF_API_GET_ENTRY],
+            "switch": [
+                CONF_API_GET,
+                CONF_API_GET_VALUE,
+                CONF_API_GET_ENTRY,
+                CONF_API_ON_GET,
+                CONF_API_ON_GET_VALUE,
+                CONF_API_OFF_GET,
+                CONF_API_OFF_GET_VALUE,
+            ],
+            "light": [
+                CONF_API_GET,
+                CONF_API_GET_VALUE,
+                CONF_API_GET_ENTRY,
+                CONF_API_ON_GET,
+                CONF_API_ON_GET_VALUE,
+                CONF_API_OFF_GET,
+                CONF_API_OFF_GET_VALUE,
+            ],
+        },
+    },
+    TYPE_COUNTER: {
+        "default": "sensor",
+        "parameters": {
+            "sensor": [CONF_ID],
+        },
+    },
+    TYPE_DIGITALLINPUT: {
+        "default": "binary_sensor",
+        "parameters": {
+            "binary_sensor": [CONF_ID],
+        },
+    },
+    TYPE_ENOCEAN: {
+        "default": "sensor",
+        "parameters": {
+            "sensor": [CONF_ID],
+            "switch": [CONF_ID],
+            "light": [CONF_ID],
+        },
+    },
+    TYPE_POST: {
+        "default": "sensor",
+        "parameters": {
+            "sensor": [CONF_ID],  # CONF_SUBPOST_ID
+        },
+    },
+    TYPE_RELAY: {
+        "default": "switch",
+        "parameters": {
+            "switch": [CONF_ID],
+            "light": [CONF_ID],
+        },
+    },
+    TYPE_SUPPLIERINDEX: {
+        "default": "sensor",
+        "parameters": {
+            "sensor": [CONF_ID],
+        },
+    },
+    TYPE_TOROID: {
+        "default": "sensor",
+        "parameters": {
+            "sensor": [CONF_ID],
+        },
+    },
+    TYPE_VIRTUALOUTPUT: {
+        "default": "switch",
+        "parameters": {
+            "switch": [CONF_ID],
+            "light": [CONF_ID],
+        },
+    },
+    TYPE_X4FP: {
+        "default": "climate",
+        "parameters": {
+            "climate": [CONF_MODULE_ID, CONF_ZONE_ID],
+            "switch": [CONF_MODULE_ID, CONF_ZONE_ID],
+        },
+    },
+    TYPE_XTHL: {
+        "default": "sensor",
+        "parameters": {
+            "sensor": [CONF_ID],
+        },
+    },
+}

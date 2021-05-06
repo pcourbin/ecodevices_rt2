@@ -2,158 +2,96 @@
 Based on work of @Mati24 -- https://github.com/Aohzan/ecodevices"""
 import logging
 
-import homeassistant.helpers.config_validation as cv
-import voluptuous as vol
-from homeassistant.components.sensor import PLATFORM_SCHEMA
-from homeassistant.const import CONF_API_KEY
-from homeassistant.const import CONF_DEVICE_CLASS
-from homeassistant.const import CONF_FRIENDLY_NAME
-from homeassistant.const import CONF_HOST
-from homeassistant.const import CONF_ICON
-from homeassistant.const import CONF_PORT
-from homeassistant.const import CONF_UNIT_OF_MEASUREMENT
-from homeassistant.helpers.entity import Entity
-from pyecodevices_rt2 import EcoDevicesRT2
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant
 
-from .const import CONF_RT2_COMMAND
-from .const import CONF_RT2_COMMAND_ENTRY
-from .const import CONF_RT2_COMMAND_VALUE
+from .const import CONF_API_GET
+from .const import CONF_API_GET_ENTRY
+from .const import CONF_API_GET_VALUE
+from .const import CONF_DEVICES
+from .const import CONF_ID
+from .const import CONF_TYPE
+from .const import CONTROLLER
 from .const import DOMAIN
+from .const import TYPE_API
+from .const import TYPE_COUNTER
+from .const import TYPE_ENOCEAN
+from .const import TYPE_POST
+from .const import TYPE_SUPPLIERINDEX
+from .const import TYPE_TOROID
+from .const import TYPE_XTHL
+from .sensors import Sensor_API
+from .sensors import Sensor_Counter_Index
+from .sensors import Sensor_Counter_Price
+from .sensors import Sensor_EnOcean
+from .sensors import Sensor_Post_Index
+from .sensors import Sensor_Post_IndexDay
+from .sensors import Sensor_Post_Instant
+from .sensors import Sensor_Post_Price
+from .sensors import Sensor_Post_PriceDay
+from .sensors import Sensor_SupplierIndex_Index
+from .sensors import Sensor_SupplierIndex_Price
+from .sensors import Sensor_Toroid_ConsumptionIndex
+from .sensors import Sensor_Toroid_ConsumptionPrice
+from .sensors import Sensor_Toroid_Index
+from .sensors import Sensor_Toroid_Price
+from .sensors import Sensor_Toroid_ProductionIndex
+from .sensors import Sensor_Toroid_ProductionPrice
+from .sensors import Sensor_XTHL_Hum
+from .sensors import Sensor_XTHL_Lum
+from .sensors import Sensor_XTHL_Temp
 
 _LOGGER = logging.getLogger(__name__)
 
-PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
-    {
-        vol.Required(CONF_HOST): cv.string,
-        vol.Optional(CONF_PORT, default=80): cv.port,
-        vol.Optional(CONF_API_KEY, default=""): cv.string,
-        vol.Optional(CONF_FRIENDLY_NAME): cv.string,
-        vol.Optional(CONF_RT2_COMMAND, default="Index"): cv.string,
-        vol.Optional(CONF_RT2_COMMAND_VALUE, default="All"): cv.string,
-        vol.Optional(CONF_RT2_COMMAND_ENTRY): cv.string,
-        vol.Optional(CONF_ICON, default="mdi:flash"): cv.string,
-        vol.Optional(CONF_UNIT_OF_MEASUREMENT, default="W"): cv.string,
-        vol.Optional(CONF_DEVICE_CLASS, default="power"): cv.string,
-    }
-)
 
+async def async_setup_entry(
+    hass: HomeAssistant,
+    entry: ConfigEntry,
+    async_add_entities,
+) -> None:
+    """Set up the GCE Ecodevices RT2 sensors."""
+    controller = hass.data[DOMAIN][entry.entry_id][CONTROLLER]
+    devices = hass.data[DOMAIN][entry.entry_id][CONF_DEVICES]["sensor"]
 
-async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
-    """Set up the GCE Ecodevices RT2 platform."""
-    controller = EcoDevicesRT2(
-        config.get(CONF_HOST), config.get(CONF_PORT), config.get(CONF_API_KEY)
-    )
     entities = []
 
-    try:
-        if await hass.async_add_executor_job(controller.ping):
-            available = True
-        else:
-            available = False
-    except Exception:
-        available = False
-
-    if available:
-        _LOGGER.info(
-            "Successfully connected to the Ecodevice RT2 gateway: %s.",
-            config.get(CONF_HOST, CONF_PORT),
-        )
-        if config.get(CONF_FRIENDLY_NAME):
-            _LOGGER.info(
-                "Add the device with name: %s.", config.get(CONF_FRIENDLY_NAME)
-            )
+    for device in devices:
+        if device.get(CONF_TYPE) == TYPE_API:
             entities.append(
-                EcoDevice_Sensor(
+                Sensor_API(
+                    device,
                     controller,
-                    config.get(CONF_RT2_COMMAND),
-                    config.get(CONF_RT2_COMMAND_VALUE),
-                    config.get(CONF_RT2_COMMAND_ENTRY),
-                    config.get(CONF_FRIENDLY_NAME),
-                    config.get(CONF_UNIT_OF_MEASUREMENT),
-                    config.get(CONF_ICON),
-                    config.get(CONF_DEVICE_CLASS),
+                    device.get(CONF_API_GET),
+                    device.get(CONF_API_GET_VALUE),
+                    device.get(CONF_API_GET_ENTRY),
                 )
             )
-    else:
-        _LOGGER.error(
-            "Can't connect to the plateform %s, please check host and port.",
-            config.get(CONF_HOST),
-        )
-    if entities:
-        async_add_entities(entities, True)
+        elif device.get(CONF_TYPE) == TYPE_COUNTER:
+            entities.append(Sensor_Counter_Index(device, controller))
+            entities.append(Sensor_Counter_Price(device, controller))
+        elif device.get(CONF_TYPE) == TYPE_ENOCEAN:
+            entities.append(Sensor_EnOcean(device, controller))
+        elif device.get(CONF_TYPE) == TYPE_POST:
+            entities.append(Sensor_Post_Index(device, controller))
+            entities.append(Sensor_Post_Price(device, controller))
+            entities.append(Sensor_Post_IndexDay(device, controller))
+            entities.append(Sensor_Post_PriceDay(device, controller))
+            entities.append(Sensor_Post_Instant(device, controller))
+        elif device.get(CONF_TYPE) == TYPE_SUPPLIERINDEX:
+            entities.append(Sensor_SupplierIndex_Index(device, controller))
+            entities.append(Sensor_SupplierIndex_Price(device, controller))
+        elif device.get(CONF_TYPE) == TYPE_TOROID:
+            if device.get(CONF_ID) <= 4:
+                entities.append(Sensor_Toroid_ConsumptionIndex(device, controller))
+                entities.append(Sensor_Toroid_ProductionIndex(device, controller))
+                entities.append(Sensor_Toroid_ConsumptionPrice(device, controller))
+                entities.append(Sensor_Toroid_ProductionPrice(device, controller))
+            else:
+                entities.append(Sensor_Toroid_Index(device, controller))
+                entities.append(Sensor_Toroid_Price(device, controller))
+        elif device.get(CONF_TYPE) == TYPE_XTHL:
+            entities.append(Sensor_XTHL_Temp(device, controller))
+            entities.append(Sensor_XTHL_Hum(device, controller))
+            entities.append(Sensor_XTHL_Lum(device, controller))
 
-
-class EcoDevice_Sensor(Entity):
-    """Representation of a Sensor."""
-
-    def __init__(
-        self,
-        controller,
-        command,
-        command_value,
-        command_entry,
-        name,
-        unit,
-        icon,
-        device_class,
-    ):
-        """Initialize the sensor."""
-        self._controller = controller
-
-        self._command = command
-        self._command_value = command_value
-        self._command_entry = command_entry
-        self._name = name
-        self._unit = unit
-        self._icon = icon
-        self._device_class = device_class
-
-        self._state = None
-        self._uid = f"{self._controller.host}_{str(self._command)}_{str(self._command_value)}_{str(self._command_entry)}"
-
-    @property
-    def device_info(self):
-        return {
-            "identifiers": {(DOMAIN, self._uid)},
-            "name": self._name,
-            "manufacturer": "GCE",
-            "model": "Ecodevices RT2",
-            "via_device": (DOMAIN, self._uid),
-        }
-
-    @property
-    def unique_id(self):
-        return self._uid
-
-    @property
-    def device_class(self):
-        return self._device_class
-
-    @property
-    def name(self):
-        return self._name
-
-    @property
-    def state(self):
-        return self._state
-
-    @property
-    def unit_of_measurement(self):
-        return self._unit
-
-    @property
-    def icon(self):
-        return self._icon
-
-    async def async_update(self):  # def update(self):
-        try:
-            self._state = await self.hass.async_add_executor_job(
-                self._controller.get,
-                self._command,
-                self._command_value,
-                self._command_entry,
-            )
-            self._available = True
-        except Exception as e:
-            _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
-            self._available = False
+    async_add_entities(entities, True)
