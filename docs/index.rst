@@ -1,4 +1,4 @@
-Welcome to pyecodevices-rt2's documentation!
+Welcome to ecodevices_rt2's documentation!
 ============================================
 
 .. toctree::
