@@ -1,0 +1,1020 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Usage &mdash; ecodevices_rt2 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/table.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ecodevices_rt2" href="modules.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ecodevices_rt2
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">GCE Ecodevices RT2 component for Home Assistant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#generic-config-and-information">Generic config and information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-api-usage">Advanced/API usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#counter">Counter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#digitalinput">DigitalInput</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#enocean-switch-or-sensor">EnOcean Switch or Sensor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#post-and-sub-post">Post and Sub-Post</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#relay">Relay</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#supplierindex">SupplierIndex</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#toroid">Toroid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#virtualoutput">VirtualOutput</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#x4fp-heaters">X4FP (Heaters)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#xthl">XTHL</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">ecodevices_rt2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ecodevices_rt2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="generic-config-and-information">
+<h2>Generic config and information<a class="headerlink" href="#generic-config-and-information" title="Permalink to this headline">¶</a></h2>
+<p>Default definition of platform in your configuration file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ecodevices_rt2</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NameOfYourEcoRT2</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;_ADDRESS_IP_&quot;</span>
+    <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">_PORT_</span>                 <span class="c1"># Optional, default: 80</span>
+    <span class="nt">api_key</span><span class="p">:</span> <span class="s">&quot;_API_KEY_&quot;</span>
+    <span class="nt">scan_interval</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>             <span class="c1"># Optional, default: 5 (seconds)</span>
+    <span class="nt">devices</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Friendly Name Of Entity</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;_TYPE_&quot;</span>
+        <span class="nt">component</span><span class="p">:</span> <span class="s">&quot;_COMPONENT_&quot;</span>  <span class="c1"># Optional</span>
+        <span class="nt">icon</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mdi:water-boiler</span>    <span class="c1"># Optional</span>
+        <span class="nt">device_class</span><span class="p">:</span> <span class="s">&quot;power&quot;</span>     <span class="c1"># Optional</span>
+        <span class="nt">unit_of_measurement</span><span class="p">:</span> <span class="s">&quot;W&quot;</span>  <span class="c1"># Optional</span>
+</pre></div>
+</div>
+<table class="colwidths-given docutils align-default" id="id12">
+<caption><span class="caption-text">Parameter for a the integration <cite>ecodevices_rt2</cite></span><a class="headerlink" href="#id12" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 45%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Possible values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>name</cite> (<strong>REQUIRED</strong>)</p></td>
+<td><p>Friendly name of your integration.</p></td>
+<td><p>Any text value</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>host</cite> (<strong>REQUIRED</strong>)</p></td>
+<td><p>IP address or hostname where your <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a> is reacheable</p></td>
+<td><p>Any address / hostname</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>port</cite></p></td>
+<td><p><em>OPTIONAL</em> Port associated with the <cite>host</cite></p></td>
+<td><p>Default: <cite>80</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>api_key</cite> (<strong>REQUIRED</strong>)</p></td>
+<td><p>_API_KEY_ defined on your <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p></td>
+<td><p>Any text value</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>scan_interval</cite></p></td>
+<td><p><em>OPTIONAL</em> Time to wait between two updates</p></td>
+<td><p>Any value in second.</p>
+<p><strong>ATTENTION</strong>, if the value is too low, you may have trouble with the API.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><cite>devices</cite> (<strong>REQUIRED</strong>)</p></td>
+<td><p>List of device definition</p></td>
+<td><p>See next table</p></td>
+</tr>
+</tbody>
+</table>
+<table class="colwidths-given docutils align-default" id="id13">
+<caption><span class="caption-text">Parameter for a device configuration</span><a class="headerlink" href="#id13" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 45%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Possible values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>name</cite> (<strong>REQUIRED</strong>)</p></td>
+<td><p>Friendly name of your entity</p></td>
+<td><p>Any text value</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>type</cite> (<strong>REQUIRED</strong>)</p></td>
+<td><p>Type of device connected to your Ecodevice RT2</p></td>
+<td><p><cite>api</cite>, <cite>counter</cite>, <cite>digitalinput</cite>, <cite>enocean</cite>, <cite>post</cite>, <cite>relay</cite>, <cite>supplierindex</cite>, <cite>toroid</cite>, <cite>virtualoutput</cite>, <cite>x4fp</cite>, <cite>xthl</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><cite>component</cite></p></td>
+<td><p>Type of some default Home Assistant integration</p></td>
+<td><p><a class="reference external" href="https://www.home-assistant.io/integrations/switch">switch</a>, <a class="reference external" href="https://www.home-assistant.io/integrations/sensor">sensor</a>, <a class="reference external" href="https://www.home-assistant.io/integrations/climate">climate</a>, <a class="reference external" href="https://www.home-assistant.io/integrations/binary_sensor">binary_sensor</a>, <a class="reference external" href="https://www.home-assistant.io/integrations/light">light</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>icon</cite></p></td>
+<td><p>Icons used by <a class="reference external" href="https://www.home-assistant.io/docs/configuration/customizing-devices/#icon">Home Assistant icons</a></p></td>
+<td><p>Any, some example: <cite>mdi:home</cite>, <cite>mdi:lightbulb</cite>, <cite>mdi:toggle-switch</cite>, etc.</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>device_class</cite></p></td>
+<td><p>Type of <a class="reference external" href="https://www.home-assistant.io/integrations/sensor/#device-class">Home Assistant device_class</a></p></td>
+<td><p>Any, some example: <cite>none</cite>, <cite>energy</cite>, <cite>humidity</cite>, <cite>illuminance</cite>, etc.</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>unit_of_measurement</cite></p></td>
+<td><p>Unit of mesurement (<a class="reference external" href="https://www.home-assistant.io/docs/configuration/customizing-devices/#unit_of_measurement">Home Assistant unit_of_measurement</a>)</p></td>
+<td><p>Any text value, some example: <cite>W</cite>, <cite>°C</cite>, <cite>kWh</cite>, <cite>lx</cite>, etc.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="colwidths-given docutils align-default" id="id14">
+<caption><span class="caption-text">Possibles values for device configuration</span><a class="headerlink" href="#id14" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 45%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><cite>type</cite></p></th>
+<th class="head"><p>Default <cite>component</cite></p></th>
+<th class="head"><p>Possible <cite>component</cite></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>api</cite></p></td>
+<td><p><cite>sensor</cite></p></td>
+<td><p><cite>sensor</cite>, <cite>switch</cite>, <cite>light</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>counter</cite></p></td>
+<td><p><cite>sensor</cite></p></td>
+<td><p><cite>sensor</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><cite>digitalinput</cite></p></td>
+<td><p><cite>binary_sensor</cite></p></td>
+<td><p><cite>binary_sensor</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>enocean</cite></p></td>
+<td><p><cite>sensor</cite></p></td>
+<td><p><cite>sensor</cite>, <cite>switch</cite>, <cite>light</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><cite>post</cite></p></td>
+<td><p><cite>sensor</cite></p></td>
+<td><p><cite>sensor</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>relay</cite></p></td>
+<td><p><cite>switch</cite></p></td>
+<td><p><cite>switch</cite>, <cite>light</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><cite>supplierindex</cite></p></td>
+<td><p><cite>sensor</cite></p></td>
+<td><p><cite>sensor</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>toroid</cite></p></td>
+<td><p><cite>sensor</cite></p></td>
+<td><p><cite>sensor</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><cite>virtualoutput</cite></p></td>
+<td><p><cite>switch</cite></p></td>
+<td><p><cite>switch</cite>, <cite>light</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>x4fp</cite></p></td>
+<td><p><cite>climate</cite></p></td>
+<td><p><cite>climate</cite>, <cite>switch</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><cite>xthl</cite></p></td>
+<td><p><cite>sensor</cite></p></td>
+<td><p><cite>sensor</cite></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="advanced-api-usage">
+<h2>Advanced/API usage<a class="headerlink" href="#advanced-api-usage" title="Permalink to this headline">¶</a></h2>
+<p>To use ecodevices_rt2, you can directly use parameters from the <a class="reference external" href="https://gce.ovh/wiki/index.php?title=API_EDRT">GCE Ecodevices RT2 API</a> (or <a class="reference external" href="https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf">PDF</a>).</p>
+<table class="colwidths-given docutils align-default" id="id15">
+<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id15" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 45%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><cite>component</cite></p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Parameters</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>sensor</cite> (<strong>DEFAULT</strong>)</p></td>
+<td><p>Create a <cite>sensor</cite> which will call <cite>http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&amp;api_get=api_get_value</cite> and get <cite>api_get_entry</cite> in the JSON response.</p></td>
+<td><ul class="simple">
+<li><p><cite>api_get</cite>: <strong>REQUIRED</strong>.</p></li>
+<li><p><cite>api_get_value</cite>: <strong>REQUIRED</strong></p></li>
+<li><p><cite>api_get_entry</cite>: <strong>REQUIRED</strong></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><cite>switch</cite> (or <cite>light</cite>)</p></td>
+<td><p>Create a <cite>switch</cite> (or <cite>light</cite>) which will:</p>
+<ul class="simple">
+<li><p><strong>VALUE</strong> – To check the current value of the switch, it will call <a class="reference external" href="http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&amp;api_get=api_get_value">http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&amp;api_get=api_get_value</a> and get api_get_entry in the JSON response.</p></li>
+<li><p><strong>ON</strong> – To change the current value of the switch to ON, it will call <a class="reference external" href="http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&amp;api_on_get=api_on_get_value">http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&amp;api_on_get=api_on_get_value</a> and it will check if the “status” in the JSON response is equal to “Success”.</p></li>
+<li><p><strong>OFF</strong> – To change the current value of the switch to OFF, it will call <a class="reference external" href="http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&amp;api_off_get=api_off_get_value">http://_ADDRESS_IP_:_PORT_/api/xdevices.json?key=_API_KEY_&amp;api_off_get=api_off_get_value</a> and it will check if the “status” in the JSON response is equal to “Success”.</p></li>
+</ul>
+</td>
+<td><ul class="simple">
+<li><p><cite>api_get</cite>: <strong>REQUIRED</strong></p></li>
+<li><p><cite>api_get_value</cite>: <strong>REQUIRED</strong></p></li>
+<li><p><cite>api_get_entry</cite>: <strong>REQUIRED</strong></p></li>
+<li><p><cite>api_on_get</cite>: <strong>REQUIRED</strong></p></li>
+<li><p><cite>api_on_get_value</cite>: <strong>REQUIRED</strong></p></li>
+<li><p><cite>api_off_get</cite>: <strong>REQUIRED</strong></p></li>
+<li><p><cite>api_off_get_value</cite>: <strong>REQUIRED</strong></p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ecodevices_rt2</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NameOfYourEcoRT2</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;_ADDRESS_IP_&quot;</span>
+    <span class="nt">api_key</span><span class="p">:</span> <span class="s">&quot;_API_KEY_&quot;</span>
+    <span class="nt">devices</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Elec Index HC</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;api&quot;</span>
+        <span class="nt">component</span><span class="p">:</span> <span class="s">&quot;sensor&quot;</span>
+        <span class="nt">api_get</span><span class="p">:</span> <span class="s">&quot;Index&quot;</span>
+        <span class="nt">api_get_value</span><span class="p">:</span> <span class="s">&quot;All&quot;</span>
+        <span class="nt">api_get_entry</span><span class="p">:</span> <span class="s">&quot;Index_TI1&quot;</span>
+        <span class="nt">device_class</span><span class="p">:</span> <span class="s">&quot;power&quot;</span>
+        <span class="nt">unit_of_measurement</span><span class="p">:</span> <span class="s">&quot;kWh&quot;</span>
+        <span class="nt">icon</span><span class="p">:</span> <span class="s">&quot;mdi:flash&quot;</span>
+
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">EnOcean Switch 1</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;api&quot;</span>
+        <span class="nt">component</span><span class="p">:</span> <span class="s">&quot;switch&quot;</span>
+        <span class="nt">api_get</span><span class="p">:</span> <span class="s">&quot;Get&quot;</span>
+        <span class="nt">api_get_value</span><span class="p">:</span> <span class="s">&quot;XENO&quot;</span>
+        <span class="nt">api_get_entry</span><span class="p">:</span> <span class="s">&quot;ENO</span><span class="nv"> </span><span class="s">ACTIONNEUR1&quot;</span>
+        <span class="nt">api_on_get</span><span class="p">:</span> <span class="s">&quot;SetEnoPC&quot;</span>
+        <span class="nt">api_on_get_value</span><span class="p">:</span> <span class="s">&quot;1&quot;</span>
+        <span class="nt">api_off_get</span><span class="p">:</span> <span class="s">&quot;ClearEnoPC&quot;</span>
+        <span class="nt">api_off_get_value</span><span class="p">:</span> <span class="s">&quot;1&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="counter">
+<h2>Counter<a class="headerlink" href="#counter" title="Permalink to this headline">¶</a></h2>
+<p>You can define a Counter (see from the <a class="reference external" href="https://gce.ovh/wiki/index.php?title=API_EDRT">GCE Ecodevices RT2 API</a> (or <a class="reference external" href="https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf">PDF</a>)).</p>
+<table class="colwidths-given docutils align-default" id="id16">
+<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id16" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 45%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><cite>component</cite></p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Parameters</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>sensor</cite> (<strong>DEFAULT</strong>)</p></td>
+<td><p>Create 2 <cite>sensor</cite> which represents a <cite>counter</cite> connected to the <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a>:</p>
+<ol class="arabic simple">
+<li><p><cite>Index</cite> of the counter</p></li>
+<li><p><cite>Price</cite> of the counter</p></li>
+</ol>
+</td>
+<td><ul class="simple">
+<li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the counter (between 1 and 12)</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id2">
+<h3>Example<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ecodevices_rt2</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NameOfYourEcoRT2</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;IP_RT2&quot;</span>
+    <span class="nt">api_key</span><span class="p">:</span> <span class="s">&quot;API_KEY_RT2&quot;</span>
+    <span class="nt">devices</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Counter 1</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;counter&quot;</span>
+        <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="digitalinput">
+<h2>DigitalInput<a class="headerlink" href="#digitalinput" title="Permalink to this headline">¶</a></h2>
+<p>You can define a DigitalInput (see from the <a class="reference external" href="https://gce.ovh/wiki/index.php?title=API_EDRT">GCE Ecodevices RT2 API</a> (or <a class="reference external" href="https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf">PDF</a>)).</p>
+<table class="colwidths-given docutils align-default" id="id17">
+<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id17" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 45%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><cite>component</cite></p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Parameters</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>binary_sensor</cite> (<strong>DEFAULT</strong>)</p></td>
+<td><p>Create a <cite>binary_sensor</cite> which represents  a <cite>digitalinput</cite> connected to the <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p></td>
+<td><ul class="simple">
+<li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the digitalinput (between 1 and 12)</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id3">
+<h3>Example<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ecodevices_rt2</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NameOfYourEcoRT2</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;IP_RT2&quot;</span>
+    <span class="nt">api_key</span><span class="p">:</span> <span class="s">&quot;API_KEY_RT2&quot;</span>
+    <span class="nt">devices</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">DigitalInput 1</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;digitalinput&quot;</span>
+        <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="enocean-switch-or-sensor">
+<h2>EnOcean Switch or Sensor<a class="headerlink" href="#enocean-switch-or-sensor" title="Permalink to this headline">¶</a></h2>
+<p>You can define a EnOcean Switch or Sensor (see from the <a class="reference external" href="https://gce.ovh/wiki/index.php?title=API_EDRT">GCE Ecodevices RT2 API</a> (or <a class="reference external" href="https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf">PDF</a>)).</p>
+<table class="colwidths-given docutils align-default" id="id18">
+<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id18" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 45%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><cite>component</cite></p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Parameters</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>sensor</cite> (<strong>DEFAULT</strong>)</p></td>
+<td><p>Create a <cite>sensor</cite> which represents a <cite>enocean</cite> <strong>analog sensor</strong> connected to the <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p></td>
+<td><ul class="simple">
+<li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the enocean sensor (between 1 and 24)</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><cite>switch</cite></p></td>
+<td><p>Create a <cite>switch</cite> which represents a <cite>enocean</cite> <strong>actuator</strong> connected to the <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p></td>
+<td><ul class="simple">
+<li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the enocean actuator (between 1 and 24)</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p><cite>light</cite></p></td>
+<td><p>Create a <cite>light</cite> which represents a <cite>enocean</cite> <strong>actuator</strong> connected to the <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p></td>
+<td><ul class="simple">
+<li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the enocean actuator (between 1 and 24)</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id4">
+<h3>Example<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ecodevices_rt2</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NameOfYourEcoRT2</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;IP_RT2&quot;</span>
+    <span class="nt">api_key</span><span class="p">:</span> <span class="s">&quot;API_KEY_RT2&quot;</span>
+    <span class="nt">devices</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Bedroom temperature</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;enocean&quot;</span>           <span class="c1"># Using default component `sensor`</span>
+        <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+        <span class="nt">unit_of_measurement</span><span class="p">:</span> <span class="s">&quot;°C&quot;</span>
+        <span class="nt">icon</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mdi:thermometer</span>
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">EnOcean Switch 1</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;enocean&quot;</span>
+        <span class="nt">component</span><span class="p">:</span> <span class="s">&quot;switch&quot;</span>
+        <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">EnOcean Switch 2 as Light</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;enocean&quot;</span>
+        <span class="nt">component</span><span class="p">:</span> <span class="s">&quot;light&quot;</span>
+        <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="post-and-sub-post">
+<h2>Post and Sub-Post<a class="headerlink" href="#post-and-sub-post" title="Permalink to this headline">¶</a></h2>
+<p>You can define a Post and Sub-post (see from the <a class="reference external" href="https://gce.ovh/wiki/index.php?title=API_EDRT">GCE Ecodevices RT2 API</a> (or <a class="reference external" href="https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf">PDF</a>)).</p>
+<table class="colwidths-given docutils align-default" id="id19">
+<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id19" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 45%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><cite>component</cite></p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Parameters</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>sensor</cite> (<strong>DEFAULT</strong>)</p></td>
+<td><p>Create 5 <cite>sensor</cite> which represents a <cite>post</cite> defined on the <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p>
+<ol class="arabic simple">
+<li><p><cite>Index</cite> of the Post/Subpost</p></li>
+<li><p><cite>IndexDay</cite> of the Post/Subpost</p></li>
+<li><p><cite>Price</cite> of the Post/Subpost</p></li>
+<li><p><cite>PriceDay</cite> of the Post/Subpost</p></li>
+<li><p><cite>Instant</cite> power of the Post/Subpost</p></li>
+</ol>
+</td>
+<td><ul class="simple">
+<li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the post (between 1 and 8)</p></li>
+<li><p><cite>subpost</cite>: <em>OPTIONAL</em> Number of the subpost of the post (between 1 and 8)</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id5">
+<h3>Example<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ecodevices_rt2</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NameOfYourEcoRT2</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;IP_RT2&quot;</span>
+    <span class="nt">api_key</span><span class="p">:</span> <span class="s">&quot;API_KEY_RT2&quot;</span>
+    <span class="nt">devices</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Post 1</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;post&quot;</span>
+        <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Subpost 2 of Post 1</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;post&quot;</span>
+        <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+        <span class="nt">subpost</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="relay">
+<h2>Relay<a class="headerlink" href="#relay" title="Permalink to this headline">¶</a></h2>
+<p>You can define a Relay (see from the <a class="reference external" href="https://gce.ovh/wiki/index.php?title=API_EDRT">GCE Ecodevices RT2 API</a> (or <a class="reference external" href="https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf">PDF</a>)).</p>
+<table class="colwidths-given docutils align-default" id="id20">
+<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id20" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 45%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><cite>component</cite></p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Parameters</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>switch</cite> (<strong>DEFAULT</strong>)</p></td>
+<td><p>Create a <cite>switch</cite> which represents a <cite>relay</cite> connected on the <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p></td>
+<td><ul class="simple">
+<li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the post (between 1 and 8)</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><cite>light</cite></p></td>
+<td><p>Create a <cite>light</cite> which represents a <cite>relay</cite> connected on the <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p></td>
+<td><ul class="simple">
+<li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the post (between 1 and 8)</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id6">
+<h3>Example<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ecodevices_rt2</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NameOfYourEcoRT2</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;IP_RT2&quot;</span>
+    <span class="nt">api_key</span><span class="p">:</span> <span class="s">&quot;API_KEY_RT2&quot;</span>
+    <span class="nt">devices</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Relay 1</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;relay&quot;</span>        <span class="c1"># Using default component `sensor`</span>
+        <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Relay 2 as Light</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;relay&quot;</span>
+        <span class="nt">component</span><span class="p">:</span> <span class="s">&quot;light&quot;</span>
+        <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="supplierindex">
+<h2>SupplierIndex<a class="headerlink" href="#supplierindex" title="Permalink to this headline">¶</a></h2>
+<p>You can define a SupplierIndex (see from the <a class="reference external" href="https://gce.ovh/wiki/index.php?title=API_EDRT">GCE Ecodevices RT2 API</a> (or <a class="reference external" href="https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf">PDF</a>)).</p>
+<table class="colwidths-given docutils align-default" id="id21">
+<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id21" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 45%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><cite>component</cite></p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Parameters</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>sensor</cite> (<strong>DEFAULT</strong>)</p></td>
+<td><p>Create 2 <cite>sensor</cite> which represent a <cite>SupplierIndex</cite> defined on the <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p>
+<ol class="arabic simple">
+<li><p><cite>Index</cite> of the Post/Subpost</p></li>
+<li><p><cite>Price</cite> of the Post/Subpost</p></li>
+</ol>
+</td>
+<td><ul class="simple">
+<li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the SupplierIndex (between 1 and 8)</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id7">
+<h3>Example<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ecodevices_rt2</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NameOfYourEcoRT2</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;IP_RT2&quot;</span>
+    <span class="nt">api_key</span><span class="p">:</span> <span class="s">&quot;API_KEY_RT2&quot;</span>
+    <span class="nt">devices</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Supplier Index 1 (EDF Info)</span>
+      <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;supplierindex&quot;</span>
+      <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="toroid">
+<h2>Toroid<a class="headerlink" href="#toroid" title="Permalink to this headline">¶</a></h2>
+<p>You can define a Toroid (see from the <a class="reference external" href="https://gce.ovh/wiki/index.php?title=API_EDRT">GCE Ecodevices RT2 API</a> (or <a class="reference external" href="https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf">PDF</a>)).</p>
+<table class="colwidths-given docutils align-default" id="id22">
+<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id22" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 45%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><cite>component</cite></p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Parameters</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>sensor</cite> (<strong>DEFAULT</strong>)</p></td>
+<td><ul>
+<li><p>If <cite>id</cite> is between 1 and 4, create 4 <cite>sensor</cite> which represents a <cite>Toroid</cite> defined on the <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><cite>ConsumptionIndex</cite> of the Toroid</p></li>
+<li><p><cite>ConsumptionPrice</cite> of the Toroid</p></li>
+<li><p><cite>ProductionIndex</cite> of the Toroid</p></li>
+<li><p><cite>ProductionPrice</cite> of the Toroid</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>Else (<cite>id</cite>&gt;4), create 2 <cite>sensor</cite> which represents a <cite>Toroid</cite> defined on the <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><cite>Index</cite> of the Toroid</p></li>
+<li><p><cite>Price</cite> of the Toroid</p></li>
+</ol>
+</div></blockquote>
+</li>
+</ul>
+</td>
+<td><ul class="simple">
+<li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the Toroid (between 1 and 8)</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id8">
+<h3>Example<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ecodevices_rt2</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NameOfYourEcoRT2</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;IP_RT2&quot;</span>
+    <span class="nt">api_key</span><span class="p">:</span> <span class="s">&quot;API_KEY_RT2&quot;</span>
+    <span class="nt">devices</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="nt">Toroid 1  # 4 sensors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2 Consumption + 2 Production</span>
+      <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;toroid&quot;</span>
+      <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Toroid 5</span>  <span class="c1"># 2 sensors</span>
+      <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;toroid&quot;</span>
+      <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="virtualoutput">
+<h2>VirtualOutput<a class="headerlink" href="#virtualoutput" title="Permalink to this headline">¶</a></h2>
+<p>You can define a VirtualOutput (see from the <a class="reference external" href="https://gce.ovh/wiki/index.php?title=API_EDRT">GCE Ecodevices RT2 API</a> (or <a class="reference external" href="https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf">PDF</a>)).</p>
+<table class="colwidths-given docutils align-default" id="id23">
+<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id23" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 45%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><cite>component</cite></p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Parameters</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>switch</cite> (<strong>DEFAULT</strong>)</p></td>
+<td><p>Create a <cite>switch</cite> which represents a <cite>VirtualOutput</cite> connected on the <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p></td>
+<td><ul class="simple">
+<li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the VirtualOutput (between 1 and 128)</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><cite>light</cite></p></td>
+<td><p>Create a <cite>light</cite> which represents a <cite>VirtualOutput</cite> connected on the <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p></td>
+<td><ul class="simple">
+<li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the VirtualOutput (between 1 and 128)</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id9">
+<h3>Example<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ecodevices_rt2</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NameOfYourEcoRT2</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;IP_RT2&quot;</span>
+    <span class="nt">api_key</span><span class="p">:</span> <span class="s">&quot;API_KEY_RT2&quot;</span>
+    <span class="nt">devices</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Virtual Output 1</span>
+        <span class="l l-Scalar l-Scalar-Plain">type</span><span class="p p-Indicator">:</span> <span class="s">&quot;virtualoutput&quot;</span>           <span class="c1"># Using default component `sensor`</span>
+        <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Virtual Output 2 as Light</span>
+      <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;virtualoutput&quot;</span>
+      <span class="nt">component</span><span class="p">:</span> <span class="s">&quot;light&quot;</span>
+      <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="x4fp-heaters">
+<h2>X4FP (Heaters)<a class="headerlink" href="#x4fp-heaters" title="Permalink to this headline">¶</a></h2>
+<p>You can define a X4FP (see from the <a class="reference external" href="https://gce.ovh/wiki/index.php?title=API_EDRT">GCE Ecodevices RT2 API</a> (or <a class="reference external" href="https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf">PDF</a>)).</p>
+<table class="colwidths-given docutils align-default" id="id24">
+<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id24" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 45%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><cite>component</cite></p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Parameters</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>climate</cite> (<strong>DEFAULT</strong>)</p></td>
+<td><p>Create a <cite>climate</cite> which represents a <cite>X4FP</cite> connected on the <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p></td>
+<td><ul class="simple">
+<li><p><cite>module</cite>: <strong>REQUIRED</strong> Number of the X4FP module (1 or 2)</p></li>
+<li><p><cite>zone</cite>: <strong>REQUIRED</strong> Number of the X4FP zone on the seleted module (between 1 and 4. 0 if you want to control all zone of the module.)</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p><cite>switch</cite></p></td>
+<td><p>Create a <cite>switch</cite> which represents a <cite>X4FP</cite> connected on the <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p></td>
+<td><ul class="simple">
+<li><p><cite>module</cite>: <strong>REQUIRED</strong> Number of the X4FP module (1 or 2)</p></li>
+<li><p><cite>zone</cite>: <strong>REQUIRED</strong> Number of the X4FP zone on the seleted module (between 1 and 4. 0 if you want to control all zone of the module.)</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id10">
+<h3>Example<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ecodevices_rt2</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NameOfYourEcoRT2</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;IP_RT2&quot;</span>
+    <span class="nt">api_key</span><span class="p">:</span> <span class="s">&quot;API_KEY_RT2&quot;</span>
+    <span class="nt">devices</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Heater Module 1 Zone 1</span>
+      <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;x4fp&quot;</span>
+      <span class="nt">component</span><span class="p">:</span> <span class="s">&quot;climate&quot;</span>      <span class="c1"># Can be omitted since default value</span>
+      <span class="nt">module</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+      <span class="nt">zone</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Heater Module 1 Zone 2 as Switch</span>
+      <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;x4fp&quot;</span>
+      <span class="nt">component</span><span class="p">:</span> <span class="s">&quot;switch&quot;</span>
+      <span class="nt">module</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+      <span class="nt">zone</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="xthl">
+<h2>XTHL<a class="headerlink" href="#xthl" title="Permalink to this headline">¶</a></h2>
+<p>You can define a XTHL (see from the <a class="reference external" href="https://gce.ovh/wiki/index.php?title=API_EDRT">GCE Ecodevices RT2 API</a> (or <a class="reference external" href="https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf">PDF</a>)).</p>
+<table class="colwidths-given docutils align-default" id="id25">
+<caption><span class="caption-text">Parameters</span><a class="headerlink" href="#id25" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 45%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><cite>component</cite></p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Parameters</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>sensor</cite> (<strong>DEFAULT</strong>)</p></td>
+<td><p>Create 3 <cite>sensor</cite> which represents a <cite>XTHL</cite> defined on the <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p>
+<ol class="arabic simple">
+<li><p><cite>Temperature</cite> of the XTHL</p></li>
+<li><p><cite>Humidity</cite> of the XTHL</p></li>
+<li><p><cite>Luminance</cite> of the XTHL</p></li>
+</ol>
+</td>
+<td><ul class="simple">
+<li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the XTHL (between 1 and 2)</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id11">
+<h3>Example<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ecodevices_rt2</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NameOfYourEcoRT2</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;IP_RT2&quot;</span>
+    <span class="nt">api_key</span><span class="p">:</span> <span class="s">&quot;API_KEY_RT2&quot;</span>
+    <span class="nt">devices</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">XHTL 1</span>
+      <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;xthl&quot;</span>
+      <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="modules.html" class="btn btn-neutral float-right" title="ecodevices_rt2" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Pierre COURBIN.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
