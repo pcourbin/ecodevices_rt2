@@ -86,8 +86,8 @@ Ready to contribute? Here's how to set up `ecodevices_rt2` for local development
    tests, including testing other Python versions with tox::
 
     $ make lint
-    $ python setup.py test or pytest
-    $ tox
+    .. $ python setup.py test or pytest
+    .. $ tox
 
 7. Commit your changes and push your branch to GitHub::
 

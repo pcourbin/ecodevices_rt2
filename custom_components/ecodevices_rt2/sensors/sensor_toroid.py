@@ -63,3 +63,19 @@ class Sensor_Toroid_ProductionPrice(Sensor_Toroid):
 
     def _async_get_property(self):
         return self.control.production_price
+
+
+class Sensor_Toroid_Index(Sensor_Toroid):
+    def __init__(self, device_config: dict, ecort2: EcoDevicesRT2):
+        super().__init__(device_config, ecort2, DEVICE_CLASS_ENERGY, "Index")
+
+    def _async_get_property(self):
+        return self.control.value
+
+
+class Sensor_Toroid_Price(Sensor_Toroid):
+    def __init__(self, device_config: dict, ecort2: EcoDevicesRT2):
+        super().__init__(device_config, ecort2, None, "Price")
+
+    def _async_get_property(self):
+        return self.control.price

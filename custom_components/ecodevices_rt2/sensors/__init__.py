@@ -19,6 +19,8 @@ from .sensor_toroid import Sensor_Toroid_ConsumptionIndex
 from .sensor_toroid import Sensor_Toroid_ConsumptionPrice
 from .sensor_toroid import Sensor_Toroid_ProductionIndex
 from .sensor_toroid import Sensor_Toroid_ProductionPrice
+from .sensor_toroid import Sensor_Toroid_Index
+from .sensor_toroid import Sensor_Toroid_Price
 from .sensor_xthl import Sensor_XTHL
 from .sensor_xthl import Sensor_XTHL_Hum
 from .sensor_xthl import Sensor_XTHL_Lum
@@ -45,6 +47,8 @@ __all__ = [
     "Sensor_Toroid_ConsumptionPrice",
     "Sensor_Toroid_ProductionIndex",
     "Sensor_Toroid_ProductionPrice",
+    "Sensor_Toroid_Index",
+    "Sensor_Toroid_Price",
     "Sensor_XTHL",
     "Sensor_XTHL_Hum",
     "Sensor_XTHL_Lum",

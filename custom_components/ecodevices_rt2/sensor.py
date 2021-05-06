@@ -9,6 +9,7 @@ from .const import CONF_API_GET
 from .const import CONF_API_GET_ENTRY
 from .const import CONF_API_GET_VALUE
 from .const import CONF_DEVICES
+from .const import CONF_ID
 from .const import CONF_TYPE
 from .const import CONTROLLER
 from .const import DOMAIN
@@ -32,6 +33,8 @@ from .sensors import Sensor_SupplierIndex_Index
 from .sensors import Sensor_SupplierIndex_Price
 from .sensors import Sensor_Toroid_ConsumptionIndex
 from .sensors import Sensor_Toroid_ConsumptionPrice
+from .sensors import Sensor_Toroid_Index
+from .sensors import Sensor_Toroid_Price
 from .sensors import Sensor_Toroid_ProductionIndex
 from .sensors import Sensor_Toroid_ProductionPrice
 from .sensors import Sensor_XTHL_Hum
@@ -78,10 +81,14 @@ async def async_setup_entry(
             entities.append(Sensor_SupplierIndex_Index(device, controller))
             entities.append(Sensor_SupplierIndex_Price(device, controller))
         elif device.get(CONF_TYPE) == TYPE_TOROID:
-            entities.append(Sensor_Toroid_ConsumptionIndex(device, controller))
-            entities.append(Sensor_Toroid_ProductionIndex(device, controller))
-            entities.append(Sensor_Toroid_ConsumptionPrice(device, controller))
-            entities.append(Sensor_Toroid_ProductionPrice(device, controller))
+            if device.get(CONF_ID) <= 4:
+                entities.append(Sensor_Toroid_ConsumptionIndex(device, controller))
+                entities.append(Sensor_Toroid_ProductionIndex(device, controller))
+                entities.append(Sensor_Toroid_ConsumptionPrice(device, controller))
+                entities.append(Sensor_Toroid_ProductionPrice(device, controller))
+            else:
+                entities.append(Sensor_Toroid_Index(device, controller))
+                entities.append(Sensor_Toroid_Price(device, controller))
         elif device.get(CONF_TYPE) == TYPE_XTHL:
             entities.append(Sensor_XTHL_Temp(device, controller))
             entities.append(Sensor_XTHL_Hum(device, controller))
