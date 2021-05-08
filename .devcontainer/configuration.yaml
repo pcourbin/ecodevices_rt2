@@ -12,7 +12,7 @@ ecodevices_rt2:
     host: "192.168.0.20"
     port: 80 # Optional
     api_key: #!secret rt2_api_key
-    scan_interval: 15
+    #scan_interval: 15
     devices:
       #### API Example
       - name: Elec Index HC (from API)

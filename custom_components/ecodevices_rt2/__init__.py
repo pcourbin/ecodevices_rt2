@@ -1,4 +1,5 @@
 """Support for the GCE Ecodevices RT2."""
+import asyncio
 import logging
 
 import homeassistant.helpers.config_validation as cv
@@ -114,13 +115,15 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
 
     try:
         if not await hass.async_add_executor_job(ecort2.ping):
-            raise EcoDevicesRT2ConnectError()
-    except EcoDevicesRT2ConnectError as exception:
+            raise EcoDevicesRT2ConnectError
+    except EcoDevicesRT2ConnectError:
         _LOGGER.error(
             "Cannot connect to the GCE Ecodevices RT2 named %s, check host, port or api_key",
             entry.data[CONF_NAME],
         )
-        raise ConfigEntryNotReady from exception
+        raise ConfigEntryNotReady
+    except:
+        raise ConfigEntryNotReady
 
     scan_interval = int(entry.data.get(CONF_SCAN_INTERVAL))
 
@@ -129,7 +132,8 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
             "A scan interval too low has been set, you probably will get errors since the GCE Ecodevices RT2 can't handle too much request at the same time"
         )
 
-    undo_listener = entry.add_update_listener(_async_update_listener)
+    # undo_listener = entry.add_update_listener(_async_update_listener)
+    undo_listener = entry.add_update_listener(async_reload_entry)
 
     hass.data[DOMAIN][entry.entry_id] = {
         CONF_NAME: entry.data[CONF_NAME],
@@ -163,7 +167,7 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
         hass.data[DOMAIN][entry.entry_id][CONF_DEVICES][component] = filter_device_list(
             devices, component
         )
-        hass.async_create_task(
+        hass.async_add_job(
             hass.config_entries.async_forward_entry_setup(entry, component)
         )
 
@@ -172,12 +176,24 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
 
 async def async_unload_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
-    for component in CONF_COMPONENT_ALLOWED:
-        await hass.config_entries.async_forward_entry_unload(entry, component)
+    unloaded = all(
+        await asyncio.gather(
+            *[
+                hass.config_entries.async_forward_entry_unload(entry, platform)
+                for platform in CONF_COMPONENT_ALLOWED
+            ]
+        )
+    )
+    if unloaded:
+        hass.data[DOMAIN].pop(entry.entry_id)
 
-    del hass.data[DOMAIN]
+    return unloaded
 
-    return True
+
+async def async_reload_entry(hass: HomeAssistantType, entry: ConfigEntry) -> None:
+    """Reload config entry."""
+    await async_unload_entry(hass, entry)
+    await async_setup_entry(hass, entry)
 
 
 async def _async_update_listener(hass, config_entry):
