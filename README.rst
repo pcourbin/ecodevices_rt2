@@ -7,9 +7,9 @@
         :target: (LICENSE)
         :alt: License
 
-.. .. image:: https://img.shields.io/badge/HACS-Custom-orange.svg
-..        :target: `hacs`_
-..        :alt: HACS
+.. image:: https://img.shields.io/badge/HACS-Default-orange.svg
+        :target: `hacs`_
+        :alt: HACS
 
 .. image:: https://img.shields.io/badge/community-forum-brightgreen.svg
         :target: `forum`_

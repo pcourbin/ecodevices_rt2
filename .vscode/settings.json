@@ -8,5 +8,6 @@
     "*.yaml": "home-assistant"
   },
   "files.insertFinalNewline": true,
-  "files.trimFinalNewlines": true
+  "files.trimFinalNewlines": true,
+  "restructuredtext.confPath": "${workspaceFolder}/docs"
 }
