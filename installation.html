@@ -96,6 +96,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="readme.html">GCE Ecodevices RT2 component for Home Assistant</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#from-hacs">From HACS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#from-sources">From sources</a></li>
 </ul>
 </li>
@@ -173,6 +174,14 @@
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="from-hacs">
+<h2>From <a class="reference external" href="https://hacs.xyz">HACS</a><a class="headerlink" href="#from-hacs" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Search “Ecodevices RT2” in <cite>integrations</cite> of <a class="reference external" href="https://hacs.xyz">HACS</a> store.</p></li>
+<li><p>Click install.</p></li>
+<li><p>In the HA UI go to “Configuration” -&gt; “Integrations” click “+” and search for “Ecodevices RT2”.</p></li>
+</ol>
+</div>
 <div class="section" id="from-sources">
 <h2>From sources<a class="headerlink" href="#from-sources" title="Permalink to this headline">¶</a></h2>
 <p>The sources for ecodevices_rt2 can be downloaded from the <a class="reference external" href="https://github.com/pcourbin/ecodevices_rt2">Github repo</a>.</p>
@@ -185,9 +194,15 @@
 </pre></div>
 </div>
 <p>Once you have a copy of the source, you can install it with in your <a class="reference external" href="https://www.home-assistant.io/">Home Assistant</a> installation:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Copy the `custom_components/ecodevices_rt2` folder into the config folder.</span>
-</pre></div>
-</div>
+<ol class="arabic simple">
+<li><p>Using the tool of choice open the directory (folder) for your HA configuration (where you find <cite>configuration.yaml</cite>).</p></li>
+<li><p>If you do not have a <cite>custom_components</cite> directory (folder) there, you need to create it.</p></li>
+<li><p>In the <cite>custom_components</cite> directory (folder) create a new folder called <cite>ecodevices_rt2</cite>.</p></li>
+<li><p>Download _all_ the files from the <cite>custom_components/ecodevices_rt2/</cite> directory (folder) in this repository.</p></li>
+<li><p>Place the files you downloaded in the new directory (folder) you created.</p></li>
+<li><p>Restart Home Assistant</p></li>
+<li><p>In the HA UI go to “Configuration” -&gt; “Integrations” click “+” and search for “Ecodevices RT2”</p></li>
+</ol>
 </div>
 </div>
 
