@@ -13,7 +13,8 @@ Default definition of platform in your configuration file:
         host: "_ADDRESS_IP_"
         port: _PORT_                 # Optional, default: 80
         api_key: "_API_KEY_"
-        scan_interval: 5             # Optional, default: 5 (seconds)
+        scan_interval: 15             # Optional, default: 15 (seconds)
+        cached_interval_ms: 1000      # Optional, default: 1000 (milliseconds)
         devices:
           - name: Friendly Name Of Entity
             type: "_TYPE_"

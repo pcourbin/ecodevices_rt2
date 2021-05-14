@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ecodevices_rt2.climates.climate_x4fp &mdash; ecodevices_rt2 2.0.1 documentation</title>
+  <title>ecodevices_rt2.climates.climate_x4fp &mdash; ecodevices_rt2 2.1.0 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.0.1
+                2.1.0
               </div>
             
           
@@ -183,12 +183,21 @@
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="k">import</span> <span class="n">X4FP</span>
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2.exceptions</span> <span class="k">import</span> <span class="n">EcoDevicesRT2RequestError</span>
 
+<span class="kn">from</span> <span class="nn">..const</span> <span class="k">import</span> <span class="n">PRESET_COMFORT_1</span>
+<span class="kn">from</span> <span class="nn">..const</span> <span class="k">import</span> <span class="n">PRESET_COMFORT_2</span>
 <span class="kn">from</span> <span class="nn">..device_ecodevicesrt2</span> <span class="k">import</span> <span class="n">EcoDevicesRT2Device</span>
 
 <span class="n">_LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <span class="n">MODE_LIST</span> <span class="o">=</span> <span class="p">[</span><span class="n">HVAC_MODE_HEAT</span><span class="p">,</span> <span class="n">HVAC_MODE_OFF</span><span class="p">]</span>
-<span class="n">PRESET_LIST</span> <span class="o">=</span> <span class="p">[</span><span class="n">PRESET_NONE</span><span class="p">,</span> <span class="n">PRESET_COMFORT</span><span class="p">,</span> <span class="n">PRESET_ECO</span><span class="p">,</span> <span class="n">PRESET_AWAY</span><span class="p">]</span>
+<span class="n">PRESET_LIST</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">PRESET_NONE</span><span class="p">,</span>
+    <span class="n">PRESET_COMFORT</span><span class="p">,</span>
+    <span class="n">PRESET_ECO</span><span class="p">,</span>
+    <span class="n">PRESET_AWAY</span><span class="p">,</span>
+    <span class="n">PRESET_COMFORT_1</span><span class="p">,</span>
+    <span class="n">PRESET_COMFORT_2</span><span class="p">,</span>
+<span class="p">]</span>
 
 
 <div class="viewcode-block" id="Climate_X4FP"><a class="viewcode-back" href="../../../ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP">[docs]</a><span class="k">class</span> <span class="nc">Climate_X4FP</span><span class="p">(</span><span class="n">EcoDevicesRT2Device</span><span class="p">,</span> <span class="n">ClimateEntity</span><span class="p">):</span>
@@ -197,12 +206,16 @@
         <span class="mi">1</span><span class="p">:</span> <span class="n">PRESET_ECO</span><span class="p">,</span>
         <span class="mi">2</span><span class="p">:</span> <span class="n">PRESET_AWAY</span><span class="p">,</span>
         <span class="mi">3</span><span class="p">:</span> <span class="n">PRESET_NONE</span><span class="p">,</span>
+        <span class="mi">4</span><span class="p">:</span> <span class="n">PRESET_COMFORT_1</span><span class="p">,</span>
+        <span class="mi">5</span><span class="p">:</span> <span class="n">PRESET_COMFORT_2</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="n">HA_TO_RT2_STATE</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">PRESET_COMFORT</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="n">PRESET_ECO</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">PRESET_AWAY</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
         <span class="n">PRESET_NONE</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="n">PRESET_COMFORT_1</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="n">PRESET_COMFORT_2</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
@@ -218,9 +231,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_zone_id</span> <span class="o">=</span> <span class="n">zone_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_available</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="n">X4FP</span><span class="p">(</span><span class="n">ecort2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_module_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_zone_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span> <span class="o">=</span> <span class="s2">&quot;climate__x4fp&quot;</span>
 
-    <span class="k">def</span> <span class="nf">_async_get_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">mode</span>
+    <span class="k">def</span> <span class="nf">_async_get_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_mode</span><span class="p">(</span><span class="n">cached_ms</span><span class="o">=</span><span class="n">cached_ms</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_async_set_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span>
@@ -283,13 +297,17 @@
 
 <div class="viewcode-block" id="Climate_X4FP.async_update_heater"><a class="viewcode-back" href="../../../ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.async_update_heater">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_update_heater</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get the latest state from the thermostat.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">force_update</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="c1"># Updated temperature to HA state to avoid flapping (API confirmation is slow)</span>
-            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_fp_state</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">hass</span><span class="o">.</span><span class="n">async_add_executor_job</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_async_get_mode</span>
-            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">force_update</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_fp_state</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">hass</span><span class="o">.</span><span class="n">async_add_executor_job</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_async_get_mode</span><span class="p">,</span> <span class="mi">0</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_fp_state</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">hass</span><span class="o">.</span><span class="n">async_add_executor_job</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_async_get_mode</span>
+                <span class="p">)</span>
+
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fp_state</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_available</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
