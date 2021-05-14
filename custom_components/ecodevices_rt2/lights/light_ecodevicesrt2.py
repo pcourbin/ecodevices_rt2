@@ -49,7 +49,7 @@ class Light_EcoDevicesRT2(EcoDevicesRT2Device, LightEntity):
         self._updated = False
         self.schedule_update_ha_state()
 
-    def _async_get_status(self) -> bool:
+    def _async_get_status(self, cached_ms: int = None) -> bool:
         pass
 
     def _async_set_on(self) -> bool:
@@ -74,6 +74,9 @@ class Light_EcoDevicesRT2(EcoDevicesRT2Device, LightEntity):
                         if await self.hass.async_add_executor_job(self._async_set_on):
                             self._available = True
                             self._updated = True
+                            self._is_on = await self.hass.async_add_executor_job(
+                                self._async_get_status, 0
+                            )
                         else:
                             _LOGGER.warning(
                                 "Error while turning on device %s", self._name
@@ -86,6 +89,9 @@ class Light_EcoDevicesRT2(EcoDevicesRT2Device, LightEntity):
                         if await self.hass.async_add_executor_job(self._async_set_off):
                             self._available = True
                             self._updated = True
+                            self._is_on = await self.hass.async_add_executor_job(
+                                self._async_get_status, 0
+                            )
                         else:
                             _LOGGER.warning(
                                 "Error while turning off device %s", self._name

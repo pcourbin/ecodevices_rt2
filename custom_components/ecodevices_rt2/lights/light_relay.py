@@ -16,8 +16,8 @@ class Light_Relay(Light_EcoDevicesRT2, Entity):
         super().__init__(device_config, ecort2)
         self.control = Relay(ecort2, self._id)
 
-    def _async_get_status(self) -> bool:
-        return self.control.status
+    def _async_get_status(self, cached_ms: int = None) -> bool:
+        return self.control.get_status(cached_ms=cached_ms)
 
     def _async_set_on(self) -> bool:
         return self.control.on()

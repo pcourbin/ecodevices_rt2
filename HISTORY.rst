@@ -2,6 +2,13 @@
 History
 =======
 
+2.1.0 (2021-05-15)
+------------------
+
+* Update pyecodevices_rt2 to 1.2.0, allow using cached values of the API.
+* Add `cached_interval_ms` parameter to define a maximum value (in milliseconds) during which you consider an API value do not need to be updated
+* Improve the time between switch/light action and value update
+
 2.0.0 (2021-05-06)
 ------------------
 

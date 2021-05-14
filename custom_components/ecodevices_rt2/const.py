@@ -5,12 +5,17 @@ CONTROLLER = "controller"
 CONFIG = "config"
 
 UNDO_UPDATE_LISTENER = "undo_update_listener"
-DEFAULT_SCAN_INTERVAL = 5
+DEFAULT_SCAN_INTERVAL = 15
+DEFAULT_CACHED_INTERVAL_MS = 1000
+CONF_CACHED_INTERVAL_MS = "cached_interval_ms"
 
 DEFAULT_ICON_SWITCH = "mdi:toggle-switch"
 DEFAULT_ICON_CURRENCY = "mdi:currency-eur"
 DEFAULT_ICON_ENERGY = "mdi:flash"
 DEFAULT_ICON_HEATER = "mdi:radiator"
+
+PRESET_COMFORT_1 = "Comfort -1"
+PRESET_COMFORT_2 = "Comfort -2"
 
 
 CONF_API_RESPONSE_ENTRY = "status"

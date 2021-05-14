@@ -53,9 +53,10 @@ Full Example
  ecodevices_rt2:
   - name: EcoRT2
     host: "192.168.0.20"
-    port: 80                      # Optional
-    api_key: !secret rt2_api_key
-    scan_interval: 15
+    port: 80 # Optional, default: 80
+    api_key: #!secret rt2_api_key
+    scan_interval: 15 # Optional, default: 15s
+    cached_interval_ms: 1000 # Optional, default: 1000ms
     devices:
 
       #### API Example

@@ -31,8 +31,13 @@ class Light_API(Light_EcoDevicesRT2, Entity):
         self._off_get = off_get
         self._off_get_value = off_get_value
 
-    def _async_get_status(self) -> bool:
-        return self.ecort2.get(self._get, self._get_value, self._get_entry) == 1
+    def _async_get_status(self, cached_ms: int = None) -> bool:
+        return (
+            self.ecort2.get(
+                self._get, self._get_value, self._get_entry, cached_ms=cached_ms
+            )
+            == 1
+        )
 
     def _async_set_on(self) -> bool:
         api_response = self.ecort2.get(

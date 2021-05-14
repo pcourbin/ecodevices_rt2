@@ -26,8 +26,8 @@ class Switch_X4FP(Switch_EcoDevicesRT2, Entity):
         if not self._icon:
             self._icon = DEFAULT_ICON_HEATER
 
-    def _async_get_status(self) -> bool:
-        return self.control.mode == 0
+    def _async_get_status(self, cached_ms: int = None) -> bool:
+        return self.control.get_mode(cached_ms=cached_ms) == 0
 
     def _async_set_on(self) -> bool:
         self.control.mode = 0

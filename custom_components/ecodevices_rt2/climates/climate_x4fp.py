@@ -14,12 +14,21 @@ from pyecodevices_rt2 import EcoDevicesRT2
 from pyecodevices_rt2 import X4FP
 from pyecodevices_rt2.exceptions import EcoDevicesRT2RequestError
 
+from ..const import PRESET_COMFORT_1
+from ..const import PRESET_COMFORT_2
 from ..device_ecodevicesrt2 import EcoDevicesRT2Device
 
 _LOGGER = logging.getLogger(__name__)
 
 MODE_LIST = [HVAC_MODE_HEAT, HVAC_MODE_OFF]
-PRESET_LIST = [PRESET_NONE, PRESET_COMFORT, PRESET_ECO, PRESET_AWAY]
+PRESET_LIST = [
+    PRESET_NONE,
+    PRESET_COMFORT,
+    PRESET_ECO,
+    PRESET_AWAY,
+    PRESET_COMFORT_1,
+    PRESET_COMFORT_2,
+]
 
 
 class Climate_X4FP(EcoDevicesRT2Device, ClimateEntity):
@@ -28,12 +37,16 @@ class Climate_X4FP(EcoDevicesRT2Device, ClimateEntity):
         1: PRESET_ECO,
         2: PRESET_AWAY,
         3: PRESET_NONE,
+        4: PRESET_COMFORT_1,
+        5: PRESET_COMFORT_2,
     }
     HA_TO_RT2_STATE = {
         PRESET_COMFORT: 0,
         PRESET_ECO: 1,
         PRESET_AWAY: 2,
         PRESET_NONE: 3,
+        PRESET_COMFORT_1: 4,
+        PRESET_COMFORT_2: 5,
     }
 
     def __init__(
@@ -49,9 +62,10 @@ class Climate_X4FP(EcoDevicesRT2Device, ClimateEntity):
         self._zone_id = zone_id
         self._available = True
         self.control = X4FP(ecort2, self._module_id, self._zone_id)
+        self._device_class = "climate__x4fp"
 
-    def _async_get_mode(self):
-        return self.control.mode
+    def _async_get_mode(self, cached_ms: int = None):
+        return self.control.get_mode(cached_ms=cached_ms)
 
     def _async_set_mode(self, mode: int):
         self.control.mode = mode
@@ -114,13 +128,17 @@ class Climate_X4FP(EcoDevicesRT2Device, ClimateEntity):
 
     async def async_update_heater(self, force_update=False):
         """Get the latest state from the thermostat."""
-        if force_update is True:
-            # Updated temperature to HA state to avoid flapping (API confirmation is slow)
-            await asyncio.sleep(1)
         try:
-            self._fp_state = await self.hass.async_add_executor_job(
-                self._async_get_mode
-            )
+            if force_update is True:
+                await asyncio.sleep(1)
+                self._fp_state = await self.hass.async_add_executor_job(
+                    self._async_get_mode, 0
+                )
+            else:
+                self._fp_state = await self.hass.async_add_executor_job(
+                    self._async_get_mode
+                )
+
             if self._fp_state:
                 self._available = True
         except Exception as e:

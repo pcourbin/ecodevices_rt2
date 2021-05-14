@@ -27,6 +27,7 @@ from .const import CONF_API_OFF_GET
 from .const import CONF_API_OFF_GET_VALUE
 from .const import CONF_API_ON_GET
 from .const import CONF_API_ON_GET_VALUE
+from .const import CONF_CACHED_INTERVAL_MS
 from .const import CONF_COMPONENT
 from .const import CONF_COMPONENT_ALLOWED
 from .const import CONF_DEVICES
@@ -37,6 +38,7 @@ from .const import CONF_TYPE
 from .const import CONF_TYPE_COMPONENT_ALLOWED
 from .const import CONF_ZONE_ID
 from .const import CONTROLLER
+from .const import DEFAULT_CACHED_INTERVAL_MS
 from .const import DEFAULT_SCAN_INTERVAL
 from .const import DOMAIN
 from .const import UNDO_UPDATE_LISTENER
@@ -70,6 +72,9 @@ GATEWAY_CONFIG = vol.Schema(
         vol.Required(CONF_NAME): cv.string,
         vol.Required(CONF_HOST): cv.string,
         vol.Optional(CONF_PORT, default=80): cv.port,
+        vol.Optional(
+            CONF_CACHED_INTERVAL_MS, default=DEFAULT_CACHED_INTERVAL_MS
+        ): cv.positive_int,
         vol.Required(CONF_API_KEY): cv.string,
         vol.Optional(
             CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL
@@ -110,6 +115,7 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
         host=entry.data[CONF_HOST],
         port=entry.data[CONF_PORT],
         apikey=entry.data[CONF_API_KEY],
+        cached_ms=entry.data[CONF_CACHED_INTERVAL_MS],
     )
 
     try:
