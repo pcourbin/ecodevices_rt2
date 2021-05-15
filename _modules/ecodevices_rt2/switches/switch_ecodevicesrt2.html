@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ecodevices_rt2.switches.switch_ecodevicesrt2 &mdash; ecodevices_rt2 2.1.0 documentation</title>
+  <title>ecodevices_rt2.switches.switch_ecodevicesrt2 &mdash; ecodevices_rt2 2.1.1 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.1.1
               </div>
             
           
@@ -167,7 +167,8 @@
            <div itemprop="articleBody">
             
   <h1>Source code for ecodevices_rt2.switches.switch_ecodevicesrt2</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">from</span> <span class="nn">homeassistant.components.switch</span> <span class="k">import</span> <span class="n">SwitchEntity</span>
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="k">import</span> <span class="n">EcoDevicesRT2</span>
@@ -243,6 +244,7 @@
                         <span class="k">if</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">hass</span><span class="o">.</span><span class="n">async_add_executor_job</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_async_set_on</span><span class="p">):</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_available</span> <span class="o">=</span> <span class="kc">True</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_updated</span> <span class="o">=</span> <span class="kc">True</span>
+                            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_is_on</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">hass</span><span class="o">.</span><span class="n">async_add_executor_job</span><span class="p">(</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">_async_get_status</span><span class="p">,</span> <span class="mi">0</span>
                             <span class="p">)</span>
@@ -258,6 +260,7 @@
                         <span class="k">if</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">hass</span><span class="o">.</span><span class="n">async_add_executor_job</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_async_set_off</span><span class="p">):</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_available</span> <span class="o">=</span> <span class="kc">True</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_updated</span> <span class="o">=</span> <span class="kc">True</span>
+                            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_is_on</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">hass</span><span class="o">.</span><span class="n">async_add_executor_job</span><span class="p">(</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">_async_get_status</span><span class="p">,</span> <span class="mi">0</span>
                             <span class="p">)</span>
