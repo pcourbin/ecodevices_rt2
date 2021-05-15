@@ -11,7 +11,6 @@ from homeassistant.const import CONF_HOST
 from homeassistant.const import CONF_ICON
 from homeassistant.const import CONF_NAME
 from homeassistant.const import CONF_PORT
-from homeassistant.const import CONF_SCAN_INTERVAL
 from homeassistant.const import CONF_UNIT_OF_MEASUREMENT
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers import device_registry as dr
@@ -36,10 +35,11 @@ from .const import CONF_MODULE_ID
 from .const import CONF_SUBPOST_ID
 from .const import CONF_TYPE
 from .const import CONF_TYPE_COMPONENT_ALLOWED
+from .const import CONF_UPDATE_AFTER_SWITCH
 from .const import CONF_ZONE_ID
 from .const import CONTROLLER
 from .const import DEFAULT_CACHED_INTERVAL_MS
-from .const import DEFAULT_SCAN_INTERVAL
+from .const import DEFAULT_UPDATE_AFTER_SWITCH
 from .const import DOMAIN
 from .const import UNDO_UPDATE_LISTENER
 
@@ -64,6 +64,7 @@ DEVICE_CONFIG_SCHEMA_ENTRY = vol.Schema(
         vol.Optional(CONF_ICON): cv.icon,
         vol.Optional(CONF_DEVICE_CLASS): cv.string,
         vol.Optional(CONF_UNIT_OF_MEASUREMENT): cv.string,
+        vol.Optional(CONF_UPDATE_AFTER_SWITCH): cv.positive_int,
     }
 )
 
@@ -76,12 +77,12 @@ GATEWAY_CONFIG = vol.Schema(
             CONF_CACHED_INTERVAL_MS, default=DEFAULT_CACHED_INTERVAL_MS
         ): cv.positive_int,
         vol.Required(CONF_API_KEY): cv.string,
-        vol.Optional(
-            CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL
-        ): cv.positive_int,
         vol.Optional(CONF_DEVICES, default=[]): vol.All(
             cv.ensure_list, [DEVICE_CONFIG_SCHEMA_ENTRY]
         ),
+        vol.Optional(
+            CONF_UPDATE_AFTER_SWITCH, default=DEFAULT_UPDATE_AFTER_SWITCH
+        ): cv.positive_int,
     },
     extra=vol.ALLOW_EXTRA,
 )
@@ -127,13 +128,6 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
             entry.data[CONF_NAME],
         )
         raise ConfigEntryNotReady from exception
-
-    scan_interval = int(entry.data.get(CONF_SCAN_INTERVAL))
-
-    if scan_interval < DEFAULT_SCAN_INTERVAL:
-        _LOGGER.warning(
-            "A scan interval too low has been set, you probably will get errors since the GCE Ecodevices RT2 can't handle too much request at the same time"
-        )
 
     undo_listener = entry.add_update_listener(_async_update_listener)
 

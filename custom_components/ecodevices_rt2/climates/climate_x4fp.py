@@ -14,6 +14,7 @@ from pyecodevices_rt2 import EcoDevicesRT2
 from pyecodevices_rt2 import X4FP
 from pyecodevices_rt2.exceptions import EcoDevicesRT2RequestError
 
+from ..const import CONF_UPDATE_AFTER_SWITCH
 from ..const import PRESET_COMFORT_1
 from ..const import PRESET_COMFORT_2
 from ..device_ecodevicesrt2 import EcoDevicesRT2Device
@@ -63,6 +64,7 @@ class Climate_X4FP(EcoDevicesRT2Device, ClimateEntity):
         self._available = True
         self.control = X4FP(ecort2, self._module_id, self._zone_id)
         self._device_class = "climate__x4fp"
+        self._update_after_switch = device_config[CONF_UPDATE_AFTER_SWITCH]
 
     def _async_get_mode(self, cached_ms: int = None):
         return self.control.get_mode(cached_ms=cached_ms)
@@ -130,7 +132,7 @@ class Climate_X4FP(EcoDevicesRT2Device, ClimateEntity):
         """Get the latest state from the thermostat."""
         try:
             if force_update is True:
-                await asyncio.sleep(1)
+                await asyncio.sleep(self._update_after_switch)
                 self._fp_state = await self.hass.async_add_executor_job(
                     self._async_get_mode, 0
                 )

@@ -14,6 +14,7 @@ from .const import CONF_API_ON_GET_VALUE
 from .const import CONF_DEVICES
 from .const import CONF_MODULE_ID
 from .const import CONF_TYPE
+from .const import CONF_UPDATE_AFTER_SWITCH
 from .const import CONF_ZONE_ID
 from .const import CONTROLLER
 from .const import DOMAIN
@@ -40,9 +41,14 @@ async def async_setup_entry(
     controller = hass.data[DOMAIN][entry.entry_id][CONTROLLER]
     devices = hass.data[DOMAIN][entry.entry_id][CONF_DEVICES]["switch"]
 
+    update_after_switch = entry.data[CONF_UPDATE_AFTER_SWITCH]
+
     entities = []
 
     for device in devices:
+        if CONF_UPDATE_AFTER_SWITCH not in device:
+            device[CONF_UPDATE_AFTER_SWITCH] = update_after_switch
+
         if device.get(CONF_TYPE) == TYPE_API:
             entities.append(
                 Switch_API(

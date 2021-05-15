@@ -4,6 +4,7 @@ import logging
 from homeassistant.components.switch import SwitchEntity
 from pyecodevices_rt2 import EcoDevicesRT2
 
+from ..const import CONF_UPDATE_AFTER_SWITCH
 from ..device_ecodevicesrt2 import EcoDevicesRT2Device
 
 _LOGGER = logging.getLogger(__name__)
@@ -21,6 +22,7 @@ class Switch_EcoDevicesRT2(EcoDevicesRT2Device, SwitchEntity):
         self._is_on = False
         self._is_on_command = self._is_on
         self._updated = True
+        self._update_after_switch = device_config[CONF_UPDATE_AFTER_SWITCH]
 
     @property
     def is_on(self) -> bool:
@@ -75,7 +77,7 @@ class Switch_EcoDevicesRT2(EcoDevicesRT2Device, SwitchEntity):
                         if await self.hass.async_add_executor_job(self._async_set_on):
                             self._available = True
                             self._updated = True
-                            await asyncio.sleep(1)
+                            await asyncio.sleep(self._update_after_switch)
                             self._is_on = await self.hass.async_add_executor_job(
                                 self._async_get_status, 0
                             )
@@ -91,7 +93,7 @@ class Switch_EcoDevicesRT2(EcoDevicesRT2Device, SwitchEntity):
                         if await self.hass.async_add_executor_job(self._async_set_off):
                             self._available = True
                             self._updated = True
-                            await asyncio.sleep(1)
+                            await asyncio.sleep(self._update_after_switch)
                             self._is_on = await self.hass.async_add_executor_job(
                                 self._async_get_status, 0
                             )

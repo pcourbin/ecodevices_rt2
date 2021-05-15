@@ -55,8 +55,8 @@ Full Example
     host: "192.168.0.20"
     port: 80 # Optional, default: 80
     api_key: #!secret rt2_api_key
-    scan_interval: 15 # Optional, default: 15s
     cached_interval_ms: 1000 # Optional, default: 1000ms
+    update_after_switch: 1   # Optional, default: 0 (seconds)
     devices:
 
       #### API Example
@@ -100,6 +100,7 @@ Full Example
         type: "enocean"
         component: "switch"
         id: 1
+        update_after_switch: 1 # Optional, to define a value for this switch
       - name: EnOcean Switch 2 as Light
         type: "enocean"
         component: "light"
