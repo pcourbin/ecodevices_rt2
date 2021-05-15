@@ -2,6 +2,11 @@
 History
 =======
 
+2.1.1 (2021-05-15)
+------------------
+
+* Add asyncio.sleep(1) after each switch/light command then force update the current value
+
 2.1.0 (2021-05-15)
 ------------------
 

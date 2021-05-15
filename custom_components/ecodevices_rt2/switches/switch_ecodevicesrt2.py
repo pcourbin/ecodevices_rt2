@@ -1,3 +1,4 @@
+import asyncio
 import logging
 
 from homeassistant.components.switch import SwitchEntity
@@ -74,6 +75,7 @@ class Switch_EcoDevicesRT2(EcoDevicesRT2Device, SwitchEntity):
                         if await self.hass.async_add_executor_job(self._async_set_on):
                             self._available = True
                             self._updated = True
+                            await asyncio.sleep(1)
                             self._is_on = await self.hass.async_add_executor_job(
                                 self._async_get_status, 0
                             )
@@ -89,6 +91,7 @@ class Switch_EcoDevicesRT2(EcoDevicesRT2Device, SwitchEntity):
                         if await self.hass.async_add_executor_job(self._async_set_off):
                             self._available = True
                             self._updated = True
+                            await asyncio.sleep(1)
                             self._is_on = await self.hass.async_add_executor_job(
                                 self._async_get_status, 0
                             )
