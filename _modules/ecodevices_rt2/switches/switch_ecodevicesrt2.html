@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ecodevices_rt2.switches.switch_ecodevicesrt2 &mdash; ecodevices_rt2 2.1.1 documentation</title>
+  <title>ecodevices_rt2.switches.switch_ecodevicesrt2 &mdash; ecodevices_rt2 2.1.2 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.1.1
+                2.1.2
               </div>
             
           
@@ -173,6 +173,7 @@
 <span class="kn">from</span> <span class="nn">homeassistant.components.switch</span> <span class="k">import</span> <span class="n">SwitchEntity</span>
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="k">import</span> <span class="n">EcoDevicesRT2</span>
 
+<span class="kn">from</span> <span class="nn">..const</span> <span class="k">import</span> <span class="n">CONF_UPDATE_AFTER_SWITCH</span>
 <span class="kn">from</span> <span class="nn">..device_ecodevicesrt2</span> <span class="k">import</span> <span class="n">EcoDevicesRT2Device</span>
 
 <span class="n">_LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -190,6 +191,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_on</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_on_command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_on</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_updated</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_after_switch</span> <span class="o">=</span> <span class="n">device_config</span><span class="p">[</span><span class="n">CONF_UPDATE_AFTER_SWITCH</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_on</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -244,7 +246,7 @@
                         <span class="k">if</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">hass</span><span class="o">.</span><span class="n">async_add_executor_job</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_async_set_on</span><span class="p">):</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_available</span> <span class="o">=</span> <span class="kc">True</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_updated</span> <span class="o">=</span> <span class="kc">True</span>
-                            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_after_switch</span><span class="p">)</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_is_on</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">hass</span><span class="o">.</span><span class="n">async_add_executor_job</span><span class="p">(</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">_async_get_status</span><span class="p">,</span> <span class="mi">0</span>
                             <span class="p">)</span>
@@ -260,7 +262,7 @@
                         <span class="k">if</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">hass</span><span class="o">.</span><span class="n">async_add_executor_job</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_async_set_off</span><span class="p">):</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_available</span> <span class="o">=</span> <span class="kc">True</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_updated</span> <span class="o">=</span> <span class="kc">True</span>
-                            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_after_switch</span><span class="p">)</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_is_on</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">hass</span><span class="o">.</span><span class="n">async_add_executor_job</span><span class="p">(</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">_async_get_status</span><span class="p">,</span> <span class="mi">0</span>
                             <span class="p">)</span>

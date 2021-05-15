@@ -11,10 +11,10 @@ Default definition of platform in your configuration file:
     ecodevices_rt2:
       - name: NameOfYourEcoRT2
         host: "_ADDRESS_IP_"
-        port: _PORT_                 # Optional, default: 80
+        port: _PORT_                  # Optional, default: 80
         api_key: "_API_KEY_"
-        scan_interval: 15             # Optional, default: 15 (seconds)
         cached_interval_ms: 1000      # Optional, default: 1000 (milliseconds)
+        update_after_switch: 1        # Optional, default: 0 (seconds)
         devices:
           - name: Friendly Name Of Entity
             type: "_TYPE_"
@@ -42,9 +42,9 @@ Default definition of platform in your configuration file:
    * - `api_key` (**REQUIRED**)
      - _API_KEY_ defined on your `GCE Ecodevices RT2`_
      - Any text value
-   * - `scan_interval`
-     - *OPTIONAL* Time to wait between two updates
-     - Any value in second.
+   * - `update_after_switch`
+     - *OPTIONAL* Time to wait before update a switch/light/climate juste after a change
+     - Any value in second. Default: `0`
 
        **ATTENTION**, if the value is too low, you may have trouble with the API.
    * - `devices` (**REQUIRED**)

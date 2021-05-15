@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ecodevices_rt2.climates.climate_x4fp &mdash; ecodevices_rt2 2.1.1 documentation</title>
+  <title>ecodevices_rt2.climates.climate_x4fp &mdash; ecodevices_rt2 2.1.2 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.1.1
+                2.1.2
               </div>
             
           
@@ -183,6 +183,7 @@
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="k">import</span> <span class="n">X4FP</span>
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2.exceptions</span> <span class="k">import</span> <span class="n">EcoDevicesRT2RequestError</span>
 
+<span class="kn">from</span> <span class="nn">..const</span> <span class="k">import</span> <span class="n">CONF_UPDATE_AFTER_SWITCH</span>
 <span class="kn">from</span> <span class="nn">..const</span> <span class="k">import</span> <span class="n">PRESET_COMFORT_1</span>
 <span class="kn">from</span> <span class="nn">..const</span> <span class="k">import</span> <span class="n">PRESET_COMFORT_2</span>
 <span class="kn">from</span> <span class="nn">..device_ecodevicesrt2</span> <span class="k">import</span> <span class="n">EcoDevicesRT2Device</span>
@@ -232,6 +233,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_available</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="n">X4FP</span><span class="p">(</span><span class="n">ecort2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_module_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_zone_id</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span> <span class="o">=</span> <span class="s2">&quot;climate__x4fp&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_after_switch</span> <span class="o">=</span> <span class="n">device_config</span><span class="p">[</span><span class="n">CONF_UPDATE_AFTER_SWITCH</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_async_get_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_mode</span><span class="p">(</span><span class="n">cached_ms</span><span class="o">=</span><span class="n">cached_ms</span><span class="p">)</span>
@@ -299,7 +301,7 @@
         <span class="sd">&quot;&quot;&quot;Get the latest state from the thermostat.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">force_update</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-                <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_after_switch</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_fp_state</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">hass</span><span class="o">.</span><span class="n">async_add_executor_job</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_async_get_mode</span><span class="p">,</span> <span class="mi">0</span>
                 <span class="p">)</span>
