@@ -2,6 +2,12 @@
 History
 =======
 
+2.1.2 (2021-05-15)
+------------------
+
+* Remove scan_interval, not working.
+* Add update_after_switch to configure the time to wait before update a switch/light/climate just after a change. Default is 0s.
+
 2.1.1 (2021-05-15)
 ------------------
 
