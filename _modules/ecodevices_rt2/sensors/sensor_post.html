@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ecodevices_rt2.sensors.sensor_post &mdash; ecodevices_rt2 2.1.2 documentation</title>
+  <title>ecodevices_rt2.sensors.sensor_post &mdash; ecodevices_rt2 2.2.0 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.1.2
+                2.2.0
               </div>
             
           
@@ -170,6 +170,7 @@
 <span></span><span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="k">import</span> <span class="n">DEVICE_CLASS_ENERGY</span>
 <span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="k">import</span> <span class="n">DEVICE_CLASS_POWER</span>
 <span class="kn">from</span> <span class="nn">homeassistant.helpers.entity</span> <span class="k">import</span> <span class="n">Entity</span>
+<span class="kn">from</span> <span class="nn">homeassistant.helpers.update_coordinator</span> <span class="k">import</span> <span class="n">DataUpdateCoordinator</span>
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="k">import</span> <span class="n">EcoDevicesRT2</span>
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="k">import</span> <span class="n">Post</span>
 
@@ -186,10 +187,11 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
+        <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
         <span class="n">device_class</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">suffix_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">suffix_name</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="n">suffix_name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">CONF_SUBPOST_ID</span> <span class="ow">in</span> <span class="n">device_config</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="n">Post</span><span class="p">(</span><span class="n">ecort2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span> <span class="n">device_config</span><span class="p">[</span><span class="n">CONF_SUBPOST_ID</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
@@ -210,43 +212,74 @@
 
 
 <div class="viewcode-block" id="Sensor_Post_Index"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_Index">[docs]</a><span class="k">class</span> <span class="nc">Sensor_Post_Index</span><span class="p">(</span><span class="n">Sensor_Post</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">DEVICE_CLASS_ENERGY</span><span class="p">,</span> <span class="s2">&quot;Index&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
+        <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="n">DEVICE_CLASS_ENERGY</span><span class="p">,</span> <span class="s2">&quot;Index&quot;</span>
+        <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_async_get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">index</span></div>
+<div class="viewcode-block" id="Sensor_Post_Index.get_property"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_Index.get_property">[docs]</a>    <span class="k">def</span> <span class="nf">get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_index</span><span class="p">(</span><span class="n">cached_ms</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="Sensor_Post_Price"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_Price">[docs]</a><span class="k">class</span> <span class="nc">Sensor_Post_Price</span><span class="p">(</span><span class="n">Sensor_Post</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Price&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
+        <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Price&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_async_get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">price</span></div>
+<div class="viewcode-block" id="Sensor_Post_Price.get_property"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_Price.get_property">[docs]</a>    <span class="k">def</span> <span class="nf">get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_price</span><span class="p">(</span><span class="n">cached_ms</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="Sensor_Post_IndexDay"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_IndexDay">[docs]</a><span class="k">class</span> <span class="nc">Sensor_Post_IndexDay</span><span class="p">(</span><span class="n">Sensor_Post</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">DEVICE_CLASS_ENERGY</span><span class="p">,</span> <span class="s2">&quot;IndexDay&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
+        <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="n">DEVICE_CLASS_ENERGY</span><span class="p">,</span> <span class="s2">&quot;IndexDay&quot;</span>
+        <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_async_get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">index_day</span></div>
+<div class="viewcode-block" id="Sensor_Post_IndexDay.get_property"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_IndexDay.get_property">[docs]</a>    <span class="k">def</span> <span class="nf">get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_index_day</span><span class="p">(</span><span class="n">cached_ms</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="Sensor_Post_PriceDay"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_PriceDay">[docs]</a><span class="k">class</span> <span class="nc">Sensor_Post_PriceDay</span><span class="p">(</span><span class="n">Sensor_Post</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;PriceDay&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
+        <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;PriceDay&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_async_get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">price_day</span></div>
+<div class="viewcode-block" id="Sensor_Post_PriceDay.get_property"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_PriceDay.get_property">[docs]</a>    <span class="k">def</span> <span class="nf">get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_price_day</span><span class="p">(</span><span class="n">cached_ms</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="Sensor_Post_Instant"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_Instant">[docs]</a><span class="k">class</span> <span class="nc">Sensor_Post_Instant</span><span class="p">(</span><span class="n">Sensor_Post</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">DEVICE_CLASS_POWER</span><span class="p">,</span> <span class="s2">&quot;Instant&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
+        <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="n">DEVICE_CLASS_POWER</span><span class="p">,</span> <span class="s2">&quot;Instant&quot;</span>
+        <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_async_get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">instant</span></div>
+<div class="viewcode-block" id="Sensor_Post_Instant.get_property"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_Instant.get_property">[docs]</a>    <span class="k">def</span> <span class="nf">get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_instant</span><span class="p">(</span><span class="n">cached_ms</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

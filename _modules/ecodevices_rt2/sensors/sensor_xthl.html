@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ecodevices_rt2.sensors.sensor_xthl &mdash; ecodevices_rt2 2.1.2 documentation</title>
+  <title>ecodevices_rt2.sensors.sensor_xthl &mdash; ecodevices_rt2 2.2.0 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.1.2
+                2.2.0
               </div>
             
           
@@ -173,6 +173,7 @@
 <span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="k">import</span> <span class="n">DEVICE_CLASS_ILLUMINANCE</span>
 <span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="k">import</span> <span class="n">DEVICE_CLASS_TEMPERATURE</span>
 <span class="kn">from</span> <span class="nn">homeassistant.helpers.entity</span> <span class="k">import</span> <span class="n">Entity</span>
+<span class="kn">from</span> <span class="nn">homeassistant.helpers.update_coordinator</span> <span class="k">import</span> <span class="n">DataUpdateCoordinator</span>
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="k">import</span> <span class="n">EcoDevicesRT2</span>
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="k">import</span> <span class="n">XTHL</span>
 
@@ -189,10 +190,11 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
+        <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
         <span class="n">device_class</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">suffix_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">suffix_name</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="n">suffix_name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="n">XTHL</span><span class="p">(</span><span class="n">ecort2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span> <span class="o">=</span> <span class="n">device_class</span>
         <span class="c1"># Allow overriding of temperature unit if specified in the conf</span>
@@ -205,27 +207,48 @@
 
 
 <div class="viewcode-block" id="Sensor_XTHL_Temp"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Temp">[docs]</a><span class="k">class</span> <span class="nc">Sensor_XTHL_Temp</span><span class="p">(</span><span class="n">Sensor_XTHL</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">DEVICE_CLASS_TEMPERATURE</span><span class="p">,</span> <span class="s2">&quot;Temperature&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
+        <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="n">DEVICE_CLASS_TEMPERATURE</span><span class="p">,</span> <span class="s2">&quot;Temperature&quot;</span>
+        <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_async_get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">temperature</span></div>
+<div class="viewcode-block" id="Sensor_XTHL_Temp.get_property"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Temp.get_property">[docs]</a>    <span class="k">def</span> <span class="nf">get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_temperature</span><span class="p">(</span><span class="n">cached_ms</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="Sensor_XTHL_Hum"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Hum">[docs]</a><span class="k">class</span> <span class="nc">Sensor_XTHL_Hum</span><span class="p">(</span><span class="n">Sensor_XTHL</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">DEVICE_CLASS_HUMIDITY</span><span class="p">,</span> <span class="s2">&quot;Humidity&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
+        <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="n">DEVICE_CLASS_HUMIDITY</span><span class="p">,</span> <span class="s2">&quot;Humidity&quot;</span>
+        <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_async_get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">humidity</span></div>
+<div class="viewcode-block" id="Sensor_XTHL_Hum.get_property"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Hum.get_property">[docs]</a>    <span class="k">def</span> <span class="nf">get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_humidity</span><span class="p">(</span><span class="n">cached_ms</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="Sensor_XTHL_Lum"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Lum">[docs]</a><span class="k">class</span> <span class="nc">Sensor_XTHL_Lum</span><span class="p">(</span><span class="n">Sensor_XTHL</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">DEVICE_CLASS_ILLUMINANCE</span><span class="p">,</span> <span class="s2">&quot;Luminance&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
+        <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="n">DEVICE_CLASS_ILLUMINANCE</span><span class="p">,</span> <span class="s2">&quot;Luminance&quot;</span>
+        <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_async_get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">luminosity</span></div>
+<div class="viewcode-block" id="Sensor_XTHL_Lum.get_property"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Lum.get_property">[docs]</a>    <span class="k">def</span> <span class="nf">get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_luminosity</span><span class="p">(</span><span class="n">cached_ms</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

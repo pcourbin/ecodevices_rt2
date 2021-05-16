@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Usage &mdash; ecodevices_rt2 2.1.2 documentation</title>
+  <title>Usage &mdash; ecodevices_rt2 2.2.0 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                2.1.2
+                2.2.0
               </div>
             
           
@@ -225,8 +225,8 @@
     <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;_ADDRESS_IP_&quot;</span>
     <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">_PORT_</span>                  <span class="c1"># Optional, default: 80</span>
     <span class="nt">api_key</span><span class="p">:</span> <span class="s">&quot;_API_KEY_&quot;</span>
-    <span class="nt">cached_interval_ms</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>      <span class="c1"># Optional, default: 1000 (milliseconds)</span>
-    <span class="nt">update_after_switch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>        <span class="c1"># Optional, default: 0 (seconds)</span>
+    <span class="nt">scan_interval</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">15</span>             <span class="c1"># Optional, default: 15 (seconds)</span>
+    <span class="nt">update_after_switch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.1</span>        <span class="c1"># Optional, default: 0 (seconds)</span>
     <span class="nt">devices</span><span class="p">:</span>
       <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Friendly Name Of Entity</span>
         <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;_TYPE_&quot;</span>
@@ -266,13 +266,17 @@
 <td><p>_API_KEY_ defined on your <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p></td>
 <td><p>Any text value</p></td>
 </tr>
-<tr class="row-even"><td><p><cite>update_after_switch</cite></p></td>
+<tr class="row-even"><td><p><cite>scan_interval</cite></p></td>
+<td><p><em>OPTIONAL</em> Time to wait between two updates</p></td>
+<td><p>Any value in second. Default: 15s</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>update_after_switch</cite></p></td>
 <td><p><em>OPTIONAL</em> Time to wait before update a switch/light/climate juste after a change</p></td>
-<td><p>Any value in second. Default: <cite>0</cite></p>
+<td><p>Any float value in second. Default: <cite>0</cite></p>
 <p><strong>ATTENTION</strong>, if the value is too low, you may have trouble with the API.</p>
 </td>
 </tr>
-<tr class="row-odd"><td><p><cite>devices</cite> (<strong>REQUIRED</strong>)</p></td>
+<tr class="row-even"><td><p><cite>devices</cite> (<strong>REQUIRED</strong>)</p></td>
 <td><p>List of device definition</p></td>
 <td><p>See next table</p></td>
 </tr>

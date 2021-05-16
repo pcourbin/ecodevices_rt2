@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ecodevices_rt2.binary_sensor &mdash; ecodevices_rt2 2.1.2 documentation</title>
+  <title>ecodevices_rt2.binary_sensor &mdash; ecodevices_rt2 2.2.0 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.1.2
+                2.2.0
               </div>
             
           
@@ -177,6 +177,7 @@
 <span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_DEVICES</span>
 <span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_TYPE</span>
 <span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONTROLLER</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">COORDINATOR</span>
 <span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">DOMAIN</span>
 <span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">TYPE_DIGITALLINPUT</span>
 
@@ -190,13 +191,14 @@
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Set up the GCE Ecodevices RT2 binary_sensors.&quot;&quot;&quot;</span>
     <span class="n">controller</span> <span class="o">=</span> <span class="n">hass</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">DOMAIN</span><span class="p">][</span><span class="n">entry</span><span class="o">.</span><span class="n">entry_id</span><span class="p">][</span><span class="n">CONTROLLER</span><span class="p">]</span>
+    <span class="n">coordinator</span> <span class="o">=</span> <span class="n">hass</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">DOMAIN</span><span class="p">][</span><span class="n">entry</span><span class="o">.</span><span class="n">entry_id</span><span class="p">][</span><span class="n">COORDINATOR</span><span class="p">]</span>
     <span class="n">devices</span> <span class="o">=</span> <span class="n">hass</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">DOMAIN</span><span class="p">][</span><span class="n">entry</span><span class="o">.</span><span class="n">entry_id</span><span class="p">][</span><span class="n">CONF_DEVICES</span><span class="p">][</span><span class="s2">&quot;binary_sensor&quot;</span><span class="p">]</span>
 
     <span class="n">entities</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">devices</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">device</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_TYPE</span><span class="p">)</span> <span class="o">==</span> <span class="n">TYPE_DIGITALLINPUT</span><span class="p">:</span>
-            <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">BinarySensor_DigitalInput</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">controller</span><span class="p">))</span>
+            <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">BinarySensor_DigitalInput</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">))</span>
 
     <span class="n">async_add_entities</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
 </pre></div>

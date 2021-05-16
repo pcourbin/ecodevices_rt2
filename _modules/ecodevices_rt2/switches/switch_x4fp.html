@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ecodevices_rt2.switches.switch_x4fp &mdash; ecodevices_rt2 2.1.2 documentation</title>
+  <title>ecodevices_rt2.switches.switch_x4fp &mdash; ecodevices_rt2 2.2.0 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.1.2
+                2.2.0
               </div>
             
           
@@ -168,6 +168,7 @@
             
   <h1>Source code for ecodevices_rt2.switches.switch_x4fp</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">homeassistant.helpers.entity</span> <span class="k">import</span> <span class="n">Entity</span>
+<span class="kn">from</span> <span class="nn">homeassistant.helpers.update_coordinator</span> <span class="k">import</span> <span class="n">DataUpdateCoordinator</span>
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="k">import</span> <span class="n">EcoDevicesRT2</span>
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="k">import</span> <span class="n">X4FP</span>
 
@@ -184,10 +185,11 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
+        <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
         <span class="n">module_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">zone_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_module_id</span> <span class="o">=</span> <span class="n">module_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_zone_id</span> <span class="o">=</span> <span class="n">zone_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="n">X4FP</span><span class="p">(</span><span class="n">ecort2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_module_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_zone_id</span><span class="p">)</span>
@@ -195,16 +197,16 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_icon</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_icon</span> <span class="o">=</span> <span class="n">DEFAULT_ICON_HEATER</span>
 
-    <span class="k">def</span> <span class="nf">_async_get_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_mode</span><span class="p">(</span><span class="n">cached_ms</span><span class="o">=</span><span class="n">cached_ms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+<div class="viewcode-block" id="Switch_X4FP.get_status"><a class="viewcode-back" href="../../../ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_x4fp.Switch_X4FP.get_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_mode</span><span class="p">(</span><span class="n">cached_ms</span><span class="o">=</span><span class="n">cached_ms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span></div>
 
-    <span class="k">def</span> <span class="nf">_async_set_on</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="Switch_X4FP.set_on"><a class="viewcode-back" href="../../../ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_x4fp.Switch_X4FP.set_on">[docs]</a>    <span class="k">def</span> <span class="nf">set_on</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">return</span> <span class="kc">True</span>
-
-    <span class="k">def</span> <span class="nf">_async_set_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="mi">3</span>
         <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Switch_X4FP.set_off"><a class="viewcode-back" href="../../../ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_x4fp.Switch_X4FP.set_off">[docs]</a>    <span class="k">def</span> <span class="nf">set_off</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="k">return</span> <span class="kc">True</span></div></div>
 </pre></div>
 
            </div>
