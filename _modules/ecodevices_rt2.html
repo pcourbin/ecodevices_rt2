@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ecodevices_rt2 &mdash; ecodevices_rt2 2.2.0 documentation</title>
+  <title>ecodevices_rt2 &mdash; ecodevices_rt2 2.2.1 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.2.0
+                2.2.1
               </div>
             
           
@@ -327,8 +327,8 @@
             <span class="n">immediate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">),</span>
     <span class="p">)</span>
-    <span class="k">await</span> <span class="n">coordinator</span><span class="o">.</span><span class="n">async_config_entry_first_refresh</span><span class="p">()</span>
-    <span class="c1"># await coordinator.async_refresh()</span>
+    <span class="c1"># await coordinator.async_config_entry_first_refresh()</span>
+    <span class="k">await</span> <span class="n">coordinator</span><span class="o">.</span><span class="n">async_refresh</span><span class="p">()</span>
 
     <span class="n">undo_listener</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">add_update_listener</span><span class="p">(</span><span class="n">_async_update_listener</span><span class="p">)</span>
 
