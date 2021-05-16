@@ -13,8 +13,8 @@ from .const import CONF_API_ON_GET
 from .const import CONF_API_ON_GET_VALUE
 from .const import CONF_DEVICES
 from .const import CONF_TYPE
-from .const import CONF_UPDATE_AFTER_SWITCH
 from .const import CONTROLLER
+from .const import COORDINATOR
 from .const import DOMAIN
 from .const import TYPE_API
 from .const import TYPE_ENOCEAN
@@ -35,21 +35,19 @@ async def async_setup_entry(
 ) -> None:
     """Set up the GCE Ecodevices RT2 lights."""
     controller = hass.data[DOMAIN][entry.entry_id][CONTROLLER]
+    coordinator = hass.data[DOMAIN][entry.entry_id][COORDINATOR]
     devices = hass.data[DOMAIN][entry.entry_id][CONF_DEVICES]["light"]
-
-    update_after_switch = entry.data[CONF_UPDATE_AFTER_SWITCH]
 
     entities = []
 
     for device in devices:
-        if CONF_UPDATE_AFTER_SWITCH not in device:
-            device[CONF_UPDATE_AFTER_SWITCH] = update_after_switch
 
         if device.get(CONF_TYPE) == TYPE_API:
             entities.append(
                 Light_API(
                     device,
                     controller,
+                    coordinator,
                     device.get(CONF_API_GET),
                     device.get(CONF_API_GET_VALUE),
                     device.get(CONF_API_GET_ENTRY),
@@ -60,10 +58,10 @@ async def async_setup_entry(
                 )
             )
         elif device.get(CONF_TYPE) == TYPE_ENOCEAN:
-            entities.append(Light_EnOcean(device, controller))
+            entities.append(Light_EnOcean(device, controller, coordinator))
         elif device.get(CONF_TYPE) == TYPE_RELAY:
-            entities.append(Light_Relay(device, controller))
+            entities.append(Light_Relay(device, controller, coordinator))
         elif device.get(CONF_TYPE) == TYPE_VIRTUALOUTPUT:
-            entities.append(Light_VirtualOutput(device, controller))
+            entities.append(Light_VirtualOutput(device, controller, coordinator))
 
     async_add_entities(entities, True)

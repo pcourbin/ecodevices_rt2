@@ -1,10 +1,10 @@
-import asyncio
+import inspect
 import logging
 
 from homeassistant.components.light import LightEntity
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import EcoDevicesRT2
 
-from ..const import CONF_UPDATE_AFTER_SWITCH
 from ..device_ecodevicesrt2 import EcoDevicesRT2Device
 
 _LOGGER = logging.getLogger(__name__)
@@ -15,94 +15,64 @@ class Light_EcoDevicesRT2(EcoDevicesRT2Device, LightEntity):
         self,
         device_config: dict,
         ecort2: EcoDevicesRT2,
+        coordinator: DataUpdateCoordinator,
         suffix_name: str = "",
     ):
-        super().__init__(device_config, ecort2, suffix_name)
+        super().__init__(device_config, ecort2, coordinator, suffix_name)
         self._available = True
         self._is_on = False
-        self._is_on_command = self._is_on
-        self._updated = True
-        self._update_after_switch = device_config[CONF_UPDATE_AFTER_SWITCH]
 
     @property
     def is_on(self) -> bool:
         """Return true if switch is on. Standby is on."""
+        try:
+            self._is_on = self.get_status()
+            self._available = True
+        except Exception as e:
+            _LOGGER.error(
+                "Device data no retrieve %s: %s (%s)",
+                self.name,
+                e,
+                inspect.iscoroutinefunction(object),
+            )
+            self._available = False
         return self._is_on
 
     @property
     def available(self):
         """Return true if switch is available."""
-        return self._available
+        return True
+        # return self._available
 
-    def turn_on(self, **kwargs) -> None:
+    async def async_turn_on(self, **kwargs):
         """Turn the switch on at next update."""
-        self._is_on_command = True
-        self._updated = False
-        self.schedule_update_ha_state()
-
-    def turn_off(self, **kwargs) -> None:
-        """Turn the switch off at next update."""
-        self._is_on_command = False
-        self._updated = False
-        self.schedule_update_ha_state()
-
-    async def async_toggle(self, **kwargs) -> None:
-        """Toggle the switch."""
-        self._is_on_command = not self._is_on_command
-        self._updated = False
-        self.schedule_update_ha_state()
-
-    def _async_get_status(self, cached_ms: int = None) -> bool:
-        pass
-
-    def _async_set_on(self) -> bool:
-        pass
-
-    def _async_set_off(self) -> bool:
-        pass
-
-    async def async_update(self):
-
         try:
-            self._is_on = await self.hass.async_add_executor_job(self._async_get_status)
-            self._available = True
+            if await self.hass.async_add_executor_job(self.set_on):
+                self._available = True
+                await self.coordinator.async_request_refresh()
+            else:
+                _LOGGER.warning("Error while turning on device %s", self._name)
         except Exception as e:
             _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
             self._available = False
 
-        if self._is_on_command != self._is_on:
-            if self._updated is False:
-                if self._is_on_command:
-                    try:
-                        if await self.hass.async_add_executor_job(self._async_set_on):
-                            self._available = True
-                            self._updated = True
-                            await asyncio.sleep(self._update_after_switch)
-                            self._is_on = await self.hass.async_add_executor_job(
-                                self._async_get_status, 0
-                            )
-                        else:
-                            _LOGGER.warning(
-                                "Error while turning on device %s", self._name
-                            )
-                    except Exception as e:
-                        _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
-                        self._available = False
-                else:
-                    try:
-                        if await self.hass.async_add_executor_job(self._async_set_off):
-                            self._available = True
-                            self._updated = True
-                            await asyncio.sleep(self._update_after_switch)
-                            self._is_on = await self.hass.async_add_executor_job(
-                                self._async_get_status, 0
-                            )
-                        else:
-                            _LOGGER.warning(
-                                "Error while turning off device %s", self._name
-                            )
-                    except Exception as e:
-                        _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
-                        self._available = False
+    async def async_turn_off(self, **kwargs):
+        """Turn the switch on at next update."""
+        try:
+            if await self.hass.async_add_executor_job(self.set_off):
+                self._available = True
+                await self.coordinator.async_request_refresh()
             else:
-                self._is_on_command = self._is_on
+                _LOGGER.warning("Error while turning on device %s", self._name)
+        except Exception as e:
+            _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
+            self._available = False
+
+    def get_status(self, cached_ms: int = None) -> bool:
+        pass
+
+    def set_on(self) -> bool:
+        pass
+
+    def set_off(self) -> bool:
+        pass

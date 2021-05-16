@@ -1,4 +1,5 @@
 from homeassistant.helpers.entity import Entity
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import EcoDevicesRT2
 from pyecodevices_rt2 import EnOceanSensor
 
@@ -12,9 +13,10 @@ class Sensor_EnOcean(Sensor_EcoDevicesRT2, Entity):
         self,
         device_config: dict,
         ecort2: EcoDevicesRT2,
+        coordinator: DataUpdateCoordinator,
     ):
-        super().__init__(device_config, ecort2)
+        super().__init__(device_config, ecort2, coordinator)
         self.control = EnOceanSensor(ecort2, self._id)
 
-    def _async_get_property(self):
-        return self.control.value
+    def get_property(self, cached_ms: int = None):
+        return self.control.get_value(cached_ms)

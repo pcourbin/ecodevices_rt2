@@ -1,6 +1,7 @@
 from homeassistant.const import DEVICE_CLASS_ENERGY
 from homeassistant.const import DEVICE_CLASS_POWER
 from homeassistant.helpers.entity import Entity
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import EcoDevicesRT2
 from pyecodevices_rt2 import Post
 
@@ -17,10 +18,11 @@ class Sensor_Post(Sensor_EcoDevicesRT2, Entity):
         self,
         device_config: dict,
         ecort2: EcoDevicesRT2,
+        coordinator: DataUpdateCoordinator,
         device_class: str,
         suffix_name: str,
     ):
-        super().__init__(device_config, ecort2, suffix_name)
+        super().__init__(device_config, ecort2, coordinator, suffix_name)
         if CONF_SUBPOST_ID in device_config:
             self.control = Post(ecort2, self._id, device_config[CONF_SUBPOST_ID])
         else:
@@ -41,40 +43,71 @@ class Sensor_Post(Sensor_EcoDevicesRT2, Entity):
 
 
 class Sensor_Post_Index(Sensor_Post):
-    def __init__(self, device_config: dict, ecort2: EcoDevicesRT2):
-        super().__init__(device_config, ecort2, DEVICE_CLASS_ENERGY, "Index")
+    def __init__(
+        self,
+        device_config: dict,
+        ecort2: EcoDevicesRT2,
+        coordinator: DataUpdateCoordinator,
+    ):
+        super().__init__(
+            device_config, ecort2, coordinator, DEVICE_CLASS_ENERGY, "Index"
+        )
 
-    def _async_get_property(self):
-        return self.control.index
+    def get_property(self, cached_ms: int = None):
+        return self.control.get_index(cached_ms)
 
 
 class Sensor_Post_Price(Sensor_Post):
-    def __init__(self, device_config: dict, ecort2: EcoDevicesRT2):
-        super().__init__(device_config, ecort2, None, "Price")
+    def __init__(
+        self,
+        device_config: dict,
+        ecort2: EcoDevicesRT2,
+        coordinator: DataUpdateCoordinator,
+    ):
+        super().__init__(device_config, ecort2, coordinator, None, "Price")
 
-    def _async_get_property(self):
-        return self.control.price
+    def get_property(self, cached_ms: int = None):
+        return self.control.get_price(cached_ms)
 
 
 class Sensor_Post_IndexDay(Sensor_Post):
-    def __init__(self, device_config: dict, ecort2: EcoDevicesRT2):
-        super().__init__(device_config, ecort2, DEVICE_CLASS_ENERGY, "IndexDay")
+    def __init__(
+        self,
+        device_config: dict,
+        ecort2: EcoDevicesRT2,
+        coordinator: DataUpdateCoordinator,
+    ):
+        super().__init__(
+            device_config, ecort2, coordinator, DEVICE_CLASS_ENERGY, "IndexDay"
+        )
 
-    def _async_get_property(self):
-        return self.control.index_day
+    def get_property(self, cached_ms: int = None):
+        return self.control.get_index_day(cached_ms)
 
 
 class Sensor_Post_PriceDay(Sensor_Post):
-    def __init__(self, device_config: dict, ecort2: EcoDevicesRT2):
-        super().__init__(device_config, ecort2, None, "PriceDay")
+    def __init__(
+        self,
+        device_config: dict,
+        ecort2: EcoDevicesRT2,
+        coordinator: DataUpdateCoordinator,
+    ):
+        super().__init__(device_config, ecort2, coordinator, None, "PriceDay")
 
-    def _async_get_property(self):
-        return self.control.price_day
+    def get_property(self, cached_ms: int = None):
+        return self.control.get_price_day(cached_ms)
 
 
 class Sensor_Post_Instant(Sensor_Post):
-    def __init__(self, device_config: dict, ecort2: EcoDevicesRT2):
-        super().__init__(device_config, ecort2, DEVICE_CLASS_POWER, "Instant")
+    def __init__(
+        self,
+        device_config: dict,
+        ecort2: EcoDevicesRT2,
+        coordinator: DataUpdateCoordinator,
+    ):
+        super().__init__(
+            device_config, ecort2, coordinator, DEVICE_CLASS_POWER, "Instant"
+        )
 
-    def _async_get_property(self):
-        return self.control.instant
+    def get_property(self, cached_ms: int = None):
+        return self.control.get_instant(cached_ms)

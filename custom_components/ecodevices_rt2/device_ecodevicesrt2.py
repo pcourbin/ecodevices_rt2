@@ -4,6 +4,8 @@ from homeassistant.const import CONF_DEVICE_CLASS
 from homeassistant.const import CONF_ICON
 from homeassistant.const import CONF_NAME
 from homeassistant.const import CONF_UNIT_OF_MEASUREMENT
+from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import EcoDevicesRT2
 
 from .const import CONF_COMPONENT
@@ -14,16 +16,19 @@ from .const import CONF_ZONE_ID
 from .const import DOMAIN
 
 
-class EcoDevicesRT2Device:
+class EcoDevicesRT2Device(CoordinatorEntity):
     """Representation of a GCE Ecodevices RT2 generic device entity."""
 
     def __init__(
         self,
         device_config: dict,
         ecort2: EcoDevicesRT2,
+        coordinator: DataUpdateCoordinator,
         suffix_name: str = "",
     ):
         """Initialize the device."""
+        super().__init__(coordinator)
+
         self.ecort2 = ecort2
 
         self._name = device_config.get(CONF_NAME)

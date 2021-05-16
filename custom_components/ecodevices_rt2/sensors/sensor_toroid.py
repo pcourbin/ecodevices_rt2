@@ -1,5 +1,6 @@
 from homeassistant.const import DEVICE_CLASS_ENERGY
 from homeassistant.helpers.entity import Entity
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import EcoDevicesRT2
 from pyecodevices_rt2 import Toroid
 
@@ -15,10 +16,11 @@ class Sensor_Toroid(Sensor_EcoDevicesRT2, Entity):
         self,
         device_config: dict,
         ecort2: EcoDevicesRT2,
+        coordinator: DataUpdateCoordinator,
         device_class: str,
         suffix_name: str,
     ):
-        super().__init__(device_config, ecort2, suffix_name)
+        super().__init__(device_config, ecort2, coordinator, suffix_name)
         self.control = Toroid(ecort2, self._id)
         self._device_class = device_class
 
@@ -34,48 +36,84 @@ class Sensor_Toroid(Sensor_EcoDevicesRT2, Entity):
 
 
 class Sensor_Toroid_ConsumptionIndex(Sensor_Toroid):
-    def __init__(self, device_config: dict, ecort2: EcoDevicesRT2):
-        super().__init__(device_config, ecort2, DEVICE_CLASS_ENERGY, "ConsumptionIndex")
+    def __init__(
+        self,
+        device_config: dict,
+        ecort2: EcoDevicesRT2,
+        coordinator: DataUpdateCoordinator,
+    ):
+        super().__init__(
+            device_config, ecort2, coordinator, DEVICE_CLASS_ENERGY, "ConsumptionIndex"
+        )
 
-    def _async_get_property(self):
-        return self.control.consumption
+    def get_property(self, cached_ms: int = None):
+        return self.control.get_consumption(cached_ms)
 
 
 class Sensor_Toroid_ProductionIndex(Sensor_Toroid):
-    def __init__(self, device_config: dict, ecort2: EcoDevicesRT2):
-        super().__init__(device_config, ecort2, DEVICE_CLASS_ENERGY, "ProductionIndex")
+    def __init__(
+        self,
+        device_config: dict,
+        ecort2: EcoDevicesRT2,
+        coordinator: DataUpdateCoordinator,
+    ):
+        super().__init__(
+            device_config, ecort2, coordinator, DEVICE_CLASS_ENERGY, "ProductionIndex"
+        )
 
-    def _async_get_property(self):
-        return self.control.production
+    def get_property(self, cached_ms: int = None):
+        return self.control.get_production(cached_ms)
 
 
 class Sensor_Toroid_ConsumptionPrice(Sensor_Toroid):
-    def __init__(self, device_config: dict, ecort2: EcoDevicesRT2):
-        super().__init__(device_config, ecort2, None, "ConsumptionPrice")
+    def __init__(
+        self,
+        device_config: dict,
+        ecort2: EcoDevicesRT2,
+        coordinator: DataUpdateCoordinator,
+    ):
+        super().__init__(device_config, ecort2, coordinator, None, "ConsumptionPrice")
 
-    def _async_get_property(self):
-        return self.control.consumption_price
+    def get_property(self, cached_ms: int = None):
+        return self.control.get_consumption_price(cached_ms)
 
 
 class Sensor_Toroid_ProductionPrice(Sensor_Toroid):
-    def __init__(self, device_config: dict, ecort2: EcoDevicesRT2):
-        super().__init__(device_config, ecort2, None, "ProductionPrice")
+    def __init__(
+        self,
+        device_config: dict,
+        ecort2: EcoDevicesRT2,
+        coordinator: DataUpdateCoordinator,
+    ):
+        super().__init__(device_config, ecort2, coordinator, None, "ProductionPrice")
 
-    def _async_get_property(self):
-        return self.control.production_price
+    def get_property(self, cached_ms: int = None):
+        return self.control.get_production_price(cached_ms)
 
 
 class Sensor_Toroid_Index(Sensor_Toroid):
-    def __init__(self, device_config: dict, ecort2: EcoDevicesRT2):
-        super().__init__(device_config, ecort2, DEVICE_CLASS_ENERGY, "Index")
+    def __init__(
+        self,
+        device_config: dict,
+        ecort2: EcoDevicesRT2,
+        coordinator: DataUpdateCoordinator,
+    ):
+        super().__init__(
+            device_config, ecort2, coordinator, DEVICE_CLASS_ENERGY, "Index"
+        )
 
-    def _async_get_property(self):
-        return self.control.value
+    def get_property(self, cached_ms: int = None):
+        return self.control.get_value(cached_ms)
 
 
 class Sensor_Toroid_Price(Sensor_Toroid):
-    def __init__(self, device_config: dict, ecort2: EcoDevicesRT2):
-        super().__init__(device_config, ecort2, None, "Price")
+    def __init__(
+        self,
+        device_config: dict,
+        ecort2: EcoDevicesRT2,
+        coordinator: DataUpdateCoordinator,
+    ):
+        super().__init__(device_config, ecort2, coordinator, None, "Price")
 
-    def _async_get_property(self):
-        return self.control.price
+    def get_property(self, cached_ms: int = None):
+        return self.control.get_price(cached_ms)

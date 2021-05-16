@@ -8,6 +8,7 @@ from .binarysensors import BinarySensor_DigitalInput
 from .const import CONF_DEVICES
 from .const import CONF_TYPE
 from .const import CONTROLLER
+from .const import COORDINATOR
 from .const import DOMAIN
 from .const import TYPE_DIGITALLINPUT
 
@@ -21,12 +22,13 @@ async def async_setup_entry(
 ) -> None:
     """Set up the GCE Ecodevices RT2 binary_sensors."""
     controller = hass.data[DOMAIN][entry.entry_id][CONTROLLER]
+    coordinator = hass.data[DOMAIN][entry.entry_id][COORDINATOR]
     devices = hass.data[DOMAIN][entry.entry_id][CONF_DEVICES]["binary_sensor"]
 
     entities = []
 
     for device in devices:
         if device.get(CONF_TYPE) == TYPE_DIGITALLINPUT:
-            entities.append(BinarySensor_DigitalInput(device, controller))
+            entities.append(BinarySensor_DigitalInput(device, controller, coordinator))
 
     async_add_entities(entities, True)

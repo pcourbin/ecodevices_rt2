@@ -1,4 +1,4 @@
-import asyncio
+import inspect
 import logging
 
 from homeassistant.components.climate import ClimateEntity
@@ -10,11 +10,11 @@ from homeassistant.components.climate.const import PRESET_ECO
 from homeassistant.components.climate.const import PRESET_NONE
 from homeassistant.components.climate.const import SUPPORT_PRESET_MODE
 from homeassistant.const import TEMP_CELSIUS
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import EcoDevicesRT2
 from pyecodevices_rt2 import X4FP
 from pyecodevices_rt2.exceptions import EcoDevicesRT2RequestError
 
-from ..const import CONF_UPDATE_AFTER_SWITCH
 from ..const import PRESET_COMFORT_1
 from ..const import PRESET_COMFORT_2
 from ..device_ecodevicesrt2 import EcoDevicesRT2Device
@@ -54,22 +54,23 @@ class Climate_X4FP(EcoDevicesRT2Device, ClimateEntity):
         self,
         device_config: dict,
         ecort2: EcoDevicesRT2,
+        coordinator: DataUpdateCoordinator,
         module_id: int,
         zone_id: int,
         suffix_name: str = "",
     ):
-        super().__init__(device_config, ecort2, suffix_name)
+        super().__init__(device_config, ecort2, coordinator, suffix_name)
         self._module_id = module_id
         self._zone_id = zone_id
         self._available = True
         self.control = X4FP(ecort2, self._module_id, self._zone_id)
         self._device_class = "climate__x4fp"
-        self._update_after_switch = device_config[CONF_UPDATE_AFTER_SWITCH]
+        self._fp_state = 0
 
-    def _async_get_mode(self, cached_ms: int = None):
+    def get_mode(self, cached_ms: int = None):
         return self.control.get_mode(cached_ms=cached_ms)
 
-    def _async_set_mode(self, mode: int):
+    def set_mode(self, mode: int):
         self.control.mode = mode
 
     @property
@@ -113,12 +114,32 @@ class Climate_X4FP(EcoDevicesRT2Device, ClimateEntity):
         """
         return PRESET_LIST
 
+    @property
+    def preset_mode(self):
+        """Return the current preset mode, e.g., home, away, temp.
+
+        Requires SUPPORT_PRESET_MODE.
+        """
+        try:
+            self._fp_state = self.get_mode()
+            self._available = True
+        except Exception as e:
+            _LOGGER.error(
+                "Device data no retrieve %s: %s (%s)",
+                self.name,
+                e,
+                inspect.iscoroutinefunction(object),
+            )
+            self._available = False
+        return self.RT2_TO_HA_STATE.get(self._fp_state)
+
     async def async_set_hvac_mode(self, hvac_mode):
         """Set new hvac mode."""
         if hvac_mode == HVAC_MODE_OFF:
             await self.async_turn_off()
         elif hvac_mode == HVAC_MODE_HEAT:
             await self.async_turn_on()
+        await self.coordinator.async_request_refresh()
 
     async def async_turn_on(self):
         """Turn device on."""
@@ -128,43 +149,11 @@ class Climate_X4FP(EcoDevicesRT2Device, ClimateEntity):
         """Turn device off."""
         await self.async_set_preset_mode(PRESET_NONE)
 
-    async def async_update_heater(self, force_update=False):
-        """Get the latest state from the thermostat."""
-        try:
-            if force_update is True:
-                await asyncio.sleep(self._update_after_switch)
-                self._fp_state = await self.hass.async_add_executor_job(
-                    self._async_get_mode, 0
-                )
-            else:
-                self._fp_state = await self.hass.async_add_executor_job(
-                    self._async_get_mode
-                )
-
-            if self._fp_state:
-                self._available = True
-        except Exception as e:
-            _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
-            self._available = False
-
-    # @Throttle(SCAN_INTERVAL)
-    async def async_update(self):
-        """Update device."""
-        await self.async_update_heater()
-
-    @property
-    def preset_mode(self):
-        """Return the current preset mode, e.g., home, away, temp.
-
-        Requires SUPPORT_PRESET_MODE.
-        """
-        return self.RT2_TO_HA_STATE.get(self._fp_state)
-
     async def async_set_preset_mode(self, preset_mode):
         """Set new preset mode."""
         try:
             await self.hass.async_add_executor_job(
-                self._async_set_mode, self.HA_TO_RT2_STATE.get(preset_mode)
+                self.set_mode, self.HA_TO_RT2_STATE.get(preset_mode)
             )
             self._available = True
         except EcoDevicesRT2RequestError as e:
@@ -178,4 +167,4 @@ class Climate_X4FP(EcoDevicesRT2Device, ClimateEntity):
             _LOGGER.error("Device data no retrieve %s: %s", self.name, e)
             self._available = False
 
-        await self.async_update_heater(True)
+        await self.coordinator.async_request_refresh()

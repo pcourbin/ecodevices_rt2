@@ -2,12 +2,12 @@
 DOMAIN = "ecodevices_rt2"
 
 CONTROLLER = "controller"
+COORDINATOR = "coordinator"
 CONFIG = "config"
 
 UNDO_UPDATE_LISTENER = "undo_update_listener"
-DEFAULT_CACHED_INTERVAL_MS = 1000
-CONF_CACHED_INTERVAL_MS = "cached_interval_ms"
-DEFAULT_UPDATE_AFTER_SWITCH = 0
+DEFAULT_SCAN_INTERVAL = 15
+DEFAULT_UPDATE_AFTER_SWITCH = 0.1
 CONF_UPDATE_AFTER_SWITCH = "update_after_switch"
 
 DEFAULT_ICON_SWITCH = "mdi:toggle-switch"

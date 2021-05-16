@@ -1,5 +1,6 @@
 """Support for the GCE Ecodevices RT2."""
 import logging
+from datetime import timedelta
 
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
@@ -11,11 +12,15 @@ from homeassistant.const import CONF_HOST
 from homeassistant.const import CONF_ICON
 from homeassistant.const import CONF_NAME
 from homeassistant.const import CONF_PORT
+from homeassistant.const import CONF_SCAN_INTERVAL
 from homeassistant.const import CONF_UNIT_OF_MEASUREMENT
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers import device_registry as dr
+from homeassistant.helpers.debounce import Debouncer
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.helpers.typing import HomeAssistantType
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from homeassistant.helpers.update_coordinator import UpdateFailed
 from pyecodevices_rt2 import EcoDevicesRT2
 from pyecodevices_rt2.exceptions import EcoDevicesRT2ConnectError
 
@@ -26,7 +31,6 @@ from .const import CONF_API_OFF_GET
 from .const import CONF_API_OFF_GET_VALUE
 from .const import CONF_API_ON_GET
 from .const import CONF_API_ON_GET_VALUE
-from .const import CONF_CACHED_INTERVAL_MS
 from .const import CONF_COMPONENT
 from .const import CONF_COMPONENT_ALLOWED
 from .const import CONF_DEVICES
@@ -38,7 +42,8 @@ from .const import CONF_TYPE_COMPONENT_ALLOWED
 from .const import CONF_UPDATE_AFTER_SWITCH
 from .const import CONF_ZONE_ID
 from .const import CONTROLLER
-from .const import DEFAULT_CACHED_INTERVAL_MS
+from .const import COORDINATOR
+from .const import DEFAULT_SCAN_INTERVAL
 from .const import DEFAULT_UPDATE_AFTER_SWITCH
 from .const import DOMAIN
 from .const import UNDO_UPDATE_LISTENER
@@ -64,7 +69,6 @@ DEVICE_CONFIG_SCHEMA_ENTRY = vol.Schema(
         vol.Optional(CONF_ICON): cv.icon,
         vol.Optional(CONF_DEVICE_CLASS): cv.string,
         vol.Optional(CONF_UNIT_OF_MEASUREMENT): cv.string,
-        vol.Optional(CONF_UPDATE_AFTER_SWITCH): cv.positive_int,
     }
 )
 
@@ -73,16 +77,16 @@ GATEWAY_CONFIG = vol.Schema(
         vol.Required(CONF_NAME): cv.string,
         vol.Required(CONF_HOST): cv.string,
         vol.Optional(CONF_PORT, default=80): cv.port,
-        vol.Optional(
-            CONF_CACHED_INTERVAL_MS, default=DEFAULT_CACHED_INTERVAL_MS
-        ): cv.positive_int,
         vol.Required(CONF_API_KEY): cv.string,
+        vol.Optional(
+            CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL
+        ): cv.positive_int,
         vol.Optional(CONF_DEVICES, default=[]): vol.All(
             cv.ensure_list, [DEVICE_CONFIG_SCHEMA_ENTRY]
         ),
         vol.Optional(
             CONF_UPDATE_AFTER_SWITCH, default=DEFAULT_UPDATE_AFTER_SWITCH
-        ): cv.positive_int,
+        ): cv.positive_float,
     },
     extra=vol.ALLOW_EXTRA,
 )
@@ -116,7 +120,7 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
         host=entry.data[CONF_HOST],
         port=entry.data[CONF_PORT],
         apikey=entry.data[CONF_API_KEY],
-        cached_ms=entry.data[CONF_CACHED_INTERVAL_MS],
+        cached_ms=entry.data[CONF_SCAN_INTERVAL] * 1000 * 2,
     )
 
     try:
@@ -129,11 +133,42 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
         )
         raise ConfigEntryNotReady from exception
 
+    async def async_update_data():
+        """Fetch cached data from API."""
+        try:
+            return await hass.async_add_executor_job(ecort2.get_all_cached)
+        except EcoDevicesRT2ConnectError as exception:
+            raise UpdateFailed("Authentication error on Ecodevices RT2") from exception
+
+    scan_interval = int(entry.data.get(CONF_SCAN_INTERVAL))
+
+    if scan_interval < DEFAULT_SCAN_INTERVAL:
+        _LOGGER.warning(
+            "A scan interval too low has been set, you probably will get errors since the GCE Ecodevices RT2 can't handle too much request at the same time"
+        )
+
+    coordinator = DataUpdateCoordinator(
+        hass,
+        _LOGGER,
+        name=DOMAIN,
+        update_method=async_update_data,
+        update_interval=timedelta(seconds=scan_interval),
+        request_refresh_debouncer=Debouncer(
+            hass,
+            _LOGGER,
+            cooldown=entry.data.get(CONF_UPDATE_AFTER_SWITCH),
+            immediate=False,
+        ),
+    )
+    await coordinator.async_config_entry_first_refresh()
+    # await coordinator.async_refresh()
+
     undo_listener = entry.add_update_listener(_async_update_listener)
 
     hass.data[DOMAIN][entry.entry_id] = {
         CONF_NAME: entry.data[CONF_NAME],
         CONTROLLER: ecort2,
+        COORDINATOR: coordinator,
         CONF_DEVICES: {},
         UNDO_UPDATE_LISTENER: undo_listener,
     }
