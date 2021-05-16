@@ -160,8 +160,8 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
             immediate=False,
         ),
     )
-    await coordinator.async_config_entry_first_refresh()
-    # await coordinator.async_refresh()
+    # await coordinator.async_config_entry_first_refresh()
+    await coordinator.async_refresh()
 
     undo_listener = entry.add_update_listener(_async_update_listener)
 
