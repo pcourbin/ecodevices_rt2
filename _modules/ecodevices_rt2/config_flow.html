@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ecodevices_rt2.config_flow &mdash; ecodevices_rt2 2.2.2 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/table.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> ecodevices_rt2
+          </a>
+              <div class="version">
+                2.2.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">GCE Ecodevices RT2 component for Home Assistant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">ecodevices_rt2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ecodevices_rt2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+          <li><a href="../ecodevices_rt2.html">ecodevices_rt2</a> &raquo;</li>
+      <li>ecodevices_rt2.config_flow</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for ecodevices_rt2.config_flow</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Config flow to configure the GCE Ecodevices RT2 integration.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">voluptuous</span> <span class="k">as</span> <span class="nn">vol</span>
+<span class="kn">from</span> <span class="nn">homeassistant</span> <span class="k">import</span> <span class="n">config_entries</span>
+<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="k">import</span> <span class="n">CONF_NAME</span>
+
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">DOMAIN</span>
+
+
+<div class="viewcode-block" id="IpxConfigFlow"><a class="viewcode-back" href="../../ecodevices_rt2.html#ecodevices_rt2.config_flow.IpxConfigFlow">[docs]</a><span class="nd">@config_entries</span><span class="o">.</span><span class="n">HANDLERS</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">DOMAIN</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">IpxConfigFlow</span><span class="p">(</span><span class="n">config_entries</span><span class="o">.</span><span class="n">ConfigFlow</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">DOMAIN</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Handle a GCE Ecodevices RT2 config flow.&quot;&quot;&quot;</span>
+
+    <span class="n">VERSION</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">CONNECTION_CLASS</span> <span class="o">=</span> <span class="n">config_entries</span><span class="o">.</span><span class="n">CONN_CLASS_LOCAL_POLL</span>
+
+<div class="viewcode-block" id="IpxConfigFlow.async_step_import"><a class="viewcode-back" href="../../ecodevices_rt2.html#ecodevices_rt2.config_flow.IpxConfigFlow.async_step_import">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_step_import</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">import_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Import a config entry from YAML config.&quot;&quot;&quot;</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_set_unique_id</span><span class="p">(</span>
+            <span class="n">f</span><span class="s2">&quot;</span><span class="si">{DOMAIN}</span><span class="s2">, {import_info.get(CONF_NAME)}&quot;</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">entry</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hass</span><span class="o">.</span><span class="n">config_entries</span><span class="o">.</span><span class="n">async_update_entry</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">import_info</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_abort_if_unique_id_configured</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_create_entry</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="n">import_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_NAME</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">import_info</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="IpxConfigFlow.async_step_user"><a class="viewcode-back" href="../../ecodevices_rt2.html#ecodevices_rt2.config_flow.IpxConfigFlow.async_step_user">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_step_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_input</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get configuration from the user.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">user_input</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_show_form</span><span class="p">(</span>
+                <span class="n">step_id</span><span class="o">=</span><span class="s2">&quot;user&quot;</span><span class="p">,</span>
+                <span class="n">data_schema</span><span class="o">=</span><span class="n">vol</span><span class="o">.</span><span class="n">Schema</span><span class="p">({}),</span>
+                <span class="n">errors</span><span class="o">=</span><span class="p">{},</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_abort</span><span class="p">(</span><span class="n">reason</span><span class="o">=</span><span class="s2">&quot;yaml_only&quot;</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Pierre COURBIN.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

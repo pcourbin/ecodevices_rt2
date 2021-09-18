@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ecodevices_rt2.light &mdash; ecodevices_rt2 2.2.2 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/table.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> ecodevices_rt2
+          </a>
+              <div class="version">
+                2.2.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">GCE Ecodevices RT2 component for Home Assistant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">ecodevices_rt2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ecodevices_rt2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+          <li><a href="../ecodevices_rt2.html">ecodevices_rt2</a> &raquo;</li>
+      <li>ecodevices_rt2.light</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for ecodevices_rt2.light</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Support for the GCE Ecodevices RT2 controller.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">homeassistant.config_entries</span> <span class="k">import</span> <span class="n">ConfigEntry</span>
+<span class="kn">from</span> <span class="nn">homeassistant.core</span> <span class="k">import</span> <span class="n">HomeAssistant</span>
+
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_GET</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_GET_ENTRY</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_GET_VALUE</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_OFF_GET</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_OFF_GET_VALUE</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_ON_GET</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_ON_GET_VALUE</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_DEVICES</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_TYPE</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONTROLLER</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">COORDINATOR</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">DOMAIN</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">TYPE_API</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">TYPE_ENOCEAN</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">TYPE_RELAY</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">TYPE_VIRTUALOUTPUT</span>
+<span class="kn">from</span> <span class="nn">.lights</span> <span class="k">import</span> <span class="n">Light_API</span>
+<span class="kn">from</span> <span class="nn">.lights</span> <span class="k">import</span> <span class="n">Light_EnOcean</span>
+<span class="kn">from</span> <span class="nn">.lights</span> <span class="k">import</span> <span class="n">Light_Relay</span>
+<span class="kn">from</span> <span class="nn">.lights</span> <span class="k">import</span> <span class="n">Light_VirtualOutput</span>
+
+<span class="n">_LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="async_setup_entry"><a class="viewcode-back" href="../../ecodevices_rt2.html#ecodevices_rt2.light.async_setup_entry">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">async_setup_entry</span><span class="p">(</span>
+    <span class="n">hass</span><span class="p">:</span> <span class="n">HomeAssistant</span><span class="p">,</span>
+    <span class="n">entry</span><span class="p">:</span> <span class="n">ConfigEntry</span><span class="p">,</span>
+    <span class="n">async_add_entities</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Set up the GCE Ecodevices RT2 lights.&quot;&quot;&quot;</span>
+    <span class="n">controller</span> <span class="o">=</span> <span class="n">hass</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">DOMAIN</span><span class="p">][</span><span class="n">entry</span><span class="o">.</span><span class="n">entry_id</span><span class="p">][</span><span class="n">CONTROLLER</span><span class="p">]</span>
+    <span class="n">coordinator</span> <span class="o">=</span> <span class="n">hass</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">DOMAIN</span><span class="p">][</span><span class="n">entry</span><span class="o">.</span><span class="n">entry_id</span><span class="p">][</span><span class="n">COORDINATOR</span><span class="p">]</span>
+    <span class="n">devices</span> <span class="o">=</span> <span class="n">hass</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">DOMAIN</span><span class="p">][</span><span class="n">entry</span><span class="o">.</span><span class="n">entry_id</span><span class="p">][</span><span class="n">CONF_DEVICES</span><span class="p">][</span><span class="s2">&quot;light&quot;</span><span class="p">]</span>
+
+    <span class="n">entities</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">devices</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">device</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_TYPE</span><span class="p">)</span> <span class="o">==</span> <span class="n">TYPE_API</span><span class="p">:</span>
+            <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">Light_API</span><span class="p">(</span>
+                    <span class="n">device</span><span class="p">,</span>
+                    <span class="n">controller</span><span class="p">,</span>
+                    <span class="n">coordinator</span><span class="p">,</span>
+                    <span class="n">device</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_API_GET</span><span class="p">),</span>
+                    <span class="n">device</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_API_GET_VALUE</span><span class="p">),</span>
+                    <span class="n">device</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_API_GET_ENTRY</span><span class="p">),</span>
+                    <span class="n">device</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_API_ON_GET</span><span class="p">),</span>
+                    <span class="n">device</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_API_ON_GET_VALUE</span><span class="p">),</span>
+                    <span class="n">device</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_API_OFF_GET</span><span class="p">),</span>
+                    <span class="n">device</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_API_OFF_GET_VALUE</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">device</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_TYPE</span><span class="p">)</span> <span class="o">==</span> <span class="n">TYPE_ENOCEAN</span><span class="p">:</span>
+            <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Light_EnOcean</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">device</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_TYPE</span><span class="p">)</span> <span class="o">==</span> <span class="n">TYPE_RELAY</span><span class="p">:</span>
+            <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Light_Relay</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">device</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_TYPE</span><span class="p">)</span> <span class="o">==</span> <span class="n">TYPE_VIRTUALOUTPUT</span><span class="p">:</span>
+            <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Light_VirtualOutput</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">))</span>
+
+    <span class="n">async_add_entities</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Pierre COURBIN.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
