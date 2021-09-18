@@ -10,7 +10,7 @@ from .const import CONF_TYPE
 from .const import CONTROLLER
 from .const import COORDINATOR
 from .const import DOMAIN
-from .const import TYPE_DIGITALLINPUT
+from .const import TYPE_DIGITALINPUT
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -28,7 +28,7 @@ async def async_setup_entry(
     entities = []
 
     for device in devices:
-        if device.get(CONF_TYPE) == TYPE_DIGITALLINPUT:
+        if device.get(CONF_TYPE) == TYPE_DIGITALINPUT:
             entities.append(BinarySensor_DigitalInput(device, controller, coordinator))
 
     async_add_entities(entities, True)

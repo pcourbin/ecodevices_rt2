@@ -39,7 +39,7 @@ CONF_MODULE_ID = "module"
 
 TYPE_API = "api"
 TYPE_COUNTER = "counter"
-TYPE_DIGITALLINPUT = "digitalinput"
+TYPE_DIGITALINPUT = "digitalinput"
 TYPE_ENOCEAN = "enocean"
 TYPE_POST = "post"
 TYPE_RELAY = "relay"
@@ -88,7 +88,7 @@ CONF_TYPE_COMPONENT_ALLOWED = {
             "sensor": [CONF_ID],
         },
     },
-    TYPE_DIGITALLINPUT: {
+    TYPE_DIGITALINPUT: {
         "default": "binary_sensor",
         "parameters": {
             "binary_sensor": [CONF_ID],
