@@ -2,7 +2,7 @@
 History
 =======
 
-2.2.1 (beta) (2021-09-18)
+2.2.2 (beta) (2021-09-18)
 -------------------------
 
 * Do not consider `0` for index and price sensors

@@ -4,7 +4,6 @@ from datetime import timedelta
 
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
-from homeassistant.components.sensor import CONF_STATE_CLASS
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.config_entries import SOURCE_IMPORT
 from homeassistant.const import CONF_API_KEY
@@ -48,6 +47,9 @@ from .const import DEFAULT_SCAN_INTERVAL
 from .const import DEFAULT_UPDATE_AFTER_SWITCH
 from .const import DOMAIN
 from .const import UNDO_UPDATE_LISTENER
+
+# from homeassistant.components.sensor import CONF_STATE_CLASS
+CONF_STATE_CLASS = "state_class"
 
 _LOGGER = logging.getLogger(__name__)
 
