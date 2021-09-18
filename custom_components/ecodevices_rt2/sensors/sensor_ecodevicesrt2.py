@@ -1,6 +1,7 @@
 import logging
 
-from homeassistant.helpers.entity import Entity
+from homeassistant.components.sensor import CONF_STATE_CLASS
+from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import EcoDevicesRT2
 
@@ -9,7 +10,7 @@ from ..device_ecodevicesrt2 import EcoDevicesRT2Device
 _LOGGER = logging.getLogger(__name__)
 
 
-class Sensor_EcoDevicesRT2(EcoDevicesRT2Device, Entity):
+class Sensor_EcoDevicesRT2(EcoDevicesRT2Device, SensorEntity):
     def __init__(
         self,
         device_config: dict,
@@ -19,6 +20,7 @@ class Sensor_EcoDevicesRT2(EcoDevicesRT2Device, Entity):
     ):
         super().__init__(device_config, ecort2, coordinator, suffix_name)
         self._state = None
+        self._state_class = device_config.get(CONF_STATE_CLASS)
 
     @property
     def state(self) -> str:
@@ -33,3 +35,8 @@ class Sensor_EcoDevicesRT2(EcoDevicesRT2Device, Entity):
 
     def get_property(self, cached_ms: int = None) -> bool:
         pass
+
+    @property
+    def state_class(self) -> str:
+        """Return the state class."""
+        return self._state_class

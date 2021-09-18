@@ -1,11 +1,10 @@
-from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import EcoDevicesRT2
 
 from . import Sensor_EcoDevicesRT2
 
 
-class Sensor_API(Sensor_EcoDevicesRT2, Entity):
+class Sensor_API(Sensor_EcoDevicesRT2):
     """Representation of an EnOcean sensor."""
 
     def __init__(
@@ -21,6 +20,7 @@ class Sensor_API(Sensor_EcoDevicesRT2, Entity):
         self._get = get
         self._get_value = get_value
         self._get_entry = get_entry
+
         # Add Call to cached value in ecort2
         ecort2._cached[self._get + "=" + self._get_value] = {}
 

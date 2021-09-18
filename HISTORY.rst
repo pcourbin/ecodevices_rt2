@@ -2,6 +2,12 @@
 History
 =======
 
+2.2.1 (beta) (2021-09-18)
+-------------------------
+
+* Do not consider `0` for index and price sensors
+* Add state classes for energy sensors to be able to use sensors in Energy Management in Home Assistant
+
 2.2.0 (beta) (2021-05-16)
 -------------------------
 

@@ -1,6 +1,8 @@
+from homeassistant.components.sensor import STATE_CLASS_MEASUREMENT
+from homeassistant.components.sensor import STATE_CLASS_TOTAL_INCREASING
 from homeassistant.const import DEVICE_CLASS_ENERGY
+from homeassistant.const import DEVICE_CLASS_MONETARY
 from homeassistant.const import DEVICE_CLASS_POWER
-from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import EcoDevicesRT2
 from pyecodevices_rt2 import Post
@@ -11,7 +13,7 @@ from ..const import DEFAULT_ICON_CURRENCY
 from ..const import DEFAULT_ICON_ENERGY
 
 
-class Sensor_Post(Sensor_EcoDevicesRT2, Entity):
+class Sensor_Post(Sensor_EcoDevicesRT2):
     """Representation of an Post_Sensor."""
 
     def __init__(
@@ -29,17 +31,20 @@ class Sensor_Post(Sensor_EcoDevicesRT2, Entity):
             self.control = Post(ecort2, self._id)
         self._device_class = device_class
         # Allow overriding of currency unit and icon if specified in the conf
-        if device_class is None:
+        if device_class == DEVICE_CLASS_MONETARY:
             if not self._unit_of_measurement:
                 self._unit_of_measurement = "€"
             if not self._icon:
                 self._icon = DEFAULT_ICON_CURRENCY
+            self._state_class = STATE_CLASS_TOTAL_INCREASING
         elif device_class == DEVICE_CLASS_ENERGY:
             self._unit_of_measurement = "kWh"
             self._icon = DEFAULT_ICON_ENERGY
+            self._state_class = STATE_CLASS_TOTAL_INCREASING
         elif device_class == DEVICE_CLASS_POWER:
             self._unit_of_measurement = "kW"
             self._icon = DEFAULT_ICON_ENERGY
+            self._state_class = STATE_CLASS_MEASUREMENT
 
 
 class Sensor_Post_Index(Sensor_Post):
@@ -54,7 +59,9 @@ class Sensor_Post_Index(Sensor_Post):
         )
 
     def get_property(self, cached_ms: int = None):
-        return self.control.get_index(cached_ms)
+        value = self.control.get_index(cached_ms)
+        if float(value) > 0:
+            return value
 
 
 class Sensor_Post_Price(Sensor_Post):
@@ -64,10 +71,14 @@ class Sensor_Post_Price(Sensor_Post):
         ecort2: EcoDevicesRT2,
         coordinator: DataUpdateCoordinator,
     ):
-        super().__init__(device_config, ecort2, coordinator, None, "Price")
+        super().__init__(
+            device_config, ecort2, coordinator, DEVICE_CLASS_MONETARY, "Price"
+        )
 
     def get_property(self, cached_ms: int = None):
-        return self.control.get_price(cached_ms)
+        value = self.control.get_price(cached_ms)
+        if float(value) > 0:
+            return value
 
 
 class Sensor_Post_IndexDay(Sensor_Post):
@@ -82,7 +93,9 @@ class Sensor_Post_IndexDay(Sensor_Post):
         )
 
     def get_property(self, cached_ms: int = None):
-        return self.control.get_index_day(cached_ms)
+        value = self.control.get_index_day(cached_ms)
+        if float(value) > 0:
+            return value
 
 
 class Sensor_Post_PriceDay(Sensor_Post):
@@ -95,7 +108,9 @@ class Sensor_Post_PriceDay(Sensor_Post):
         super().__init__(device_config, ecort2, coordinator, None, "PriceDay")
 
     def get_property(self, cached_ms: int = None):
-        return self.control.get_price_day(cached_ms)
+        value = self.control.get_price_day(cached_ms)
+        if float(value) > 0:
+            return value
 
 
 class Sensor_Post_Instant(Sensor_Post):
@@ -110,4 +125,6 @@ class Sensor_Post_Instant(Sensor_Post):
         )
 
     def get_property(self, cached_ms: int = None):
-        return self.control.get_instant(cached_ms)
+        value = self.control.get_instant(cached_ms)
+        if float(value) > 0:
+            return value

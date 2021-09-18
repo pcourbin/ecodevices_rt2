@@ -1,9 +1,9 @@
 import logging
 
+from homeassistant.components.sensor import STATE_CLASS_MEASUREMENT
 from homeassistant.const import DEVICE_CLASS_HUMIDITY
 from homeassistant.const import DEVICE_CLASS_ILLUMINANCE
 from homeassistant.const import DEVICE_CLASS_TEMPERATURE
-from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import EcoDevicesRT2
 from pyecodevices_rt2 import XTHL
@@ -14,7 +14,7 @@ from . import Sensor_EcoDevicesRT2
 _LOGGER = logging.getLogger(__name__)
 
 
-class Sensor_XTHL(Sensor_EcoDevicesRT2, Entity):
+class Sensor_XTHL(Sensor_EcoDevicesRT2):
     """Representation of a X-THL sensor."""
 
     def __init__(
@@ -28,6 +28,7 @@ class Sensor_XTHL(Sensor_EcoDevicesRT2, Entity):
         super().__init__(device_config, ecort2, coordinator, suffix_name)
         self.control = XTHL(ecort2, self._id)
         self._device_class = device_class
+        self._state_class = STATE_CLASS_MEASUREMENT
         # Allow overriding of temperature unit if specified in the conf
         if device_class == DEVICE_CLASS_TEMPERATURE and not self._unit_of_measurement:
             self._unit_of_measurement = "°C"

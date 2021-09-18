@@ -4,6 +4,7 @@ from datetime import timedelta
 
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
+from homeassistant.components.sensor import CONF_STATE_CLASS
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.config_entries import SOURCE_IMPORT
 from homeassistant.const import CONF_API_KEY
@@ -68,6 +69,7 @@ DEVICE_CONFIG_SCHEMA_ENTRY = vol.Schema(
         vol.Optional(CONF_API_OFF_GET_VALUE): cv.string,
         vol.Optional(CONF_ICON): cv.icon,
         vol.Optional(CONF_DEVICE_CLASS): cv.string,
+        vol.Optional(CONF_STATE_CLASS): cv.string,
         vol.Optional(CONF_UNIT_OF_MEASUREMENT): cv.string,
     }
 )

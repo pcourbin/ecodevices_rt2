@@ -1,4 +1,3 @@
-from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import EcoDevicesRT2
 from pyecodevices_rt2 import EnOceanSensor
@@ -6,7 +5,7 @@ from pyecodevices_rt2 import EnOceanSensor
 from . import Sensor_EcoDevicesRT2
 
 
-class Sensor_EnOcean(Sensor_EcoDevicesRT2, Entity):
+class Sensor_EnOcean(Sensor_EcoDevicesRT2):
     """Representation of an EnOcean sensor."""
 
     def __init__(

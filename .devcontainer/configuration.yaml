@@ -20,11 +20,11 @@ ecodevices_rt2:
         type: "api"
         component: "sensor"
         api_get: "Index"
-        api_get_value: "all"
+        api_get_value: "All"
         api_get_entry: "Index_TI1"
-        device_class: "power"
+        device_class: "energy"
         unit_of_measurement: "kWh"
-        icon: "mdi:flash"
+        state_class: "total_increasing"
       - name: EnOcean Switch 1 (from API)
         type: "api"
         component: "switch"
@@ -52,6 +52,7 @@ ecodevices_rt2:
         id: 1
         unit_of_measurement: "°C"
         icon: mdi:thermometer
+        device_class: "temperature"
       - name: EnOcean Switch 1
         type: "enocean"
         component: "switch"

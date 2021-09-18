@@ -1,5 +1,6 @@
+from homeassistant.components.sensor import STATE_CLASS_TOTAL_INCREASING
 from homeassistant.const import DEVICE_CLASS_ENERGY
-from homeassistant.helpers.entity import Entity
+from homeassistant.const import DEVICE_CLASS_MONETARY
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import Counter
 from pyecodevices_rt2 import EcoDevicesRT2
@@ -9,7 +10,7 @@ from ..const import DEFAULT_ICON_CURRENCY
 from ..const import DEFAULT_ICON_ENERGY
 
 
-class Sensor_Counter(Sensor_EcoDevicesRT2, Entity):
+class Sensor_Counter(Sensor_EcoDevicesRT2):
     """Representation of an Counter_Sensor sensor."""
 
     def __init__(
@@ -24,14 +25,16 @@ class Sensor_Counter(Sensor_EcoDevicesRT2, Entity):
         self.control = Counter(ecort2, self._id)
         self._device_class = device_class
         # Allow overriding of currency unit and icon if specified in the conf
-        if device_class is None:
+        if device_class == DEVICE_CLASS_MONETARY:
             if not self._unit_of_measurement:
                 self._unit_of_measurement = "€"
             if not self._icon:
                 self._icon = DEFAULT_ICON_CURRENCY
+            self._state_class = STATE_CLASS_TOTAL_INCREASING
         elif device_class == DEVICE_CLASS_ENERGY:
             self._unit_of_measurement = "kWh"
             self._icon = DEFAULT_ICON_ENERGY
+            self._state_class = STATE_CLASS_TOTAL_INCREASING
 
 
 class Sensor_Counter_Index(Sensor_Counter):
@@ -46,7 +49,9 @@ class Sensor_Counter_Index(Sensor_Counter):
         )
 
     def get_property(self, cached_ms: int = None):
-        return self.control.get_value(cached_ms)
+        value = self.control.get_value(cached_ms)
+        if float(value) > 0:
+            return value
 
 
 class Sensor_Counter_Price(Sensor_Counter):
@@ -56,7 +61,11 @@ class Sensor_Counter_Price(Sensor_Counter):
         ecort2: EcoDevicesRT2,
         coordinator: DataUpdateCoordinator,
     ):
-        super().__init__(device_config, ecort2, coordinator, None, "Price")
+        super().__init__(
+            device_config, ecort2, coordinator, DEVICE_CLASS_MONETARY, "Price"
+        )
 
     def get_property(self, cached_ms: int = None):
-        return self.control.get_price(cached_ms)
+        value = self.control.get_price(cached_ms)
+        if float(value) > 0:
+            return value

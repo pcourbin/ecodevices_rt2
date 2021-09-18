@@ -66,8 +66,9 @@ Full Example
         api_get: "Index"
         api_get_value: "All"
         api_get_entry: "Index_TI1"
-        device_class: "power"
+        device_class: "energy"
         unit_of_measurement: "kWh"
+        state_class: "total_increasing"
         icon: "mdi:flash"
       - name: EnOcean Switch 1 (from API)
         type: "api"
@@ -95,6 +96,7 @@ Full Example
         type: "enocean"           # Using default component `sensor`
         id: 1
         unit_of_measurement: "°C"
+        device_class: "temperature"
         icon: mdi:thermometer
       - name: EnOcean Switch 1
         type: "enocean"
