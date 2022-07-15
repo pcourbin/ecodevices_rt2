@@ -9,5 +9,7 @@
   },
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
-  "restructuredtext.confPath": "${workspaceFolder}/docs"
+  "restructuredtext.confPath": "${workspaceFolder}/docs",
+  "esbonio.server.enabled": true,
+  "esbonio.sphinx.confDir": "${workspaceFolder}/docs"
 }

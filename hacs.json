@@ -1,5 +1,3 @@
 {
-  "name": "Ecodevices RT2",
-  "domains": ["sensor", "switch", "climate", "light", "binary_sensor"],
-  "iot_class": ["Local Polling"]
+  "name": "Ecodevices RT2"
 }
