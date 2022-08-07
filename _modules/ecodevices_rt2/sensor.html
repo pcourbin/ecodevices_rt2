@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ecodevices_rt2.sensor &mdash; ecodevices_rt2 2.2.3 documentation</title>
+  <title>ecodevices_rt2.sensor &mdash; ecodevices_rt2 2.2.4 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/table.css" type="text/css" />
@@ -29,7 +29,7 @@
             <a href="../../index.html" class="icon icon-home"> ecodevices_rt2
           </a>
               <div class="version">
-                2.2.3
+                2.2.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -87,7 +87,6 @@
 <span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_GET_ENTRY</span>
 <span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_GET_VALUE</span>
 <span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_DEVICES</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_ID</span>
 <span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_TYPE</span>
 <span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONTROLLER</span>
 <span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">COORDINATOR</span>
@@ -110,12 +109,8 @@
 <span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_Post_PriceDay</span>
 <span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_SupplierIndex_Index</span>
 <span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_SupplierIndex_Price</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_Toroid_ConsumptionIndex</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_Toroid_ConsumptionPrice</span>
 <span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_Toroid_Index</span>
 <span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_Toroid_Price</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_Toroid_ProductionIndex</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_Toroid_ProductionPrice</span>
 <span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_XTHL_Hum</span>
 <span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_XTHL_Lum</span>
 <span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_XTHL_Temp</span>
@@ -162,22 +157,8 @@
             <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sensor_SupplierIndex_Index</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">))</span>
             <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sensor_SupplierIndex_Price</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">device</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_TYPE</span><span class="p">)</span> <span class="o">==</span> <span class="n">TYPE_TOROID</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">device</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_ID</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">4</span><span class="p">:</span>
-                <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">Sensor_Toroid_ConsumptionIndex</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">)</span>
-                <span class="p">)</span>
-                <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">Sensor_Toroid_ProductionIndex</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">)</span>
-                <span class="p">)</span>
-                <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">Sensor_Toroid_ConsumptionPrice</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">)</span>
-                <span class="p">)</span>
-                <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">Sensor_Toroid_ProductionPrice</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">)</span>
-                <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sensor_Toroid_Index</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">))</span>
-                <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sensor_Toroid_Price</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">))</span>
+            <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sensor_Toroid_Index</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">))</span>
+            <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sensor_Toroid_Price</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">device</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_TYPE</span><span class="p">)</span> <span class="o">==</span> <span class="n">TYPE_XTHL</span><span class="p">:</span>
             <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sensor_XTHL_Temp</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">))</span>
             <span class="n">entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Sensor_XTHL_Hum</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">))</span>
