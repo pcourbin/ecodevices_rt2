@@ -5,7 +5,7 @@ from . import Sensor_EcoDevicesRT2
 
 
 class Sensor_API(Sensor_EcoDevicesRT2):
-    """Representation of an EnOcean sensor."""
+    """Representation of an API sensor."""
 
     def __init__(
         self,

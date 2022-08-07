@@ -42,7 +42,7 @@ class Sensor_Post(Sensor_EcoDevicesRT2):
             self._icon = DEFAULT_ICON_ENERGY
             self._state_class = STATE_CLASS_TOTAL_INCREASING
         elif device_class == DEVICE_CLASS_POWER:
-            self._unit_of_measurement = "kW"
+            self._unit_of_measurement = "W"
             self._icon = DEFAULT_ICON_ENERGY
             self._state_class = STATE_CLASS_MEASUREMENT
 
@@ -60,7 +60,7 @@ class Sensor_Post_Index(Sensor_Post):
 
     def get_property(self, cached_ms: int = None):
         value = self.control.get_index(cached_ms)
-        if float(value) > 0:
+        if value is not None and float(value) > 0:
             return value
 
 
@@ -77,7 +77,7 @@ class Sensor_Post_Price(Sensor_Post):
 
     def get_property(self, cached_ms: int = None):
         value = self.control.get_price(cached_ms)
-        if float(value) > 0:
+        if value is not None and float(value) > 0:
             return value
 
 
@@ -94,7 +94,7 @@ class Sensor_Post_IndexDay(Sensor_Post):
 
     def get_property(self, cached_ms: int = None):
         value = self.control.get_index_day(cached_ms)
-        if float(value) > 0:
+        if value is not None and float(value) > 0:
             return value
 
 
@@ -105,11 +105,13 @@ class Sensor_Post_PriceDay(Sensor_Post):
         ecort2: EcoDevicesRT2,
         coordinator: DataUpdateCoordinator,
     ):
-        super().__init__(device_config, ecort2, coordinator, None, "PriceDay")
+        super().__init__(
+            device_config, ecort2, coordinator, DEVICE_CLASS_MONETARY, "PriceDay"
+        )
 
     def get_property(self, cached_ms: int = None):
         value = self.control.get_price_day(cached_ms)
-        if float(value) > 0:
+        if value is not None and float(value) > 0:
             return value
 
 
@@ -126,5 +128,5 @@ class Sensor_Post_Instant(Sensor_Post):
 
     def get_property(self, cached_ms: int = None):
         value = self.control.get_instant(cached_ms)
-        if float(value) > 0:
+        if value is not None and float(value) > 0:
             return value

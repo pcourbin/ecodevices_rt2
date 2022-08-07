@@ -8,7 +8,7 @@
   ],
   "config_flow": true,
   "requirements": [
-    "pyecodevices-rt2==1.2.2"
+    "pyecodevices-rt2==1.3.2"
   ],
   "dependencies": [
     "dhcp"

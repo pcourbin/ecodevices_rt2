@@ -23,7 +23,7 @@ ecodevices_rt2:
         api_get_value: "All"
         api_get_entry: "Index_TI1"
         device_class: "energy"
-        unit_of_measurement: "kWh"
+        unit_of_measurement: "Wh"
         state_class: "total_increasing"
       - name: EnOcean Switch 1 (from API)
         type: "api"
@@ -86,7 +86,7 @@ ecodevices_rt2:
         id: 1
 
       #### Toroid Example
-      - name: Toroid 1 # 4 sensors: 2 Consumption + 2 Production
+      - name: Toroid 1 # 2 sensors
         type: "toroid"
         id: 1
       - name: Toroid 5 # 2 sensors

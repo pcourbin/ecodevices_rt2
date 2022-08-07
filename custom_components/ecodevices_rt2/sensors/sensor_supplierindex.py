@@ -33,7 +33,7 @@ class Sensor_SupplierIndex(Sensor_EcoDevicesRT2):
                 self._icon = DEFAULT_ICON_CURRENCY
             self._state_class = STATE_CLASS_TOTAL_INCREASING
         elif device_class == DEVICE_CLASS_ENERGY:
-            self._unit_of_measurement = "kWh"
+            self._unit_of_measurement = "Wh"
             self._icon = DEFAULT_ICON_ENERGY
             self._state_class = STATE_CLASS_TOTAL_INCREASING
 
@@ -51,7 +51,7 @@ class Sensor_SupplierIndex_Index(Sensor_SupplierIndex):
 
     def get_property(self, cached_ms: int = None):
         value = self.control.get_value(cached_ms)
-        if float(value) > 0:
+        if value is not None and float(value) > 0:
             return value
 
 
@@ -68,5 +68,5 @@ class Sensor_SupplierIndex_Price(Sensor_SupplierIndex):
 
     def get_property(self, cached_ms: int = None):
         value = self.control.get_price(cached_ms)
-        if float(value) > 0:
+        if value is not None and float(value) > 0:
             return value

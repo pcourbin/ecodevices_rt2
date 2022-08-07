@@ -121,9 +121,16 @@ Default definition of platform in your configuration file:
      - `sensor`
      - `sensor`
 
+Remember you can edit some parameters of your sensors according to `Home Assistant Customizing`_, e.g. changing the unit on specific sensor in file `customize.yaml`:
+
+.. code-block:: yaml
+    sensor.index_chauffe_eau_consumptionindex:
+      unit_of_measurement: Wh
+
 .. _`Home Assistant device_class`: https://www.home-assistant.io/integrations/sensor/#device-class
 .. _`Home Assistant icons`: https://www.home-assistant.io/docs/configuration/customizing-devices/#icon
 .. _`Home Assistant unit_of_measurement`: https://www.home-assistant.io/docs/configuration/customizing-devices/#unit_of_measurement
+.. _`Home Assistant Customizing`: https://www.home-assistant.io/docs/configuration/customizing-devices/#unit_of_measurement
 
 .. _`GCE Ecodevices RT2`: http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html
 

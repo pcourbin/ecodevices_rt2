@@ -112,7 +112,6 @@ async def async_setup(hass: HomeAssistantType, config: ConfigType) -> bool:
                     DOMAIN, context={"source": SOURCE_IMPORT}, data=gateway
                 )
             )
-
     return True
 
 
@@ -124,7 +123,7 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
         host=entry.data[CONF_HOST],
         port=entry.data[CONF_PORT],
         apikey=entry.data[CONF_API_KEY],
-        cached_ms=entry.data[CONF_SCAN_INTERVAL] * 1000 * 2,
+        cached_ms=entry.data[CONF_SCAN_INTERVAL] * 1000 * 10,
     )
 
     try:
@@ -136,6 +135,8 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
             entry.data[CONF_NAME],
         )
         raise ConfigEntryNotReady from exception
+    else:
+        ecort2._cached_ms = -1
 
     async def async_update_data():
         """Fetch cached data from API."""
@@ -165,6 +166,7 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
         ),
     )
     # await coordinator.async_config_entry_first_refresh()
+    # await coordinator._async_update_data()
     await coordinator.async_refresh()
 
     undo_listener = entry.add_update_listener(_async_update_listener)
@@ -178,7 +180,7 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
     }
 
     # Create the GCE Ecodevices RT2 device
-    device_registry = await dr.async_get_registry(hass)
+    device_registry = dr.async_get(hass)
     device_registry.async_get_or_create(
         config_entry_id=entry.entry_id,
         identifiers={(DOMAIN, ecort2.host)},

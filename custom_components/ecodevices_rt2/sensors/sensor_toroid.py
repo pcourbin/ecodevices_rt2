@@ -33,81 +33,9 @@ class Sensor_Toroid(Sensor_EcoDevicesRT2):
                 self._icon = DEFAULT_ICON_CURRENCY
             self._state_class = STATE_CLASS_TOTAL_INCREASING
         elif device_class == DEVICE_CLASS_ENERGY:
-            self._unit_of_measurement = "kWh"
+            self._unit_of_measurement = "Wh"
             self._icon = DEFAULT_ICON_ENERGY
             self._state_class = STATE_CLASS_TOTAL_INCREASING
-
-
-class Sensor_Toroid_ConsumptionIndex(Sensor_Toroid):
-    def __init__(
-        self,
-        device_config: dict,
-        ecort2: EcoDevicesRT2,
-        coordinator: DataUpdateCoordinator,
-    ):
-        super().__init__(
-            device_config, ecort2, coordinator, DEVICE_CLASS_ENERGY, "ConsumptionIndex"
-        )
-
-    def get_property(self, cached_ms: int = None):
-        value = self.control.get_consumption(cached_ms)
-        if float(value) > 0:
-            return value
-
-
-class Sensor_Toroid_ProductionIndex(Sensor_Toroid):
-    def __init__(
-        self,
-        device_config: dict,
-        ecort2: EcoDevicesRT2,
-        coordinator: DataUpdateCoordinator,
-    ):
-        super().__init__(
-            device_config, ecort2, coordinator, DEVICE_CLASS_ENERGY, "ProductionIndex"
-        )
-
-    def get_property(self, cached_ms: int = None):
-        value = self.control.get_production(cached_ms)
-        if float(value) > 0:
-            return value
-
-
-class Sensor_Toroid_ConsumptionPrice(Sensor_Toroid):
-    def __init__(
-        self,
-        device_config: dict,
-        ecort2: EcoDevicesRT2,
-        coordinator: DataUpdateCoordinator,
-    ):
-        super().__init__(
-            device_config,
-            ecort2,
-            coordinator,
-            DEVICE_CLASS_MONETARY,
-            "ConsumptionPrice",
-        )
-
-    def get_property(self, cached_ms: int = None):
-        value = self.control.get_consumption_price(cached_ms)
-        if float(value) > 0:
-            return value
-
-
-class Sensor_Toroid_ProductionPrice(Sensor_Toroid):
-    def __init__(
-        self,
-        device_config: dict,
-        ecort2: EcoDevicesRT2,
-        coordinator: DataUpdateCoordinator,
-    ):
-        super().__init__(
-            device_config, ecort2, coordinator, DEVICE_CLASS_MONETARY, "ProductionPrice"
-        )
-
-    def get_property(self, cached_ms: int = None):
-        value = self.control.get_production_price(cached_ms)
-        if float(value) > 0:
-            return value
 
 
 class Sensor_Toroid_Index(Sensor_Toroid):
@@ -123,7 +51,7 @@ class Sensor_Toroid_Index(Sensor_Toroid):
 
     def get_property(self, cached_ms: int = None):
         value = self.control.get_value(cached_ms)
-        if float(value) > 0:
+        if value is not None and float(value) > 0:
             return value
 
 
@@ -140,5 +68,5 @@ class Sensor_Toroid_Price(Sensor_Toroid):
 
     def get_property(self, cached_ms: int = None):
         value = self.control.get_price(cached_ms)
-        if float(value) > 0:
+        if value is not None and float(value) > 0:
             return value
