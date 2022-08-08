@@ -2,6 +2,11 @@
 History
 =======
 
+2.2.6 (2022-08-08)
+-------------------------
+
+* Add 'allow_zero' parameters for sensors. Default is True.
+
 2.2.5 (2022-08-08)
 -------------------------
 
