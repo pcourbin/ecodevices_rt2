@@ -11,10 +11,6 @@
     "ryanluker.vscode-coverage-gutters",
     "ms-python.vscode-pylance"
   ],
-  "mounts": [
-    "source=${localWorkspaceFolder}/.devcontainer,target=/config,type=bind,consistency=cached",
-    "source=${localWorkspaceFolder}/custom_components,target=/config/custom_components,type=bind,consistency=cached"
-  ],
   "settings": {
     "files.eol": "\n",
     "editor.tabSize": 4,

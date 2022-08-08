@@ -2,6 +2,18 @@
 History
 =======
 
+2.2.5 (2022-08-08)
+-------------------------
+
+* Update version of pyecodevices_rt2, force not to use cache when changing a switch value
+* :warning: Toroids are all the same in the new version of the EcoRT2 API: no more "consumption/production" for toroids 1-4.
+
+2.2.4 (2022-08-07)
+-------------------------
+
+* Update API using new version EcoRT2 3.00.02
+* Reduce errors at startup, wait DataUpdateCoordinator
+
 2.2.2 (beta) (2021-09-18)
 -------------------------
 
