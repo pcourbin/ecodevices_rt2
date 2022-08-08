@@ -86,6 +86,7 @@
 
 <span class="c1"># from homeassistant.components.sensor import CONF_STATE_CLASS</span>
 <span class="n">CONF_STATE_CLASS</span> <span class="o">=</span> <span class="s2">&quot;state_class&quot;</span>
+<span class="kn">from</span> <span class="nn">..const</span> <span class="k">import</span> <span class="n">CONF_ALLOW_ZERO</span>
 
 <span class="n">_LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -99,6 +100,7 @@
         <span class="n">suffix_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="n">suffix_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_allow_zero</span> <span class="o">=</span> <span class="n">device_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_ALLOW_ZERO</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_state_class</span> <span class="o">=</span> <span class="n">device_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_STATE_CLASS</span><span class="p">)</span>
 

@@ -112,6 +112,7 @@
 <span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_COMPONENT_ALLOWED</span>
 <span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_DEVICES</span>
 <span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_ID</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_ALLOW_ZERO</span>
 <span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_MODULE_ID</span>
 <span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_SUBPOST_ID</span>
 <span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_TYPE</span>
@@ -136,6 +137,7 @@
         <span class="n">vol</span><span class="o">.</span><span class="n">Required</span><span class="p">(</span><span class="n">CONF_TYPE</span><span class="p">):</span> <span class="n">cv</span><span class="o">.</span><span class="n">string</span><span class="p">,</span>
         <span class="n">vol</span><span class="o">.</span><span class="n">Optional</span><span class="p">(</span><span class="n">CONF_COMPONENT</span><span class="p">):</span> <span class="n">cv</span><span class="o">.</span><span class="n">string</span><span class="p">,</span>
         <span class="n">vol</span><span class="o">.</span><span class="n">Optional</span><span class="p">(</span><span class="n">CONF_ID</span><span class="p">):</span> <span class="n">cv</span><span class="o">.</span><span class="n">positive_int</span><span class="p">,</span>
+        <span class="n">vol</span><span class="o">.</span><span class="n">Optional</span><span class="p">(</span><span class="n">CONF_ALLOW_ZERO</span><span class="p">):</span> <span class="n">cv</span><span class="o">.</span><span class="n">boolean</span><span class="p">,</span>
         <span class="n">vol</span><span class="o">.</span><span class="n">Optional</span><span class="p">(</span><span class="n">CONF_ZONE_ID</span><span class="p">):</span> <span class="n">cv</span><span class="o">.</span><span class="n">positive_int</span><span class="p">,</span>
         <span class="n">vol</span><span class="o">.</span><span class="n">Optional</span><span class="p">(</span><span class="n">CONF_SUBPOST_ID</span><span class="p">):</span> <span class="n">cv</span><span class="o">.</span><span class="n">positive_int</span><span class="p">,</span>
         <span class="n">vol</span><span class="o">.</span><span class="n">Optional</span><span class="p">(</span><span class="n">CONF_MODULE_ID</span><span class="p">):</span> <span class="n">cv</span><span class="o">.</span><span class="n">positive_int</span><span class="p">,</span>

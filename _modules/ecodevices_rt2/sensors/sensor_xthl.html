@@ -124,11 +124,17 @@
         <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="n">DEVICE_CLASS_TEMPERATURE</span><span class="p">,</span> <span class="s2">&quot;Temperature&quot;</span>
+            <span class="n">device_config</span><span class="p">,</span>
+            <span class="n">ecort2</span><span class="p">,</span>
+            <span class="n">coordinator</span><span class="p">,</span>
+            <span class="n">DEVICE_CLASS_TEMPERATURE</span><span class="p">,</span>
+            <span class="s2">&quot;Temperature&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
 <div class="viewcode-block" id="Sensor_XTHL_Temp.get_property"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Temp.get_property">[docs]</a>    <span class="k">def</span> <span class="nf">get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_temperature</span><span class="p">(</span><span class="n">cached_ms</span><span class="p">)</span></div></div>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_temperature</span><span class="p">(</span><span class="n">cached_ms</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_allow_zero</span> <span class="ow">or</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">value</span></div></div>
 
 
 <div class="viewcode-block" id="Sensor_XTHL_Hum"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Hum">[docs]</a><span class="k">class</span> <span class="nc">Sensor_XTHL_Hum</span><span class="p">(</span><span class="n">Sensor_XTHL</span><span class="p">):</span>
@@ -139,11 +145,17 @@
         <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="n">DEVICE_CLASS_HUMIDITY</span><span class="p">,</span> <span class="s2">&quot;Humidity&quot;</span>
+            <span class="n">device_config</span><span class="p">,</span>
+            <span class="n">ecort2</span><span class="p">,</span>
+            <span class="n">coordinator</span><span class="p">,</span>
+            <span class="n">DEVICE_CLASS_HUMIDITY</span><span class="p">,</span>
+            <span class="s2">&quot;Humidity&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
 <div class="viewcode-block" id="Sensor_XTHL_Hum.get_property"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Hum.get_property">[docs]</a>    <span class="k">def</span> <span class="nf">get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_humidity</span><span class="p">(</span><span class="n">cached_ms</span><span class="p">)</span></div></div>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_humidity</span><span class="p">(</span><span class="n">cached_ms</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_allow_zero</span> <span class="ow">or</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">value</span></div></div>
 
 
 <div class="viewcode-block" id="Sensor_XTHL_Lum"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Lum">[docs]</a><span class="k">class</span> <span class="nc">Sensor_XTHL_Lum</span><span class="p">(</span><span class="n">Sensor_XTHL</span><span class="p">):</span>
@@ -154,11 +166,17 @@
         <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="n">DEVICE_CLASS_ILLUMINANCE</span><span class="p">,</span> <span class="s2">&quot;Luminance&quot;</span>
+            <span class="n">device_config</span><span class="p">,</span>
+            <span class="n">ecort2</span><span class="p">,</span>
+            <span class="n">coordinator</span><span class="p">,</span>
+            <span class="n">DEVICE_CLASS_ILLUMINANCE</span><span class="p">,</span>
+            <span class="s2">&quot;Luminance&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
 <div class="viewcode-block" id="Sensor_XTHL_Lum.get_property"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Lum.get_property">[docs]</a>    <span class="k">def</span> <span class="nf">get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_luminosity</span><span class="p">(</span><span class="n">cached_ms</span><span class="p">)</span></div></div>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_luminosity</span><span class="p">(</span><span class="n">cached_ms</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_allow_zero</span> <span class="ow">or</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">value</span></div></div>
 </pre></div>
 
            </div>

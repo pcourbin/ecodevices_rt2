@@ -229,6 +229,10 @@
 <td><p>Unit of mesurement (<a class="reference external" href="https://www.home-assistant.io/docs/configuration/customizing-devices/#unit_of_measurement">Home Assistant unit_of_measurement</a>)</p></td>
 <td><p>Any text value, some example: <cite>W</cite>, <cite>°C</cite>, <cite>kWh</cite>, <cite>lx</cite>, etc.</p></td>
 </tr>
+<tr class="row-even"><td><p><cite>allow_zero</cite></p></td>
+<td><p>Only for sensors. If <cite>False</cite>, zero values are not returned and sensor appears as “Not available”. Default is <cite>True</cite>.</p></td>
+<td><p>Boolean value (<cite>True</cite> / <cite>False</cite>).</p></td>
+</tr>
 </tbody>
 </table>
 <table class="colwidths-given docutils align-default" id="id14">
@@ -292,6 +296,10 @@
 </tbody>
 </table>
 <p>Remember you can edit some parameters of your sensors according to <a class="reference external" href="https://www.home-assistant.io/docs/configuration/customizing-devices/#unit_of_measurement">Home Assistant Customizing</a>, e.g. changing the unit on specific sensor in file <cite>customize.yaml</cite>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor.index_chauffe_eau_consumptionindex</span><span class="p">:</span>
+  <span class="nt">unit_of_measurement</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Wh</span>
+</pre></div>
+</div>
 </section>
 <section id="advanced-api-usage">
 <h2>Advanced/API usage<a class="headerlink" href="#advanced-api-usage" title="Permalink to this heading"></a></h2>
@@ -316,6 +324,7 @@
 <li><p><cite>api_get</cite>: <strong>REQUIRED</strong>.</p></li>
 <li><p><cite>api_get_value</cite>: <strong>REQUIRED</strong></p></li>
 <li><p><cite>api_get_entry</cite>: <strong>REQUIRED</strong></p></li>
+<li><p><cite>allow_zero</cite>: <em>OPTIONAL</em> True/False</p></li>
 </ul>
 </td>
 </tr>
@@ -397,6 +406,7 @@
 </td>
 <td><ul class="simple">
 <li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the counter (between 1 and 12)</p></li>
+<li><p><cite>allow_zero</cite>: <em>OPTIONAL</em> True/False</p></li>
 </ul>
 </td>
 </tr>
@@ -412,6 +422,7 @@
       <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Counter 1</span>
         <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;counter&quot;</span>
         <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+        <span class="nt">allow_zero</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">False</span>
 </pre></div>
 </div>
 </section>
@@ -437,6 +448,7 @@
 <td><p>Create a <cite>binary_sensor</cite> which represents  a <cite>digitalinput</cite> connected to the <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p></td>
 <td><ul class="simple">
 <li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the digitalinput (between 1 and 12)</p></li>
+<li><p><cite>allow_zero</cite>: <em>OPTIONAL</em> True/False</p></li>
 </ul>
 </td>
 </tr>
@@ -477,6 +489,7 @@
 <td><p>Create a <cite>sensor</cite> which represents a <cite>enocean</cite> <strong>analog sensor</strong> connected to the <a class="reference external" href="http://gce-electronics.com/fr/home/1345-suivi-consommation-ecodevices-rt2-3760309690049.html">GCE Ecodevices RT2</a></p></td>
 <td><ul class="simple">
 <li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the enocean sensor (between 1 and 24)</p></li>
+<li><p><cite>allow_zero</cite>: <em>OPTIONAL</em> True/False</p></li>
 </ul>
 </td>
 </tr>
@@ -550,6 +563,7 @@
 <td><ul class="simple">
 <li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the post (between 1 and 8)</p></li>
 <li><p><cite>subpost</cite>: <em>OPTIONAL</em> Number of the subpost of the post (between 1 and 8)</p></li>
+<li><p><cite>allow_zero</cite>: <em>OPTIONAL</em> True/False</p></li>
 </ul>
 </td>
 </tr>
@@ -650,6 +664,7 @@
 </td>
 <td><ul class="simple">
 <li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the SupplierIndex (between 1 and 8)</p></li>
+<li><p><cite>allow_zero</cite>: <em>OPTIONAL</em> True/False</p></li>
 </ul>
 </td>
 </tr>
@@ -710,6 +725,7 @@
 </td>
 <td><ul class="simple">
 <li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the Toroid (between 1 and 8)</p></li>
+<li><p><cite>allow_zero</cite>: <em>OPTIONAL</em> True/False</p></li>
 </ul>
 </td>
 </tr>
@@ -722,7 +738,7 @@
     <span class="nt">host</span><span class="p">:</span> <span class="s">&quot;IP_RT2&quot;</span>
     <span class="nt">api_key</span><span class="p">:</span> <span class="s">&quot;API_KEY_RT2&quot;</span>
     <span class="nt">devices</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="nt">Toroid 1  # 4 sensors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2 Consumption + 2 Production</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Toroid 1</span>  <span class="c1"># 2 sensors</span>
       <span class="nt">type</span><span class="p">:</span> <span class="s">&quot;toroid&quot;</span>
       <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
     <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Toroid 5</span>  <span class="c1"># 2 sensors</span>
@@ -866,6 +882,7 @@
 </td>
 <td><ul class="simple">
 <li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the XTHL (between 1 and 2)</p></li>
+<li><p><cite>allow_zero</cite>: <em>OPTIONAL</em> True/False</p></li>
 </ul>
 </td>
 </tr>
