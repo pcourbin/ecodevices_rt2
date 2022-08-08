@@ -46,11 +46,17 @@ class Sensor_XTHL_Temp(Sensor_XTHL):
         coordinator: DataUpdateCoordinator,
     ):
         super().__init__(
-            device_config, ecort2, coordinator, DEVICE_CLASS_TEMPERATURE, "Temperature"
+            device_config,
+            ecort2,
+            coordinator,
+            DEVICE_CLASS_TEMPERATURE,
+            "Temperature",
         )
 
     def get_property(self, cached_ms: int = None):
-        return self.control.get_temperature(cached_ms)
+        value = self.control.get_temperature(cached_ms)
+        if value is not None and (self._allow_zero or float(value) != 0):
+            return value
 
 
 class Sensor_XTHL_Hum(Sensor_XTHL):
@@ -61,11 +67,17 @@ class Sensor_XTHL_Hum(Sensor_XTHL):
         coordinator: DataUpdateCoordinator,
     ):
         super().__init__(
-            device_config, ecort2, coordinator, DEVICE_CLASS_HUMIDITY, "Humidity"
+            device_config,
+            ecort2,
+            coordinator,
+            DEVICE_CLASS_HUMIDITY,
+            "Humidity",
         )
 
     def get_property(self, cached_ms: int = None):
-        return self.control.get_humidity(cached_ms)
+        value = self.control.get_humidity(cached_ms)
+        if value is not None and (self._allow_zero or float(value) != 0):
+            return value
 
 
 class Sensor_XTHL_Lum(Sensor_XTHL):
@@ -76,8 +88,14 @@ class Sensor_XTHL_Lum(Sensor_XTHL):
         coordinator: DataUpdateCoordinator,
     ):
         super().__init__(
-            device_config, ecort2, coordinator, DEVICE_CLASS_ILLUMINANCE, "Luminance"
+            device_config,
+            ecort2,
+            coordinator,
+            DEVICE_CLASS_ILLUMINANCE,
+            "Luminance",
         )
 
     def get_property(self, cached_ms: int = None):
-        return self.control.get_luminosity(cached_ms)
+        value = self.control.get_luminosity(cached_ms)
+        if value is not None and (self._allow_zero or float(value) != 0):
+            return value

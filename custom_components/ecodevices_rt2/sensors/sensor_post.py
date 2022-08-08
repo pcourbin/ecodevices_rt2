@@ -60,7 +60,7 @@ class Sensor_Post_Index(Sensor_Post):
 
     def get_property(self, cached_ms: int = None):
         value = self.control.get_index(cached_ms)
-        if value is not None and float(value) > 0:
+        if value is not None and (self._allow_zero or float(value) != 0):
             return value
 
 
@@ -72,12 +72,16 @@ class Sensor_Post_Price(Sensor_Post):
         coordinator: DataUpdateCoordinator,
     ):
         super().__init__(
-            device_config, ecort2, coordinator, DEVICE_CLASS_MONETARY, "Price"
+            device_config,
+            ecort2,
+            coordinator,
+            DEVICE_CLASS_MONETARY,
+            "Price",
         )
 
     def get_property(self, cached_ms: int = None):
         value = self.control.get_price(cached_ms)
-        if value is not None and float(value) > 0:
+        if value is not None and (self._allow_zero or float(value) != 0):
             return value
 
 
@@ -89,12 +93,16 @@ class Sensor_Post_IndexDay(Sensor_Post):
         coordinator: DataUpdateCoordinator,
     ):
         super().__init__(
-            device_config, ecort2, coordinator, DEVICE_CLASS_ENERGY, "IndexDay"
+            device_config,
+            ecort2,
+            coordinator,
+            DEVICE_CLASS_ENERGY,
+            "IndexDay",
         )
 
     def get_property(self, cached_ms: int = None):
         value = self.control.get_index_day(cached_ms)
-        if value is not None and float(value) > 0:
+        if value is not None and (self._allow_zero or float(value) != 0):
             return value
 
 
@@ -106,12 +114,16 @@ class Sensor_Post_PriceDay(Sensor_Post):
         coordinator: DataUpdateCoordinator,
     ):
         super().__init__(
-            device_config, ecort2, coordinator, DEVICE_CLASS_MONETARY, "PriceDay"
+            device_config,
+            ecort2,
+            coordinator,
+            DEVICE_CLASS_MONETARY,
+            "PriceDay",
         )
 
     def get_property(self, cached_ms: int = None):
         value = self.control.get_price_day(cached_ms)
-        if value is not None and float(value) > 0:
+        if value is not None and (self._allow_zero or float(value) != 0):
             return value
 
 
@@ -123,10 +135,14 @@ class Sensor_Post_Instant(Sensor_Post):
         coordinator: DataUpdateCoordinator,
     ):
         super().__init__(
-            device_config, ecort2, coordinator, DEVICE_CLASS_POWER, "Instant"
+            device_config,
+            ecort2,
+            coordinator,
+            DEVICE_CLASS_POWER,
+            "Instant",
         )
 
     def get_property(self, cached_ms: int = None):
         value = self.control.get_instant(cached_ms)
-        if value is not None and float(value) > 0:
+        if value is not None and (self._allow_zero or float(value) != 0):
             return value

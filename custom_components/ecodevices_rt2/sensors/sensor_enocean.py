@@ -18,4 +18,6 @@ class Sensor_EnOcean(Sensor_EcoDevicesRT2):
         self.control = EnOceanSensor(ecort2, self._id)
 
     def get_property(self, cached_ms: int = None):
-        return self.control.get_value(cached_ms)
+        value = self.control.get_value(cached_ms)
+        if value is not None and (self._allow_zero or float(value) != 0):
+            return value

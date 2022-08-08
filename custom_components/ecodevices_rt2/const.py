@@ -37,6 +37,8 @@ CONF_SUBPOST_ID = "subpost"
 CONF_ZONE_ID = "zone"
 CONF_MODULE_ID = "module"
 
+CONF_ALLOW_ZERO = "allow_zero"
+
 TYPE_API = "api"
 TYPE_COUNTER = "counter"
 TYPE_DIGITALINPUT = "digitalinput"
@@ -61,7 +63,11 @@ CONF_TYPE_COMPONENT_ALLOWED = {
     TYPE_API: {
         "default": "sensor",
         "parameters": {
-            "sensor": [CONF_API_GET, CONF_API_GET_VALUE, CONF_API_GET_ENTRY],
+            "sensor": [
+                CONF_API_GET,
+                CONF_API_GET_VALUE,
+                CONF_API_GET_ENTRY,
+            ],
             "switch": [
                 CONF_API_GET,
                 CONF_API_GET_VALUE,

@@ -79,6 +79,10 @@ Default definition of platform in your configuration file:
    * - `unit_of_measurement`
      - Unit of mesurement (`Home Assistant unit_of_measurement`_)
      - Any text value, some example: `W`, `°C`, `kWh`, `lx`, etc.
+   * - `allow_zero`
+     - Only for sensors. If `False`, zero values are not returned and sensor appears as "Not available". Default is `True`.
+     - Boolean value (`True` / `False`).
+
 
 .. list-table:: Possibles values for device configuration
    :widths: 15 45 40
@@ -124,8 +128,10 @@ Default definition of platform in your configuration file:
 Remember you can edit some parameters of your sensors according to `Home Assistant Customizing`_, e.g. changing the unit on specific sensor in file `customize.yaml`:
 
 .. code-block:: yaml
+
     sensor.index_chauffe_eau_consumptionindex:
       unit_of_measurement: Wh
+
 
 .. _`Home Assistant device_class`: https://www.home-assistant.io/integrations/sensor/#device-class
 .. _`Home Assistant icons`: https://www.home-assistant.io/docs/configuration/customizing-devices/#icon
@@ -157,6 +163,7 @@ To use ecodevices_rt2, you can directly use parameters from the `GCE Ecodevices 
      - - `api_get`: **REQUIRED**.
        - `api_get_value`: **REQUIRED**
        - `api_get_entry`: **REQUIRED**
+       - `allow_zero`: *OPTIONAL* True/False
    * - `switch` (or `light`)
      - Create a `switch` (or `light`) which will:
 
@@ -220,6 +227,7 @@ You can define a Counter (see from the `GCE Ecodevices RT2 API`_ (or `PDF`_)).
        #. `Index` of the counter
        #. `Price` of the counter
      - - `id`: **REQUIRED** Number of the counter (between 1 and 12)
+       - `allow_zero`: *OPTIONAL* True/False
 
 
 ----------
@@ -235,6 +243,7 @@ Example
           - name: Counter 1
             type: "counter"
             id: 1
+            allow_zero: False
 
 DigitalInput
 ------------
@@ -250,6 +259,7 @@ You can define a DigitalInput (see from the `GCE Ecodevices RT2 API`_ (or `PDF`_
    * - `binary_sensor` (**DEFAULT**)
      - Create a `binary_sensor` which represents  a `digitalinput` connected to the `GCE Ecodevices RT2`_
      - - `id`: **REQUIRED** Number of the digitalinput (between 1 and 12)
+       - `allow_zero`: *OPTIONAL* True/False
 
 
 ----------
@@ -280,6 +290,7 @@ You can define a EnOcean Switch or Sensor (see from the `GCE Ecodevices RT2 API`
    * - `sensor` (**DEFAULT**)
      - Create a `sensor` which represents a `enocean` **analog sensor** connected to the `GCE Ecodevices RT2`_
      - - `id`: **REQUIRED** Number of the enocean sensor (between 1 and 24)
+       - `allow_zero`: *OPTIONAL* True/False
    * - `switch`
      - Create a `switch` which represents a `enocean` **actuator** connected to the `GCE Ecodevices RT2`_
      - - `id`: **REQUIRED** Number of the enocean actuator (between 1 and 24)
@@ -334,6 +345,7 @@ You can define a Post and Sub-post (see from the `GCE Ecodevices RT2 API`_ (or `
 
      - - `id`: **REQUIRED** Number of the post (between 1 and 8)
        - `subpost`: *OPTIONAL* Number of the subpost of the post (between 1 and 8)
+       - `allow_zero`: *OPTIONAL* True/False
 
 
 ----------
@@ -410,6 +422,7 @@ You can define a SupplierIndex (see from the `GCE Ecodevices RT2 API`_ (or `PDF`
        #. `Price` of the Post/Subpost
 
      - - `id`: **REQUIRED** Number of the SupplierIndex (between 1 and 8)
+       - `allow_zero`: *OPTIONAL* True/False
 
 ----------
 Example
@@ -450,6 +463,7 @@ You can define a Toroid (see from the `GCE Ecodevices RT2 API`_ (or `PDF`_)).
           #. `Price` of the Toroid
 
      - - `id`: **REQUIRED** Number of the Toroid (between 1 and 8)
+       - `allow_zero`: *OPTIONAL* True/False
 
 ----------
 Example
@@ -461,7 +475,7 @@ Example
         host: "IP_RT2"
         api_key: "API_KEY_RT2"
         devices:
-        - name: Toroid 1  # 4 sensors: 2 Consumption + 2 Production
+        - name: Toroid 1  # 2 sensors
           type: "toroid"
           id: 1
         - name: Toroid 5  # 2 sensors
@@ -566,6 +580,7 @@ You can define a XTHL (see from the `GCE Ecodevices RT2 API`_ (or `PDF`_)).
        #. `Luminance` of the XTHL
 
      - - `id`: **REQUIRED** Number of the XTHL (between 1 and 2)
+       - `allow_zero`: *OPTIONAL* True/False
 
 ----------
 Example

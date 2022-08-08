@@ -25,6 +25,8 @@ class Sensor_API(Sensor_EcoDevicesRT2):
         ecort2._cached[self._get + "=" + self._get_value] = {}
 
     def get_property(self, cached_ms: int = None):
-        return self.ecort2.get(
+        value = self.ecort2.get(
             self._get, self._get_value, self._get_entry, cached_ms=cached_ms
         )
+        if value is not None and (self._allow_zero or float(value) != 0):
+            return value

@@ -70,6 +70,7 @@ ecodevices_rt2:
         type: "post"
         id: 1
         subpost: 2
+        allow_zero: False
 
       #### Relay Example
       - name: Relay 1
@@ -92,6 +93,7 @@ ecodevices_rt2:
       - name: Toroid 5 # 2 sensors
         type: "toroid"
         id: 5
+        allow_zero: False
 
       #### VirtualOutput Example
       - name: Virtual Output 1

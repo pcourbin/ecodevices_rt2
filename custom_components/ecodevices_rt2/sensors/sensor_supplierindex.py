@@ -21,7 +21,9 @@ class Sensor_SupplierIndex(Sensor_EcoDevicesRT2):
         device_class: str,
         suffix_name: str,
     ):
-        super().__init__(device_config, ecort2, coordinator, suffix_name)
+        super().__init__(
+            device_config, ecort2, coordinator, suffix_name
+        )
         self.control = SupplierIndex(ecort2, self._id)
         self._device_class = device_class
 
@@ -51,7 +53,7 @@ class Sensor_SupplierIndex_Index(Sensor_SupplierIndex):
 
     def get_property(self, cached_ms: int = None):
         value = self.control.get_value(cached_ms)
-        if value is not None and float(value) > 0:
+        if value is not None and (self._allow_zero or float(value) != 0):
             return value
 
 
@@ -63,10 +65,14 @@ class Sensor_SupplierIndex_Price(Sensor_SupplierIndex):
         coordinator: DataUpdateCoordinator,
     ):
         super().__init__(
-            device_config, ecort2, coordinator, DEVICE_CLASS_MONETARY, "Price"
+            device_config,
+            ecort2,
+            coordinator,
+            DEVICE_CLASS_MONETARY,
+            "Price",
         )
 
     def get_property(self, cached_ms: int = None):
         value = self.control.get_price(cached_ms)
-        if value is not None and float(value) > 0:
+        if value is not None and (self._allow_zero or float(value) != 0):
             return value

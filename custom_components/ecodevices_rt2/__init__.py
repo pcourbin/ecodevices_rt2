@@ -35,6 +35,7 @@ from .const import CONF_COMPONENT
 from .const import CONF_COMPONENT_ALLOWED
 from .const import CONF_DEVICES
 from .const import CONF_ID
+from .const import CONF_ALLOW_ZERO
 from .const import CONF_MODULE_ID
 from .const import CONF_SUBPOST_ID
 from .const import CONF_TYPE
@@ -59,6 +60,7 @@ DEVICE_CONFIG_SCHEMA_ENTRY = vol.Schema(
         vol.Required(CONF_TYPE): cv.string,
         vol.Optional(CONF_COMPONENT): cv.string,
         vol.Optional(CONF_ID): cv.positive_int,
+        vol.Optional(CONF_ALLOW_ZERO): cv.boolean,
         vol.Optional(CONF_ZONE_ID): cv.positive_int,
         vol.Optional(CONF_SUBPOST_ID): cv.positive_int,
         vol.Optional(CONF_MODULE_ID): cv.positive_int,

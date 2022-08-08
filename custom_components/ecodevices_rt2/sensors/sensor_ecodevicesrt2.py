@@ -8,6 +8,7 @@ from ..device_ecodevicesrt2 import EcoDevicesRT2Device
 
 # from homeassistant.components.sensor import CONF_STATE_CLASS
 CONF_STATE_CLASS = "state_class"
+from ..const import CONF_ALLOW_ZERO
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -21,6 +22,7 @@ class Sensor_EcoDevicesRT2(EcoDevicesRT2Device, SensorEntity):
         suffix_name: str = "",
     ):
         super().__init__(device_config, ecort2, coordinator, suffix_name)
+        self._allow_zero = device_config.get(CONF_ALLOW_ZERO, True)
         self._state = None
         self._state_class = device_config.get(CONF_STATE_CLASS)
 
