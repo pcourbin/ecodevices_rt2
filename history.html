@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>History &mdash; ecodevices_rt2 2.2.5 documentation</title>
+  <title>History &mdash; ecodevices_rt2 2.2.6 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/table.css" type="text/css" />
@@ -31,7 +31,7 @@
             <a href="index.html" class="icon icon-home"> ecodevices_rt2
           </a>
               <div class="version">
-                2.2.5
+                2.2.6
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -50,16 +50,17 @@
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">History</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">2.2.5 (2022-08-08)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">2.2.4 (2022-08-07)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">2.2.6 (2022-08-08)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">2.2.5 (2022-08-08)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">2.2.4 (2022-08-07)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#beta-2021-09-18">2.2.2 (beta) (2021-09-18)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#beta-2021-05-16">2.2.0 (beta) (2021-05-16)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">2.1.2 (2021-05-15)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">2.1.1 (2021-05-15)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">2.1.0 (2021-05-15)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">2.0.0 (2021-05-06)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id7">1.0.1 (2021-05-01)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id8">0.1.0 (2021-04-08)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">2.1.2 (2021-05-15)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">2.1.1 (2021-05-15)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">2.1.0 (2021-05-15)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">2.0.0 (2021-05-06)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">1.0.1 (2021-05-01)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">0.1.0 (2021-04-08)</a></li>
 </ul>
 </li>
 </ul>
@@ -91,7 +92,13 @@
   <section id="history">
 <h1>History<a class="headerlink" href="#history" title="Permalink to this heading"></a></h1>
 <section id="id1">
-<h2>2.2.5 (2022-08-08)<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<h2>2.2.6 (2022-08-08)<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Add ‘allow_zero’ parameters for sensors. Default is True.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>2.2.5 (2022-08-08)<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Update version of pyecodevices_rt2, force not to use cache when changing a switch value</p></li>
 <li><dl class="field-list simple">
@@ -102,8 +109,8 @@
 </li>
 </ul>
 </section>
-<section id="id2">
-<h2>2.2.4 (2022-08-07)<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
+<section id="id3">
+<h2>2.2.4 (2022-08-07)<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Update API using new version EcoRT2 3.00.02</p></li>
 <li><p>Reduce errors at startup, wait DataUpdateCoordinator</p></li>
@@ -122,43 +129,43 @@
 <li><p>Test using DataCoordinator</p></li>
 </ul>
 </section>
-<section id="id3">
-<h2>2.1.2 (2021-05-15)<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
+<section id="id4">
+<h2>2.1.2 (2021-05-15)<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Remove scan_interval, not working.</p></li>
 <li><p>Add update_after_switch to configure the time to wait before update a switch/light/climate just after a change. Default is 0s.</p></li>
 </ul>
 </section>
-<section id="id4">
-<h2>2.1.1 (2021-05-15)<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
+<section id="id5">
+<h2>2.1.1 (2021-05-15)<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Add asyncio.sleep(1) after each switch/light command then force update the current value</p></li>
 </ul>
 </section>
-<section id="id5">
-<h2>2.1.0 (2021-05-15)<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
+<section id="id6">
+<h2>2.1.0 (2021-05-15)<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Update pyecodevices_rt2 to 1.2.0, allow using cached values of the API.</p></li>
 <li><p>Add <cite>cached_interval_ms</cite> parameter to define a maximum value (in milliseconds) during which you consider an API value do not need to be updated</p></li>
 <li><p>Improve the time between switch/light action and value update</p></li>
 </ul>
 </section>
-<section id="id6">
-<h2>2.0.0 (2021-05-06)<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h2>
+<section id="id7">
+<h2>2.0.0 (2021-05-06)<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Full rewrite using platform/devices</p></li>
 <li><p>Allow adding devices/entities without knowing the API: counter, digitalinput, enocean, post, relay, supplierindex, toroid, virtualoutput, x4fp, xthl</p></li>
 <li><p>Allow selecting different components (e.g. for <cite>enocean</cite>, you can select <cite>sensor</cite>, <cite>switch</cite> or <cite>light</cite>)</p></li>
 </ul>
 </section>
-<section id="id7">
-<h2>1.0.1 (2021-05-01)<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h2>
+<section id="id8">
+<h2>1.0.1 (2021-05-01)<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>First stable version with updated version and pyecodevices-rt2 package</p></li>
 </ul>
 </section>
-<section id="id8">
-<h2>0.1.0 (2021-04-08)<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h2>
+<section id="id9">
+<h2>0.1.0 (2021-04-08)<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>First version</p></li>
 </ul>
