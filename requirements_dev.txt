@@ -6,4 +6,4 @@ flake8
 Sphinx>=1.8.5
 sphinx_rtd_theme
 bump2version==1.0.1
-python-dotenv==0.20.0
+python-dotenv==0.21.0
