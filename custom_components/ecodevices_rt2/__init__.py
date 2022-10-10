@@ -24,6 +24,7 @@ from homeassistant.helpers.update_coordinator import UpdateFailed
 from pyecodevices_rt2 import EcoDevicesRT2
 from pyecodevices_rt2.exceptions import EcoDevicesRT2ConnectError
 
+from .const import CONF_ALLOW_ZERO
 from .const import CONF_API_GET
 from .const import CONF_API_GET_ENTRY
 from .const import CONF_API_GET_VALUE
@@ -35,7 +36,6 @@ from .const import CONF_COMPONENT
 from .const import CONF_COMPONENT_ALLOWED
 from .const import CONF_DEVICES
 from .const import CONF_ID
-from .const import CONF_ALLOW_ZERO
 from .const import CONF_MODULE_ID
 from .const import CONF_SUBPOST_ID
 from .const import CONF_TYPE

@@ -21,9 +21,7 @@ class Sensor_SupplierIndex(Sensor_EcoDevicesRT2):
         device_class: str,
         suffix_name: str,
     ):
-        super().__init__(
-            device_config, ecort2, coordinator, suffix_name
-        )
+        super().__init__(device_config, ecort2, coordinator, suffix_name)
         self.control = SupplierIndex(ecort2, self._id)
         self._device_class = device_class
 

@@ -1,5 +1,5 @@
 default_language_version:
-  python: python3.9
+  python: python
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -8,6 +8,7 @@ repos:
       - id: check-added-large-files
       - id: check-yaml
       - id: end-of-file-fixer
+        exclude: "setup.cfg"
       - id: trailing-whitespace
   - repo: local
     hooks:

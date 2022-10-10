@@ -4,11 +4,11 @@ from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import EcoDevicesRT2
 
+from ..const import CONF_ALLOW_ZERO
 from ..device_ecodevicesrt2 import EcoDevicesRT2Device
 
 # from homeassistant.components.sensor import CONF_STATE_CLASS
 CONF_STATE_CLASS = "state_class"
-from ..const import CONF_ALLOW_ZERO
 
 _LOGGER = logging.getLogger(__name__)
 
