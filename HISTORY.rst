@@ -2,6 +2,11 @@
 History
 =======
 
+2.2.7 (2022-10-10)
+-------------------------
+
+* Update version of pyecodevices_rt2, correct X4FP to act like a switch
+
 2.2.6 (2022-08-08)
 -------------------------
 
