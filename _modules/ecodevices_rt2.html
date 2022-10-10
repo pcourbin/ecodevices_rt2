@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ecodevices_rt2 &mdash; ecodevices_rt2 2.2.6 documentation</title>
+  <title>ecodevices_rt2 &mdash; ecodevices_rt2 2.2.7 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/table.css" type="text/css" />
@@ -16,6 +16,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
@@ -29,7 +30,7 @@
             <a href="../index.html" class="icon icon-home"> ecodevices_rt2
           </a>
               <div class="version">
-                2.2.6
+                2.2.7
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -77,54 +78,54 @@
   <h1>Source code for ecodevices_rt2</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Support for the GCE Ecodevices RT2.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
 
 <span class="kn">import</span> <span class="nn">homeassistant.helpers.config_validation</span> <span class="k">as</span> <span class="nn">cv</span>
 <span class="kn">import</span> <span class="nn">voluptuous</span> <span class="k">as</span> <span class="nn">vol</span>
-<span class="kn">from</span> <span class="nn">homeassistant.config_entries</span> <span class="k">import</span> <span class="n">ConfigEntry</span>
-<span class="kn">from</span> <span class="nn">homeassistant.config_entries</span> <span class="k">import</span> <span class="n">SOURCE_IMPORT</span>
-<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="k">import</span> <span class="n">CONF_API_KEY</span>
-<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="k">import</span> <span class="n">CONF_DEVICE_CLASS</span>
-<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="k">import</span> <span class="n">CONF_HOST</span>
-<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="k">import</span> <span class="n">CONF_ICON</span>
-<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="k">import</span> <span class="n">CONF_NAME</span>
-<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="k">import</span> <span class="n">CONF_PORT</span>
-<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="k">import</span> <span class="n">CONF_SCAN_INTERVAL</span>
-<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="k">import</span> <span class="n">CONF_UNIT_OF_MEASUREMENT</span>
-<span class="kn">from</span> <span class="nn">homeassistant.exceptions</span> <span class="k">import</span> <span class="n">ConfigEntryNotReady</span>
-<span class="kn">from</span> <span class="nn">homeassistant.helpers</span> <span class="k">import</span> <span class="n">device_registry</span> <span class="k">as</span> <span class="n">dr</span>
-<span class="kn">from</span> <span class="nn">homeassistant.helpers.debounce</span> <span class="k">import</span> <span class="n">Debouncer</span>
-<span class="kn">from</span> <span class="nn">homeassistant.helpers.typing</span> <span class="k">import</span> <span class="n">ConfigType</span>
-<span class="kn">from</span> <span class="nn">homeassistant.helpers.typing</span> <span class="k">import</span> <span class="n">HomeAssistantType</span>
-<span class="kn">from</span> <span class="nn">homeassistant.helpers.update_coordinator</span> <span class="k">import</span> <span class="n">DataUpdateCoordinator</span>
-<span class="kn">from</span> <span class="nn">homeassistant.helpers.update_coordinator</span> <span class="k">import</span> <span class="n">UpdateFailed</span>
-<span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="k">import</span> <span class="n">EcoDevicesRT2</span>
-<span class="kn">from</span> <span class="nn">pyecodevices_rt2.exceptions</span> <span class="k">import</span> <span class="n">EcoDevicesRT2ConnectError</span>
+<span class="kn">from</span> <span class="nn">homeassistant.config_entries</span> <span class="kn">import</span> <span class="n">ConfigEntry</span>
+<span class="kn">from</span> <span class="nn">homeassistant.config_entries</span> <span class="kn">import</span> <span class="n">SOURCE_IMPORT</span>
+<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">CONF_API_KEY</span>
+<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">CONF_DEVICE_CLASS</span>
+<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">CONF_HOST</span>
+<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">CONF_ICON</span>
+<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">CONF_NAME</span>
+<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">CONF_PORT</span>
+<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">CONF_SCAN_INTERVAL</span>
+<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">CONF_UNIT_OF_MEASUREMENT</span>
+<span class="kn">from</span> <span class="nn">homeassistant.exceptions</span> <span class="kn">import</span> <span class="n">ConfigEntryNotReady</span>
+<span class="kn">from</span> <span class="nn">homeassistant.helpers</span> <span class="kn">import</span> <span class="n">device_registry</span> <span class="k">as</span> <span class="n">dr</span>
+<span class="kn">from</span> <span class="nn">homeassistant.helpers.debounce</span> <span class="kn">import</span> <span class="n">Debouncer</span>
+<span class="kn">from</span> <span class="nn">homeassistant.helpers.typing</span> <span class="kn">import</span> <span class="n">ConfigType</span>
+<span class="kn">from</span> <span class="nn">homeassistant.helpers.typing</span> <span class="kn">import</span> <span class="n">HomeAssistantType</span>
+<span class="kn">from</span> <span class="nn">homeassistant.helpers.update_coordinator</span> <span class="kn">import</span> <span class="n">DataUpdateCoordinator</span>
+<span class="kn">from</span> <span class="nn">homeassistant.helpers.update_coordinator</span> <span class="kn">import</span> <span class="n">UpdateFailed</span>
+<span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="kn">import</span> <span class="n">EcoDevicesRT2</span>
+<span class="kn">from</span> <span class="nn">pyecodevices_rt2.exceptions</span> <span class="kn">import</span> <span class="n">EcoDevicesRT2ConnectError</span>
 
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_GET</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_GET_ENTRY</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_GET_VALUE</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_OFF_GET</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_OFF_GET_VALUE</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_ON_GET</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_ON_GET_VALUE</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_COMPONENT</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_COMPONENT_ALLOWED</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_DEVICES</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_ID</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_ALLOW_ZERO</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_MODULE_ID</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_SUBPOST_ID</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_TYPE</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_TYPE_COMPONENT_ALLOWED</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_UPDATE_AFTER_SWITCH</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_ZONE_ID</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONTROLLER</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">COORDINATOR</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">DEFAULT_SCAN_INTERVAL</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">DEFAULT_UPDATE_AFTER_SWITCH</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">DOMAIN</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">UNDO_UPDATE_LISTENER</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_ALLOW_ZERO</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_API_GET</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_API_GET_ENTRY</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_API_GET_VALUE</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_API_OFF_GET</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_API_OFF_GET_VALUE</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_API_ON_GET</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_API_ON_GET_VALUE</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_COMPONENT</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_COMPONENT_ALLOWED</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_DEVICES</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_ID</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_MODULE_ID</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_SUBPOST_ID</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_TYPE</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_TYPE_COMPONENT_ALLOWED</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_UPDATE_AFTER_SWITCH</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_ZONE_ID</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONTROLLER</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">COORDINATOR</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">DEFAULT_SCAN_INTERVAL</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">DEFAULT_UPDATE_AFTER_SWITCH</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">DOMAIN</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">UNDO_UPDATE_LISTENER</span>
 
 <span class="c1"># from homeassistant.components.sensor import CONF_STATE_CLASS</span>
 <span class="n">CONF_STATE_CLASS</span> <span class="o">=</span> <span class="s2">&quot;state_class&quot;</span>

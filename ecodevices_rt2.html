@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ecodevices_rt2 package &mdash; ecodevices_rt2 2.2.6 documentation</title>
+  <title>ecodevices_rt2 package &mdash; ecodevices_rt2 2.2.7 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/table.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -32,7 +33,7 @@
             <a href="index.html" class="icon icon-home"> ecodevices_rt2
           </a>
               <div class="version">
-                2.2.6
+                2.2.7
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -58,15 +59,43 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-ecodevices_rt2.binary_sensor">ecodevices_rt2.binary_sensor module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-ecodevices_rt2.climate">ecodevices_rt2.climate module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-ecodevices_rt2.config_flow">ecodevices_rt2.config_flow module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ecodevices_rt2.binary_sensor">ecodevices_rt2.binary_sensor module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ecodevices_rt2.binary_sensor.async_setup_entry"><code class="docutils literal notranslate"><span class="pre">async_setup_entry()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ecodevices_rt2.climate">ecodevices_rt2.climate module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ecodevices_rt2.climate.async_setup_entry"><code class="docutils literal notranslate"><span class="pre">async_setup_entry()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ecodevices_rt2.config_flow">ecodevices_rt2.config_flow module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ecodevices_rt2.config_flow.IpxConfigFlow"><code class="docutils literal notranslate"><span class="pre">IpxConfigFlow</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#module-ecodevices_rt2.const">ecodevices_rt2.const module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-ecodevices_rt2.device_ecodevicesrt2">ecodevices_rt2.device_ecodevicesrt2 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-ecodevices_rt2.light">ecodevices_rt2.light module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-ecodevices_rt2.sensor">ecodevices_rt2.sensor module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-ecodevices_rt2.switch">ecodevices_rt2.switch module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-ecodevices_rt2">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ecodevices_rt2.device_ecodevicesrt2">ecodevices_rt2.device_ecodevicesrt2 module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ecodevices_rt2.device_ecodevicesrt2.EcoDevicesRT2Device"><code class="docutils literal notranslate"><span class="pre">EcoDevicesRT2Device</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ecodevices_rt2.light">ecodevices_rt2.light module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ecodevices_rt2.light.async_setup_entry"><code class="docutils literal notranslate"><span class="pre">async_setup_entry()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ecodevices_rt2.sensor">ecodevices_rt2.sensor module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ecodevices_rt2.sensor.async_setup_entry"><code class="docutils literal notranslate"><span class="pre">async_setup_entry()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ecodevices_rt2.switch">ecodevices_rt2.switch module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ecodevices_rt2.switch.async_setup_entry"><code class="docutils literal notranslate"><span class="pre">async_setup_entry()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ecodevices_rt2">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ecodevices_rt2.async_setup"><code class="docutils literal notranslate"><span class="pre">async_setup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ecodevices_rt2.async_setup_entry"><code class="docutils literal notranslate"><span class="pre">async_setup_entry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ecodevices_rt2.async_unload_entry"><code class="docutils literal notranslate"><span class="pre">async_unload_entry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ecodevices_rt2.build_device_list"><code class="docutils literal notranslate"><span class="pre">build_device_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ecodevices_rt2.filter_device_list"><code class="docutils literal notranslate"><span class="pre">filter_device_list()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -109,49 +138,547 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ecodevices_rt2.binarysensors.html">ecodevices_rt2.binarysensors package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#module-ecodevices_rt2.binarysensors.binarysensor_digitalinput">ecodevices_rt2.binarysensors.binarysensor_digitalinput module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#module-ecodevices_rt2.binarysensors.binarysensor_ecodevicesrt2">ecodevices_rt2.binarysensors.binarysensor_ecodevicesrt2 module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#module-ecodevices_rt2.binarysensors">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#module-ecodevices_rt2.binarysensors.binarysensor_digitalinput">ecodevices_rt2.binarysensors.binarysensor_digitalinput module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#ecodevices_rt2.binarysensors.binarysensor_digitalinput.BinarySensor_DigitalInput"><code class="docutils literal notranslate"><span class="pre">BinarySensor_DigitalInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#ecodevices_rt2.binarysensors.binarysensor_digitalinput.BinarySensor_DigitalInput.entity_description"><code class="docutils literal notranslate"><span class="pre">BinarySensor_DigitalInput.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#ecodevices_rt2.binarysensors.binarysensor_digitalinput.BinarySensor_DigitalInput.get_status"><code class="docutils literal notranslate"><span class="pre">BinarySensor_DigitalInput.get_status()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#module-ecodevices_rt2.binarysensors.binarysensor_ecodevicesrt2">ecodevices_rt2.binarysensors.binarysensor_ecodevicesrt2 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#ecodevices_rt2.binarysensors.binarysensor_ecodevicesrt2.BinarySensor_EcoDevicesRT2"><code class="docutils literal notranslate"><span class="pre">BinarySensor_EcoDevicesRT2</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#ecodevices_rt2.binarysensors.binarysensor_ecodevicesrt2.BinarySensor_EcoDevicesRT2.entity_description"><code class="docutils literal notranslate"><span class="pre">BinarySensor_EcoDevicesRT2.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#ecodevices_rt2.binarysensors.binarysensor_ecodevicesrt2.BinarySensor_EcoDevicesRT2.get_status"><code class="docutils literal notranslate"><span class="pre">BinarySensor_EcoDevicesRT2.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#ecodevices_rt2.binarysensors.binarysensor_ecodevicesrt2.BinarySensor_EcoDevicesRT2.is_on"><code class="docutils literal notranslate"><span class="pre">BinarySensor_EcoDevicesRT2.is_on</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#module-ecodevices_rt2.binarysensors">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#ecodevices_rt2.binarysensors.BinarySensor_DigitalInput"><code class="docutils literal notranslate"><span class="pre">BinarySensor_DigitalInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#ecodevices_rt2.binarysensors.BinarySensor_DigitalInput.entity_description"><code class="docutils literal notranslate"><span class="pre">BinarySensor_DigitalInput.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#ecodevices_rt2.binarysensors.BinarySensor_DigitalInput.get_status"><code class="docutils literal notranslate"><span class="pre">BinarySensor_DigitalInput.get_status()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#ecodevices_rt2.binarysensors.BinarySensor_EcoDevicesRT2"><code class="docutils literal notranslate"><span class="pre">BinarySensor_EcoDevicesRT2</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#ecodevices_rt2.binarysensors.BinarySensor_EcoDevicesRT2.entity_description"><code class="docutils literal notranslate"><span class="pre">BinarySensor_EcoDevicesRT2.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#ecodevices_rt2.binarysensors.BinarySensor_EcoDevicesRT2.get_status"><code class="docutils literal notranslate"><span class="pre">BinarySensor_EcoDevicesRT2.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.binarysensors.html#ecodevices_rt2.binarysensors.BinarySensor_EcoDevicesRT2.is_on"><code class="docutils literal notranslate"><span class="pre">BinarySensor_EcoDevicesRT2.is_on</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ecodevices_rt2.climates.html">ecodevices_rt2.climates package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.climates.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.climates.html#module-ecodevices_rt2.climates.climate_x4fp">ecodevices_rt2.climates.climate_x4fp module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.climates.html#module-ecodevices_rt2.climates">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.climates.html#module-ecodevices_rt2.climates.climate_x4fp">ecodevices_rt2.climates.climate_x4fp module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.HA_TO_RT2_STATE"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.HA_TO_RT2_STATE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.RT2_TO_HA_STATE"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.RT2_TO_HA_STATE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.async_set_hvac_mode"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.async_set_hvac_mode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.async_set_preset_mode"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.async_set_preset_mode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.async_turn_off"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.async_turn_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.async_turn_on"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.async_turn_on()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.available"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.available</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.entity_description"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.get_mode"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.get_mode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.hvac_mode"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.hvac_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.hvac_modes"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.hvac_modes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.preset_mode"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.preset_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.preset_modes"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.preset_modes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.set_mode"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.set_mode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.supported_features"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.supported_features</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.temperature_unit"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.temperature_unit</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.climates.html#module-ecodevices_rt2.climates">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.Climate_X4FP"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.Climate_X4FP.HA_TO_RT2_STATE"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.HA_TO_RT2_STATE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.Climate_X4FP.RT2_TO_HA_STATE"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.RT2_TO_HA_STATE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.Climate_X4FP.async_set_hvac_mode"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.async_set_hvac_mode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.Climate_X4FP.async_set_preset_mode"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.async_set_preset_mode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.Climate_X4FP.async_turn_off"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.async_turn_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.Climate_X4FP.async_turn_on"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.async_turn_on()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.Climate_X4FP.available"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.available</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.Climate_X4FP.entity_description"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.Climate_X4FP.get_mode"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.get_mode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.Climate_X4FP.hvac_mode"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.hvac_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.Climate_X4FP.hvac_modes"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.hvac_modes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.Climate_X4FP.preset_mode"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.preset_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.Climate_X4FP.preset_modes"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.preset_modes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.Climate_X4FP.set_mode"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.set_mode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.Climate_X4FP.supported_features"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.supported_features</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.climates.html#ecodevices_rt2.climates.Climate_X4FP.temperature_unit"><code class="docutils literal notranslate"><span class="pre">Climate_X4FP.temperature_unit</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ecodevices_rt2.lights.html">ecodevices_rt2.lights package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.lights.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.lights.html#module-ecodevices_rt2.lights.light_api">ecodevices_rt2.lights.light_api module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.lights.html#module-ecodevices_rt2.lights.light_ecodevicesrt2">ecodevices_rt2.lights.light_ecodevicesrt2 module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.lights.html#module-ecodevices_rt2.lights.light_enocean">ecodevices_rt2.lights.light_enocean module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.lights.html#module-ecodevices_rt2.lights.light_relay">ecodevices_rt2.lights.light_relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.lights.html#module-ecodevices_rt2.lights.light_virtualoutput">ecodevices_rt2.lights.light_virtualoutput module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.lights.html#module-ecodevices_rt2.lights">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.lights.html#module-ecodevices_rt2.lights.light_api">ecodevices_rt2.lights.light_api module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_api.Light_API"><code class="docutils literal notranslate"><span class="pre">Light_API</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_api.Light_API.entity_description"><code class="docutils literal notranslate"><span class="pre">Light_API.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_api.Light_API.get_status"><code class="docutils literal notranslate"><span class="pre">Light_API.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_api.Light_API.set_off"><code class="docutils literal notranslate"><span class="pre">Light_API.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_api.Light_API.set_on"><code class="docutils literal notranslate"><span class="pre">Light_API.set_on()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.lights.html#module-ecodevices_rt2.lights.light_ecodevicesrt2">ecodevices_rt2.lights.light_ecodevicesrt2 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2"><code class="docutils literal notranslate"><span class="pre">Light_EcoDevicesRT2</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.async_turn_off"><code class="docutils literal notranslate"><span class="pre">Light_EcoDevicesRT2.async_turn_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.async_turn_on"><code class="docutils literal notranslate"><span class="pre">Light_EcoDevicesRT2.async_turn_on()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.available"><code class="docutils literal notranslate"><span class="pre">Light_EcoDevicesRT2.available</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.entity_description"><code class="docutils literal notranslate"><span class="pre">Light_EcoDevicesRT2.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.get_status"><code class="docutils literal notranslate"><span class="pre">Light_EcoDevicesRT2.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.is_on"><code class="docutils literal notranslate"><span class="pre">Light_EcoDevicesRT2.is_on</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.set_off"><code class="docutils literal notranslate"><span class="pre">Light_EcoDevicesRT2.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_ecodevicesrt2.Light_EcoDevicesRT2.set_on"><code class="docutils literal notranslate"><span class="pre">Light_EcoDevicesRT2.set_on()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.lights.html#module-ecodevices_rt2.lights.light_enocean">ecodevices_rt2.lights.light_enocean module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_enocean.Light_EnOcean"><code class="docutils literal notranslate"><span class="pre">Light_EnOcean</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_enocean.Light_EnOcean.entity_description"><code class="docutils literal notranslate"><span class="pre">Light_EnOcean.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_enocean.Light_EnOcean.get_status"><code class="docutils literal notranslate"><span class="pre">Light_EnOcean.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_enocean.Light_EnOcean.set_off"><code class="docutils literal notranslate"><span class="pre">Light_EnOcean.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_enocean.Light_EnOcean.set_on"><code class="docutils literal notranslate"><span class="pre">Light_EnOcean.set_on()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.lights.html#module-ecodevices_rt2.lights.light_relay">ecodevices_rt2.lights.light_relay module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_relay.Light_Relay"><code class="docutils literal notranslate"><span class="pre">Light_Relay</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_relay.Light_Relay.entity_description"><code class="docutils literal notranslate"><span class="pre">Light_Relay.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_relay.Light_Relay.get_status"><code class="docutils literal notranslate"><span class="pre">Light_Relay.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_relay.Light_Relay.set_off"><code class="docutils literal notranslate"><span class="pre">Light_Relay.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_relay.Light_Relay.set_on"><code class="docutils literal notranslate"><span class="pre">Light_Relay.set_on()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.lights.html#module-ecodevices_rt2.lights.light_virtualoutput">ecodevices_rt2.lights.light_virtualoutput module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_virtualoutput.Light_VirtualOutput"><code class="docutils literal notranslate"><span class="pre">Light_VirtualOutput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_virtualoutput.Light_VirtualOutput.entity_description"><code class="docutils literal notranslate"><span class="pre">Light_VirtualOutput.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_virtualoutput.Light_VirtualOutput.get_status"><code class="docutils literal notranslate"><span class="pre">Light_VirtualOutput.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_virtualoutput.Light_VirtualOutput.set_off"><code class="docutils literal notranslate"><span class="pre">Light_VirtualOutput.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.light_virtualoutput.Light_VirtualOutput.set_on"><code class="docutils literal notranslate"><span class="pre">Light_VirtualOutput.set_on()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.lights.html#module-ecodevices_rt2.lights">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_API"><code class="docutils literal notranslate"><span class="pre">Light_API</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_API.entity_description"><code class="docutils literal notranslate"><span class="pre">Light_API.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_API.get_status"><code class="docutils literal notranslate"><span class="pre">Light_API.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_API.set_off"><code class="docutils literal notranslate"><span class="pre">Light_API.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_API.set_on"><code class="docutils literal notranslate"><span class="pre">Light_API.set_on()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_EcoDevicesRT2"><code class="docutils literal notranslate"><span class="pre">Light_EcoDevicesRT2</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_EcoDevicesRT2.async_turn_off"><code class="docutils literal notranslate"><span class="pre">Light_EcoDevicesRT2.async_turn_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_EcoDevicesRT2.async_turn_on"><code class="docutils literal notranslate"><span class="pre">Light_EcoDevicesRT2.async_turn_on()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_EcoDevicesRT2.available"><code class="docutils literal notranslate"><span class="pre">Light_EcoDevicesRT2.available</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_EcoDevicesRT2.entity_description"><code class="docutils literal notranslate"><span class="pre">Light_EcoDevicesRT2.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_EcoDevicesRT2.get_status"><code class="docutils literal notranslate"><span class="pre">Light_EcoDevicesRT2.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_EcoDevicesRT2.is_on"><code class="docutils literal notranslate"><span class="pre">Light_EcoDevicesRT2.is_on</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_EcoDevicesRT2.set_off"><code class="docutils literal notranslate"><span class="pre">Light_EcoDevicesRT2.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_EcoDevicesRT2.set_on"><code class="docutils literal notranslate"><span class="pre">Light_EcoDevicesRT2.set_on()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_EnOcean"><code class="docutils literal notranslate"><span class="pre">Light_EnOcean</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_EnOcean.entity_description"><code class="docutils literal notranslate"><span class="pre">Light_EnOcean.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_EnOcean.get_status"><code class="docutils literal notranslate"><span class="pre">Light_EnOcean.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_EnOcean.set_off"><code class="docutils literal notranslate"><span class="pre">Light_EnOcean.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_EnOcean.set_on"><code class="docutils literal notranslate"><span class="pre">Light_EnOcean.set_on()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_Relay"><code class="docutils literal notranslate"><span class="pre">Light_Relay</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_Relay.entity_description"><code class="docutils literal notranslate"><span class="pre">Light_Relay.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_Relay.get_status"><code class="docutils literal notranslate"><span class="pre">Light_Relay.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_Relay.set_off"><code class="docutils literal notranslate"><span class="pre">Light_Relay.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_Relay.set_on"><code class="docutils literal notranslate"><span class="pre">Light_Relay.set_on()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_VirtualOutput"><code class="docutils literal notranslate"><span class="pre">Light_VirtualOutput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_VirtualOutput.entity_description"><code class="docutils literal notranslate"><span class="pre">Light_VirtualOutput.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_VirtualOutput.get_status"><code class="docutils literal notranslate"><span class="pre">Light_VirtualOutput.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_VirtualOutput.set_off"><code class="docutils literal notranslate"><span class="pre">Light_VirtualOutput.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.lights.html#ecodevices_rt2.lights.Light_VirtualOutput.set_on"><code class="docutils literal notranslate"><span class="pre">Light_VirtualOutput.set_on()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ecodevices_rt2.sensors.html">ecodevices_rt2.sensors package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#module-ecodevices_rt2.sensors.sensor_api">ecodevices_rt2.sensors.sensor_api module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#module-ecodevices_rt2.sensors.sensor_counter">ecodevices_rt2.sensors.sensor_counter module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#module-ecodevices_rt2.sensors.sensor_ecodevicesrt2">ecodevices_rt2.sensors.sensor_ecodevicesrt2 module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#module-ecodevices_rt2.sensors.sensor_enocean">ecodevices_rt2.sensors.sensor_enocean module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#module-ecodevices_rt2.sensors.sensor_post">ecodevices_rt2.sensors.sensor_post module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#module-ecodevices_rt2.sensors.sensor_supplierindex">ecodevices_rt2.sensors.sensor_supplierindex module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#module-ecodevices_rt2.sensors.sensor_toroid">ecodevices_rt2.sensors.sensor_toroid module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#module-ecodevices_rt2.sensors.sensor_xthl">ecodevices_rt2.sensors.sensor_xthl module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#module-ecodevices_rt2.sensors">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#module-ecodevices_rt2.sensors.sensor_api">ecodevices_rt2.sensors.sensor_api module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_api.Sensor_API"><code class="docutils literal notranslate"><span class="pre">Sensor_API</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_api.Sensor_API.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_API.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_api.Sensor_API.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_API.get_property()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#module-ecodevices_rt2.sensors.sensor_counter">ecodevices_rt2.sensors.sensor_counter module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_counter.Sensor_Counter"><code class="docutils literal notranslate"><span class="pre">Sensor_Counter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_counter.Sensor_Counter.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Counter.entity_description</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_counter.Sensor_Counter_Index"><code class="docutils literal notranslate"><span class="pre">Sensor_Counter_Index</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_counter.Sensor_Counter_Index.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Counter_Index.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_counter.Sensor_Counter_Index.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_Counter_Index.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_counter.Sensor_Counter_Price"><code class="docutils literal notranslate"><span class="pre">Sensor_Counter_Price</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_counter.Sensor_Counter_Price.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Counter_Price.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_counter.Sensor_Counter_Price.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_Counter_Price.get_property()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#module-ecodevices_rt2.sensors.sensor_ecodevicesrt2">ecodevices_rt2.sensors.sensor_ecodevicesrt2 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_ecodevicesrt2.Sensor_EcoDevicesRT2"><code class="docutils literal notranslate"><span class="pre">Sensor_EcoDevicesRT2</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_ecodevicesrt2.Sensor_EcoDevicesRT2.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_EcoDevicesRT2.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_ecodevicesrt2.Sensor_EcoDevicesRT2.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_EcoDevicesRT2.get_property()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_ecodevicesrt2.Sensor_EcoDevicesRT2.state"><code class="docutils literal notranslate"><span class="pre">Sensor_EcoDevicesRT2.state</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_ecodevicesrt2.Sensor_EcoDevicesRT2.state_class"><code class="docutils literal notranslate"><span class="pre">Sensor_EcoDevicesRT2.state_class</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#module-ecodevices_rt2.sensors.sensor_enocean">ecodevices_rt2.sensors.sensor_enocean module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_enocean.Sensor_EnOcean"><code class="docutils literal notranslate"><span class="pre">Sensor_EnOcean</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_enocean.Sensor_EnOcean.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_EnOcean.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_enocean.Sensor_EnOcean.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_EnOcean.get_property()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#module-ecodevices_rt2.sensors.sensor_post">ecodevices_rt2.sensors.sensor_post module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post"><code class="docutils literal notranslate"><span class="pre">Sensor_Post</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Post.entity_description</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_Index"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_Index</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_Index.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_Index.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_Index.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_Index.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_IndexDay"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_IndexDay</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_IndexDay.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_IndexDay.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_IndexDay.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_IndexDay.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_Instant"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_Instant</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_Instant.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_Instant.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_Instant.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_Instant.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_Price"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_Price</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_Price.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_Price.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_Price.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_Price.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_PriceDay"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_PriceDay</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_PriceDay.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_PriceDay.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_PriceDay.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_PriceDay.get_property()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#module-ecodevices_rt2.sensors.sensor_supplierindex">ecodevices_rt2.sensors.sensor_supplierindex module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_supplierindex.Sensor_SupplierIndex"><code class="docutils literal notranslate"><span class="pre">Sensor_SupplierIndex</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_supplierindex.Sensor_SupplierIndex.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_SupplierIndex.entity_description</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_supplierindex.Sensor_SupplierIndex_Index"><code class="docutils literal notranslate"><span class="pre">Sensor_SupplierIndex_Index</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_supplierindex.Sensor_SupplierIndex_Index.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_SupplierIndex_Index.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_supplierindex.Sensor_SupplierIndex_Index.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_SupplierIndex_Index.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_supplierindex.Sensor_SupplierIndex_Price"><code class="docutils literal notranslate"><span class="pre">Sensor_SupplierIndex_Price</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_supplierindex.Sensor_SupplierIndex_Price.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_SupplierIndex_Price.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_supplierindex.Sensor_SupplierIndex_Price.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_SupplierIndex_Price.get_property()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#module-ecodevices_rt2.sensors.sensor_toroid">ecodevices_rt2.sensors.sensor_toroid module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_toroid.Sensor_Toroid"><code class="docutils literal notranslate"><span class="pre">Sensor_Toroid</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_toroid.Sensor_Toroid.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Toroid.entity_description</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_toroid.Sensor_Toroid_Index"><code class="docutils literal notranslate"><span class="pre">Sensor_Toroid_Index</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_toroid.Sensor_Toroid_Index.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Toroid_Index.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_toroid.Sensor_Toroid_Index.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_Toroid_Index.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_toroid.Sensor_Toroid_Price"><code class="docutils literal notranslate"><span class="pre">Sensor_Toroid_Price</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_toroid.Sensor_Toroid_Price.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Toroid_Price.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_toroid.Sensor_Toroid_Price.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_Toroid_Price.get_property()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#module-ecodevices_rt2.sensors.sensor_xthl">ecodevices_rt2.sensors.sensor_xthl module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL.entity_description</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Hum"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL_Hum</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Hum.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL_Hum.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Hum.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL_Hum.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Lum"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL_Lum</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Lum.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL_Lum.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Lum.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL_Lum.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Temp"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL_Temp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Temp.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL_Temp.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_xthl.Sensor_XTHL_Temp.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL_Temp.get_property()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.sensors.html#module-ecodevices_rt2.sensors">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_API"><code class="docutils literal notranslate"><span class="pre">Sensor_API</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_API.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_API.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_API.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_API.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Counter"><code class="docutils literal notranslate"><span class="pre">Sensor_Counter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Counter.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Counter.entity_description</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Counter_Index"><code class="docutils literal notranslate"><span class="pre">Sensor_Counter_Index</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Counter_Index.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Counter_Index.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Counter_Index.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_Counter_Index.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Counter_Price"><code class="docutils literal notranslate"><span class="pre">Sensor_Counter_Price</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Counter_Price.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Counter_Price.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Counter_Price.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_Counter_Price.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_EcoDevicesRT2"><code class="docutils literal notranslate"><span class="pre">Sensor_EcoDevicesRT2</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_EcoDevicesRT2.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_EcoDevicesRT2.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_EcoDevicesRT2.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_EcoDevicesRT2.get_property()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_EcoDevicesRT2.state"><code class="docutils literal notranslate"><span class="pre">Sensor_EcoDevicesRT2.state</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_EcoDevicesRT2.state_class"><code class="docutils literal notranslate"><span class="pre">Sensor_EcoDevicesRT2.state_class</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_EnOcean"><code class="docutils literal notranslate"><span class="pre">Sensor_EnOcean</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_EnOcean.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_EnOcean.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_EnOcean.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_EnOcean.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Post"><code class="docutils literal notranslate"><span class="pre">Sensor_Post</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Post.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Post.entity_description</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Post_Index"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_Index</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Post_Index.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_Index.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Post_Index.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_Index.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Post_IndexDay"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_IndexDay</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Post_IndexDay.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_IndexDay.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Post_IndexDay.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_IndexDay.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Post_Instant"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_Instant</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Post_Instant.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_Instant.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Post_Instant.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_Instant.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Post_Price"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_Price</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Post_Price.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_Price.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Post_Price.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_Price.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Post_PriceDay"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_PriceDay</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Post_PriceDay.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_PriceDay.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Post_PriceDay.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_Post_PriceDay.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_SupplierIndex"><code class="docutils literal notranslate"><span class="pre">Sensor_SupplierIndex</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_SupplierIndex.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_SupplierIndex.entity_description</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_SupplierIndex_Index"><code class="docutils literal notranslate"><span class="pre">Sensor_SupplierIndex_Index</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_SupplierIndex_Index.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_SupplierIndex_Index.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_SupplierIndex_Index.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_SupplierIndex_Index.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_SupplierIndex_Price"><code class="docutils literal notranslate"><span class="pre">Sensor_SupplierIndex_Price</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_SupplierIndex_Price.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_SupplierIndex_Price.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_SupplierIndex_Price.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_SupplierIndex_Price.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Toroid"><code class="docutils literal notranslate"><span class="pre">Sensor_Toroid</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Toroid.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Toroid.entity_description</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Toroid_Index"><code class="docutils literal notranslate"><span class="pre">Sensor_Toroid_Index</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Toroid_Index.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Toroid_Index.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Toroid_Index.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_Toroid_Index.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Toroid_Price"><code class="docutils literal notranslate"><span class="pre">Sensor_Toroid_Price</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Toroid_Price.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_Toroid_Price.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_Toroid_Price.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_Toroid_Price.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_XTHL"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_XTHL.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL.entity_description</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_XTHL_Hum"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL_Hum</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_XTHL_Hum.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL_Hum.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_XTHL_Hum.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL_Hum.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_XTHL_Lum"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL_Lum</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_XTHL_Lum.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL_Lum.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_XTHL_Lum.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL_Lum.get_property()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_XTHL_Temp"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL_Temp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_XTHL_Temp.entity_description"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL_Temp.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.Sensor_XTHL_Temp.get_property"><code class="docutils literal notranslate"><span class="pre">Sensor_XTHL_Temp.get_property()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ecodevices_rt2.switches.html">ecodevices_rt2.switches package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.switches.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.switches.html#module-ecodevices_rt2.switches.switch_api">ecodevices_rt2.switches.switch_api module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.switches.html#module-ecodevices_rt2.switches.switch_ecodevicesrt2">ecodevices_rt2.switches.switch_ecodevicesrt2 module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.switches.html#module-ecodevices_rt2.switches.switch_enocean">ecodevices_rt2.switches.switch_enocean module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.switches.html#module-ecodevices_rt2.switches.switch_relay">ecodevices_rt2.switches.switch_relay module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.switches.html#module-ecodevices_rt2.switches.switch_virtualoutput">ecodevices_rt2.switches.switch_virtualoutput module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.switches.html#module-ecodevices_rt2.switches.switch_x4fp">ecodevices_rt2.switches.switch_x4fp module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.switches.html#module-ecodevices_rt2.switches">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.switches.html#module-ecodevices_rt2.switches.switch_api">ecodevices_rt2.switches.switch_api module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_api.Switch_API"><code class="docutils literal notranslate"><span class="pre">Switch_API</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_api.Switch_API.entity_description"><code class="docutils literal notranslate"><span class="pre">Switch_API.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_api.Switch_API.get_status"><code class="docutils literal notranslate"><span class="pre">Switch_API.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_api.Switch_API.set_off"><code class="docutils literal notranslate"><span class="pre">Switch_API.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_api.Switch_API.set_on"><code class="docutils literal notranslate"><span class="pre">Switch_API.set_on()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.switches.html#module-ecodevices_rt2.switches.switch_ecodevicesrt2">ecodevices_rt2.switches.switch_ecodevicesrt2 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_ecodevicesrt2.Switch_EcoDevicesRT2"><code class="docutils literal notranslate"><span class="pre">Switch_EcoDevicesRT2</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_ecodevicesrt2.Switch_EcoDevicesRT2.async_get_status"><code class="docutils literal notranslate"><span class="pre">Switch_EcoDevicesRT2.async_get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_ecodevicesrt2.Switch_EcoDevicesRT2.async_turn_off"><code class="docutils literal notranslate"><span class="pre">Switch_EcoDevicesRT2.async_turn_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_ecodevicesrt2.Switch_EcoDevicesRT2.async_turn_on"><code class="docutils literal notranslate"><span class="pre">Switch_EcoDevicesRT2.async_turn_on()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_ecodevicesrt2.Switch_EcoDevicesRT2.available"><code class="docutils literal notranslate"><span class="pre">Switch_EcoDevicesRT2.available</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_ecodevicesrt2.Switch_EcoDevicesRT2.entity_description"><code class="docutils literal notranslate"><span class="pre">Switch_EcoDevicesRT2.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_ecodevicesrt2.Switch_EcoDevicesRT2.is_on"><code class="docutils literal notranslate"><span class="pre">Switch_EcoDevicesRT2.is_on</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_ecodevicesrt2.Switch_EcoDevicesRT2.set_off"><code class="docutils literal notranslate"><span class="pre">Switch_EcoDevicesRT2.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_ecodevicesrt2.Switch_EcoDevicesRT2.set_on"><code class="docutils literal notranslate"><span class="pre">Switch_EcoDevicesRT2.set_on()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.switches.html#module-ecodevices_rt2.switches.switch_enocean">ecodevices_rt2.switches.switch_enocean module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_enocean.Switch_EnOcean"><code class="docutils literal notranslate"><span class="pre">Switch_EnOcean</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_enocean.Switch_EnOcean.entity_description"><code class="docutils literal notranslate"><span class="pre">Switch_EnOcean.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_enocean.Switch_EnOcean.get_status"><code class="docutils literal notranslate"><span class="pre">Switch_EnOcean.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_enocean.Switch_EnOcean.set_off"><code class="docutils literal notranslate"><span class="pre">Switch_EnOcean.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_enocean.Switch_EnOcean.set_on"><code class="docutils literal notranslate"><span class="pre">Switch_EnOcean.set_on()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.switches.html#module-ecodevices_rt2.switches.switch_relay">ecodevices_rt2.switches.switch_relay module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_relay.Switch_Relay"><code class="docutils literal notranslate"><span class="pre">Switch_Relay</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_relay.Switch_Relay.entity_description"><code class="docutils literal notranslate"><span class="pre">Switch_Relay.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_relay.Switch_Relay.get_status"><code class="docutils literal notranslate"><span class="pre">Switch_Relay.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_relay.Switch_Relay.set_off"><code class="docutils literal notranslate"><span class="pre">Switch_Relay.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_relay.Switch_Relay.set_on"><code class="docutils literal notranslate"><span class="pre">Switch_Relay.set_on()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.switches.html#module-ecodevices_rt2.switches.switch_virtualoutput">ecodevices_rt2.switches.switch_virtualoutput module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_virtualoutput.Switch_VirtualOutput"><code class="docutils literal notranslate"><span class="pre">Switch_VirtualOutput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_virtualoutput.Switch_VirtualOutput.entity_description"><code class="docutils literal notranslate"><span class="pre">Switch_VirtualOutput.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_virtualoutput.Switch_VirtualOutput.get_status"><code class="docutils literal notranslate"><span class="pre">Switch_VirtualOutput.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_virtualoutput.Switch_VirtualOutput.set_off"><code class="docutils literal notranslate"><span class="pre">Switch_VirtualOutput.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_virtualoutput.Switch_VirtualOutput.set_on"><code class="docutils literal notranslate"><span class="pre">Switch_VirtualOutput.set_on()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.switches.html#module-ecodevices_rt2.switches.switch_x4fp">ecodevices_rt2.switches.switch_x4fp module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_x4fp.Switch_X4FP"><code class="docutils literal notranslate"><span class="pre">Switch_X4FP</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_x4fp.Switch_X4FP.entity_description"><code class="docutils literal notranslate"><span class="pre">Switch_X4FP.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_x4fp.Switch_X4FP.get_status"><code class="docutils literal notranslate"><span class="pre">Switch_X4FP.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_x4fp.Switch_X4FP.set_off"><code class="docutils literal notranslate"><span class="pre">Switch_X4FP.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.switch_x4fp.Switch_X4FP.set_on"><code class="docutils literal notranslate"><span class="pre">Switch_X4FP.set_on()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.switches.html#module-ecodevices_rt2.switches">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_API"><code class="docutils literal notranslate"><span class="pre">Switch_API</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_API.entity_description"><code class="docutils literal notranslate"><span class="pre">Switch_API.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_API.get_status"><code class="docutils literal notranslate"><span class="pre">Switch_API.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_API.set_off"><code class="docutils literal notranslate"><span class="pre">Switch_API.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_API.set_on"><code class="docutils literal notranslate"><span class="pre">Switch_API.set_on()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_EcoDevicesRT2"><code class="docutils literal notranslate"><span class="pre">Switch_EcoDevicesRT2</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_EcoDevicesRT2.async_get_status"><code class="docutils literal notranslate"><span class="pre">Switch_EcoDevicesRT2.async_get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_EcoDevicesRT2.async_turn_off"><code class="docutils literal notranslate"><span class="pre">Switch_EcoDevicesRT2.async_turn_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_EcoDevicesRT2.async_turn_on"><code class="docutils literal notranslate"><span class="pre">Switch_EcoDevicesRT2.async_turn_on()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_EcoDevicesRT2.available"><code class="docutils literal notranslate"><span class="pre">Switch_EcoDevicesRT2.available</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_EcoDevicesRT2.entity_description"><code class="docutils literal notranslate"><span class="pre">Switch_EcoDevicesRT2.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_EcoDevicesRT2.is_on"><code class="docutils literal notranslate"><span class="pre">Switch_EcoDevicesRT2.is_on</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_EcoDevicesRT2.set_off"><code class="docutils literal notranslate"><span class="pre">Switch_EcoDevicesRT2.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_EcoDevicesRT2.set_on"><code class="docutils literal notranslate"><span class="pre">Switch_EcoDevicesRT2.set_on()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_EnOcean"><code class="docutils literal notranslate"><span class="pre">Switch_EnOcean</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_EnOcean.entity_description"><code class="docutils literal notranslate"><span class="pre">Switch_EnOcean.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_EnOcean.get_status"><code class="docutils literal notranslate"><span class="pre">Switch_EnOcean.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_EnOcean.set_off"><code class="docutils literal notranslate"><span class="pre">Switch_EnOcean.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_EnOcean.set_on"><code class="docutils literal notranslate"><span class="pre">Switch_EnOcean.set_on()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_Relay"><code class="docutils literal notranslate"><span class="pre">Switch_Relay</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_Relay.entity_description"><code class="docutils literal notranslate"><span class="pre">Switch_Relay.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_Relay.get_status"><code class="docutils literal notranslate"><span class="pre">Switch_Relay.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_Relay.set_off"><code class="docutils literal notranslate"><span class="pre">Switch_Relay.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_Relay.set_on"><code class="docutils literal notranslate"><span class="pre">Switch_Relay.set_on()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_VirtualOutput"><code class="docutils literal notranslate"><span class="pre">Switch_VirtualOutput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_VirtualOutput.entity_description"><code class="docutils literal notranslate"><span class="pre">Switch_VirtualOutput.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_VirtualOutput.get_status"><code class="docutils literal notranslate"><span class="pre">Switch_VirtualOutput.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_VirtualOutput.set_off"><code class="docutils literal notranslate"><span class="pre">Switch_VirtualOutput.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_VirtualOutput.set_on"><code class="docutils literal notranslate"><span class="pre">Switch_VirtualOutput.set_on()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_X4FP"><code class="docutils literal notranslate"><span class="pre">Switch_X4FP</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_X4FP.entity_description"><code class="docutils literal notranslate"><span class="pre">Switch_X4FP.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_X4FP.get_status"><code class="docutils literal notranslate"><span class="pre">Switch_X4FP.get_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_X4FP.set_off"><code class="docutils literal notranslate"><span class="pre">Switch_X4FP.set_off()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.switches.html#ecodevices_rt2.switches.Switch_X4FP.set_on"><code class="docutils literal notranslate"><span class="pre">Switch_X4FP.set_on()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

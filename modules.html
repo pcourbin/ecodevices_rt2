@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ecodevices_rt2 &mdash; ecodevices_rt2 2.2.6 documentation</title>
+  <title>ecodevices_rt2 &mdash; ecodevices_rt2 2.2.7 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/table.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -32,7 +33,7 @@
             <a href="index.html" class="icon icon-home"> ecodevices_rt2
           </a>
               <div class="version">
-                2.2.6
+                2.2.7
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -136,15 +137,58 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.binary_sensor">ecodevices_rt2.binary_sensor module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.climate">ecodevices_rt2.climate module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.config_flow">ecodevices_rt2.config_flow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.binary_sensor">ecodevices_rt2.binary_sensor module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.binary_sensor.async_setup_entry"><code class="docutils literal notranslate"><span class="pre">async_setup_entry()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.climate">ecodevices_rt2.climate module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.climate.async_setup_entry"><code class="docutils literal notranslate"><span class="pre">async_setup_entry()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.config_flow">ecodevices_rt2.config_flow module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.config_flow.IpxConfigFlow"><code class="docutils literal notranslate"><span class="pre">IpxConfigFlow</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.config_flow.IpxConfigFlow.CONNECTION_CLASS"><code class="docutils literal notranslate"><span class="pre">IpxConfigFlow.CONNECTION_CLASS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.config_flow.IpxConfigFlow.VERSION"><code class="docutils literal notranslate"><span class="pre">IpxConfigFlow.VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.config_flow.IpxConfigFlow.async_step_import"><code class="docutils literal notranslate"><span class="pre">IpxConfigFlow.async_step_import()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.config_flow.IpxConfigFlow.async_step_user"><code class="docutils literal notranslate"><span class="pre">IpxConfigFlow.async_step_user()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.const">ecodevices_rt2.const module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.device_ecodevicesrt2">ecodevices_rt2.device_ecodevicesrt2 module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.light">ecodevices_rt2.light module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.sensor">ecodevices_rt2.sensor module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.switch">ecodevices_rt2.switch module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.device_ecodevicesrt2">ecodevices_rt2.device_ecodevicesrt2 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.device_ecodevicesrt2.EcoDevicesRT2Device"><code class="docutils literal notranslate"><span class="pre">EcoDevicesRT2Device</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.device_ecodevicesrt2.EcoDevicesRT2Device.device_class"><code class="docutils literal notranslate"><span class="pre">EcoDevicesRT2Device.device_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.device_ecodevicesrt2.EcoDevicesRT2Device.device_info"><code class="docutils literal notranslate"><span class="pre">EcoDevicesRT2Device.device_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.device_ecodevicesrt2.EcoDevicesRT2Device.entity_description"><code class="docutils literal notranslate"><span class="pre">EcoDevicesRT2Device.entity_description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.device_ecodevicesrt2.EcoDevicesRT2Device.icon"><code class="docutils literal notranslate"><span class="pre">EcoDevicesRT2Device.icon</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.device_ecodevicesrt2.EcoDevicesRT2Device.name"><code class="docutils literal notranslate"><span class="pre">EcoDevicesRT2Device.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.device_ecodevicesrt2.EcoDevicesRT2Device.unique_id"><code class="docutils literal notranslate"><span class="pre">EcoDevicesRT2Device.unique_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.device_ecodevicesrt2.EcoDevicesRT2Device.unit_of_measurement"><code class="docutils literal notranslate"><span class="pre">EcoDevicesRT2Device.unit_of_measurement</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.light">ecodevices_rt2.light module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.light.async_setup_entry"><code class="docutils literal notranslate"><span class="pre">async_setup_entry()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.sensor">ecodevices_rt2.sensor module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.sensor.async_setup_entry"><code class="docutils literal notranslate"><span class="pre">async_setup_entry()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2.switch">ecodevices_rt2.switch module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.switch.async_setup_entry"><code class="docutils literal notranslate"><span class="pre">async_setup_entry()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ecodevices_rt2.html#module-ecodevices_rt2">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.async_setup"><code class="docutils literal notranslate"><span class="pre">async_setup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.async_setup_entry"><code class="docutils literal notranslate"><span class="pre">async_setup_entry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.async_unload_entry"><code class="docutils literal notranslate"><span class="pre">async_unload_entry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.build_device_list"><code class="docutils literal notranslate"><span class="pre">build_device_list()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ecodevices_rt2.html#ecodevices_rt2.filter_device_list"><code class="docutils literal notranslate"><span class="pre">filter_device_list()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

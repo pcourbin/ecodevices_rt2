@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ecodevices_rt2.sensor &mdash; ecodevices_rt2 2.2.6 documentation</title>
+  <title>ecodevices_rt2.sensor &mdash; ecodevices_rt2 2.2.7 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/table.css" type="text/css" />
@@ -16,6 +16,7 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -29,7 +30,7 @@
             <a href="../../index.html" class="icon icon-home"> ecodevices_rt2
           </a>
               <div class="version">
-                2.2.6
+                2.2.7
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -80,40 +81,40 @@
 <span class="sd">Based on work of @Mati24 -- https://github.com/Aohzan/ecodevices&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="kn">from</span> <span class="nn">homeassistant.config_entries</span> <span class="k">import</span> <span class="n">ConfigEntry</span>
-<span class="kn">from</span> <span class="nn">homeassistant.core</span> <span class="k">import</span> <span class="n">HomeAssistant</span>
+<span class="kn">from</span> <span class="nn">homeassistant.config_entries</span> <span class="kn">import</span> <span class="n">ConfigEntry</span>
+<span class="kn">from</span> <span class="nn">homeassistant.core</span> <span class="kn">import</span> <span class="n">HomeAssistant</span>
 
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_GET</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_GET_ENTRY</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_API_GET_VALUE</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_DEVICES</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONF_TYPE</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">CONTROLLER</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">COORDINATOR</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">DOMAIN</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">TYPE_API</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">TYPE_COUNTER</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">TYPE_ENOCEAN</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">TYPE_POST</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">TYPE_SUPPLIERINDEX</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">TYPE_TOROID</span>
-<span class="kn">from</span> <span class="nn">.const</span> <span class="k">import</span> <span class="n">TYPE_XTHL</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_API</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_Counter_Index</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_Counter_Price</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_EnOcean</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_Post_Index</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_Post_IndexDay</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_Post_Instant</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_Post_Price</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_Post_PriceDay</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_SupplierIndex_Index</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_SupplierIndex_Price</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_Toroid_Index</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_Toroid_Price</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_XTHL_Hum</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_XTHL_Lum</span>
-<span class="kn">from</span> <span class="nn">.sensors</span> <span class="k">import</span> <span class="n">Sensor_XTHL_Temp</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_API_GET</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_API_GET_ENTRY</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_API_GET_VALUE</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_DEVICES</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_TYPE</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONTROLLER</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">COORDINATOR</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">DOMAIN</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">TYPE_API</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">TYPE_COUNTER</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">TYPE_ENOCEAN</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">TYPE_POST</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">TYPE_SUPPLIERINDEX</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">TYPE_TOROID</span>
+<span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">TYPE_XTHL</span>
+<span class="kn">from</span> <span class="nn">.sensors</span> <span class="kn">import</span> <span class="n">Sensor_API</span>
+<span class="kn">from</span> <span class="nn">.sensors</span> <span class="kn">import</span> <span class="n">Sensor_Counter_Index</span>
+<span class="kn">from</span> <span class="nn">.sensors</span> <span class="kn">import</span> <span class="n">Sensor_Counter_Price</span>
+<span class="kn">from</span> <span class="nn">.sensors</span> <span class="kn">import</span> <span class="n">Sensor_EnOcean</span>
+<span class="kn">from</span> <span class="nn">.sensors</span> <span class="kn">import</span> <span class="n">Sensor_Post_Index</span>
+<span class="kn">from</span> <span class="nn">.sensors</span> <span class="kn">import</span> <span class="n">Sensor_Post_IndexDay</span>
+<span class="kn">from</span> <span class="nn">.sensors</span> <span class="kn">import</span> <span class="n">Sensor_Post_Instant</span>
+<span class="kn">from</span> <span class="nn">.sensors</span> <span class="kn">import</span> <span class="n">Sensor_Post_Price</span>
+<span class="kn">from</span> <span class="nn">.sensors</span> <span class="kn">import</span> <span class="n">Sensor_Post_PriceDay</span>
+<span class="kn">from</span> <span class="nn">.sensors</span> <span class="kn">import</span> <span class="n">Sensor_SupplierIndex_Index</span>
+<span class="kn">from</span> <span class="nn">.sensors</span> <span class="kn">import</span> <span class="n">Sensor_SupplierIndex_Price</span>
+<span class="kn">from</span> <span class="nn">.sensors</span> <span class="kn">import</span> <span class="n">Sensor_Toroid_Index</span>
+<span class="kn">from</span> <span class="nn">.sensors</span> <span class="kn">import</span> <span class="n">Sensor_Toroid_Price</span>
+<span class="kn">from</span> <span class="nn">.sensors</span> <span class="kn">import</span> <span class="n">Sensor_XTHL_Hum</span>
+<span class="kn">from</span> <span class="nn">.sensors</span> <span class="kn">import</span> <span class="n">Sensor_XTHL_Lum</span>
+<span class="kn">from</span> <span class="nn">.sensors</span> <span class="kn">import</span> <span class="n">Sensor_XTHL_Temp</span>
 
 <span class="n">_LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ecodevices_rt2.sensors.sensor_post &mdash; ecodevices_rt2 2.2.6 documentation</title>
+  <title>ecodevices_rt2.sensors.sensor_post &mdash; ecodevices_rt2 2.2.7 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/table.css" type="text/css" />
@@ -16,6 +16,7 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -29,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> ecodevices_rt2
           </a>
               <div class="version">
-                2.2.6
+                2.2.7
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -76,25 +77,25 @@
            <div itemprop="articleBody">
              
   <h1>Source code for ecodevices_rt2.sensors.sensor_post</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">homeassistant.components.sensor</span> <span class="k">import</span> <span class="n">STATE_CLASS_MEASUREMENT</span>
-<span class="kn">from</span> <span class="nn">homeassistant.components.sensor</span> <span class="k">import</span> <span class="n">STATE_CLASS_TOTAL_INCREASING</span>
-<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="k">import</span> <span class="n">DEVICE_CLASS_ENERGY</span>
-<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="k">import</span> <span class="n">DEVICE_CLASS_MONETARY</span>
-<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="k">import</span> <span class="n">DEVICE_CLASS_POWER</span>
-<span class="kn">from</span> <span class="nn">homeassistant.helpers.update_coordinator</span> <span class="k">import</span> <span class="n">DataUpdateCoordinator</span>
-<span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="k">import</span> <span class="n">EcoDevicesRT2</span>
-<span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="k">import</span> <span class="n">Post</span>
+<span></span><span class="kn">from</span> <span class="nn">homeassistant.components.sensor</span> <span class="kn">import</span> <span class="n">STATE_CLASS_MEASUREMENT</span>
+<span class="kn">from</span> <span class="nn">homeassistant.components.sensor</span> <span class="kn">import</span> <span class="n">STATE_CLASS_TOTAL_INCREASING</span>
+<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">DEVICE_CLASS_ENERGY</span>
+<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">DEVICE_CLASS_MONETARY</span>
+<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">DEVICE_CLASS_POWER</span>
+<span class="kn">from</span> <span class="nn">homeassistant.helpers.update_coordinator</span> <span class="kn">import</span> <span class="n">DataUpdateCoordinator</span>
+<span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="kn">import</span> <span class="n">EcoDevicesRT2</span>
+<span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="kn">import</span> <span class="n">Post</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">Sensor_EcoDevicesRT2</span>
-<span class="kn">from</span> <span class="nn">..const</span> <span class="k">import</span> <span class="n">CONF_SUBPOST_ID</span>
-<span class="kn">from</span> <span class="nn">..const</span> <span class="k">import</span> <span class="n">DEFAULT_ICON_CURRENCY</span>
-<span class="kn">from</span> <span class="nn">..const</span> <span class="k">import</span> <span class="n">DEFAULT_ICON_ENERGY</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">Sensor_EcoDevicesRT2</span>
+<span class="kn">from</span> <span class="nn">..const</span> <span class="kn">import</span> <span class="n">CONF_SUBPOST_ID</span>
+<span class="kn">from</span> <span class="nn">..const</span> <span class="kn">import</span> <span class="n">DEFAULT_ICON_CURRENCY</span>
+<span class="kn">from</span> <span class="nn">..const</span> <span class="kn">import</span> <span class="n">DEFAULT_ICON_ENERGY</span>
 
 
 <div class="viewcode-block" id="Sensor_Post"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post">[docs]</a><span class="k">class</span> <span class="nc">Sensor_Post</span><span class="p">(</span><span class="n">Sensor_EcoDevicesRT2</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Representation of an Post_Sensor.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
@@ -126,7 +127,7 @@
 
 
 <div class="viewcode-block" id="Sensor_Post_Index"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_Index">[docs]</a><span class="k">class</span> <span class="nc">Sensor_Post_Index</span><span class="p">(</span><span class="n">Sensor_Post</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
@@ -143,7 +144,7 @@
 
 
 <div class="viewcode-block" id="Sensor_Post_Price"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_Price">[docs]</a><span class="k">class</span> <span class="nc">Sensor_Post_Price</span><span class="p">(</span><span class="n">Sensor_Post</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
@@ -164,7 +165,7 @@
 
 
 <div class="viewcode-block" id="Sensor_Post_IndexDay"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_IndexDay">[docs]</a><span class="k">class</span> <span class="nc">Sensor_Post_IndexDay</span><span class="p">(</span><span class="n">Sensor_Post</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
@@ -185,7 +186,7 @@
 
 
 <div class="viewcode-block" id="Sensor_Post_PriceDay"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_PriceDay">[docs]</a><span class="k">class</span> <span class="nc">Sensor_Post_PriceDay</span><span class="p">(</span><span class="n">Sensor_Post</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
@@ -206,7 +207,7 @@
 
 
 <div class="viewcode-block" id="Sensor_Post_Instant"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_post.Sensor_Post_Instant">[docs]</a><span class="k">class</span> <span class="nc">Sensor_Post_Instant</span><span class="p">(</span><span class="n">Sensor_Post</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
