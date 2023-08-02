@@ -11,7 +11,7 @@ ecodevices_rt2:
   - name: EcoRT2
     host: "192.168.0.20"
     port: 80 # Optional, default: 80
-    api_key: #!secret rt2_api_key
+    api_key: # !secret rt2_api_key
     update_after_switch: 0.1
     scan_interval: 5
     devices:
