@@ -1,8 +1,6 @@
+from homeassistant.components.sensor import SensorDeviceClass
 from homeassistant.components.sensor import STATE_CLASS_MEASUREMENT
 from homeassistant.components.sensor import STATE_CLASS_TOTAL_INCREASING
-from homeassistant.const import DEVICE_CLASS_ENERGY
-from homeassistant.const import DEVICE_CLASS_MONETARY
-from homeassistant.const import DEVICE_CLASS_POWER
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import EcoDevicesRT2
 from pyecodevices_rt2 import Post
@@ -31,17 +29,17 @@ class Sensor_Post(Sensor_EcoDevicesRT2):
             self.control = Post(ecort2, self._id)
         self._device_class = device_class
         # Allow overriding of currency unit and icon if specified in the conf
-        if device_class == DEVICE_CLASS_MONETARY:
+        if device_class == SensorDeviceClass.MONETARY:
             if not self._unit_of_measurement:
                 self._unit_of_measurement = "€"
             if not self._icon:
                 self._icon = DEFAULT_ICON_CURRENCY
             self._state_class = STATE_CLASS_TOTAL_INCREASING
-        elif device_class == DEVICE_CLASS_ENERGY:
+        elif device_class == SensorDeviceClass.ENERGY:
             self._unit_of_measurement = "kWh"
             self._icon = DEFAULT_ICON_ENERGY
             self._state_class = STATE_CLASS_TOTAL_INCREASING
-        elif device_class == DEVICE_CLASS_POWER:
+        elif device_class == SensorDeviceClass.POWER:
             self._unit_of_measurement = "W"
             self._icon = DEFAULT_ICON_ENERGY
             self._state_class = STATE_CLASS_MEASUREMENT
@@ -55,7 +53,7 @@ class Sensor_Post_Index(Sensor_Post):
         coordinator: DataUpdateCoordinator,
     ):
         super().__init__(
-            device_config, ecort2, coordinator, DEVICE_CLASS_ENERGY, "Index"
+            device_config, ecort2, coordinator, SensorDeviceClass.ENERGY, "Index"
         )
 
     def get_property(self, cached_ms: int = None):
@@ -75,7 +73,7 @@ class Sensor_Post_Price(Sensor_Post):
             device_config,
             ecort2,
             coordinator,
-            DEVICE_CLASS_MONETARY,
+            SensorDeviceClass.MONETARY,
             "Price",
         )
 
@@ -96,7 +94,7 @@ class Sensor_Post_IndexDay(Sensor_Post):
             device_config,
             ecort2,
             coordinator,
-            DEVICE_CLASS_ENERGY,
+            SensorDeviceClass.ENERGY,
             "IndexDay",
         )
 
@@ -117,7 +115,7 @@ class Sensor_Post_PriceDay(Sensor_Post):
             device_config,
             ecort2,
             coordinator,
-            DEVICE_CLASS_MONETARY,
+            SensorDeviceClass.MONETARY,
             "PriceDay",
         )
 
@@ -138,7 +136,7 @@ class Sensor_Post_Instant(Sensor_Post):
             device_config,
             ecort2,
             coordinator,
-            DEVICE_CLASS_POWER,
+            SensorDeviceClass.POWER,
             "Instant",
         )
 

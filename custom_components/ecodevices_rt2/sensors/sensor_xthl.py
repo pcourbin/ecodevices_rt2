@@ -1,9 +1,7 @@
 import logging
 
+from homeassistant.components.sensor import SensorDeviceClass
 from homeassistant.components.sensor import STATE_CLASS_MEASUREMENT
-from homeassistant.const import DEVICE_CLASS_HUMIDITY
-from homeassistant.const import DEVICE_CLASS_ILLUMINANCE
-from homeassistant.const import DEVICE_CLASS_TEMPERATURE
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import EcoDevicesRT2
 from pyecodevices_rt2 import XTHL
@@ -30,11 +28,14 @@ class Sensor_XTHL(Sensor_EcoDevicesRT2):
         self._device_class = device_class
         self._state_class = STATE_CLASS_MEASUREMENT
         # Allow overriding of temperature unit if specified in the conf
-        if device_class == DEVICE_CLASS_TEMPERATURE and not self._unit_of_measurement:
+        if (
+            device_class == SensorDeviceClass.TEMPERATURE
+            and not self._unit_of_measurement
+        ):
             self._unit_of_measurement = "°C"
-        elif device_class == DEVICE_CLASS_HUMIDITY:
+        elif device_class == SensorDeviceClass.HUMIDITY:
             self._unit_of_measurement = "%"
-        elif device_class == DEVICE_CLASS_ILLUMINANCE:
+        elif device_class == SensorDeviceClass.ILLUMINANCE:
             self._unit_of_measurement = "lx"
 
 
@@ -49,7 +50,7 @@ class Sensor_XTHL_Temp(Sensor_XTHL):
             device_config,
             ecort2,
             coordinator,
-            DEVICE_CLASS_TEMPERATURE,
+            SensorDeviceClass.TEMPERATURE,
             "Temperature",
         )
 
@@ -70,7 +71,7 @@ class Sensor_XTHL_Hum(Sensor_XTHL):
             device_config,
             ecort2,
             coordinator,
-            DEVICE_CLASS_HUMIDITY,
+            SensorDeviceClass.HUMIDITY,
             "Humidity",
         )
 
@@ -91,7 +92,7 @@ class Sensor_XTHL_Lum(Sensor_XTHL):
             device_config,
             ecort2,
             coordinator,
-            DEVICE_CLASS_ILLUMINANCE,
+            SensorDeviceClass.ILLUMINANCE,
             "Luminance",
         )
 
