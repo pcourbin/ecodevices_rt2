@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GCE Ecodevices RT2 component for Home Assistant &mdash; ecodevices_rt2 2.2.7 documentation</title>
@@ -12,12 +12,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=5beea284"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -30,14 +29,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> ecodevices_rt2
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ecodevices_rt2
           </a>
               <div class="version">
                 2.2.7
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -72,8 +75,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>GCE Ecodevices RT2 component for Home Assistant</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">GCE Ecodevices RT2 component for Home Assistant</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/readme.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -105,119 +108,119 @@ It uses python package <a class="reference external" href="https://github.com/pc
 </section>
 <section id="full-example">
 <h2>Full Example<a class="headerlink" href="#full-example" title="Permalink to this heading"></a></h2>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ecodevices_rt2</span><span class="p">:</span><span class="w"></span>
-<span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EcoRT2</span><span class="w"></span>
-<span class="w">   </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;192.168.0.20&quot;</span><span class="w"></span>
-<span class="w">   </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span><span class="w"> </span><span class="c1"># Optional, default: 80</span><span class="w"></span>
-<span class="w">   </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="c1">#!secret rt2_api_key</span><span class="w"></span>
-<span class="w">   </span><span class="nt">update_after_switch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w">   </span><span class="c1"># Optional, default: 0 (seconds)</span><span class="w"></span>
-<span class="w">   </span><span class="nt">scan_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w"></span>
-<span class="w">   </span><span class="nt">devices</span><span class="p">:</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ecodevices_rt2</span><span class="p">:</span>
+<span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EcoRT2</span>
+<span class="w">   </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;192.168.0.20&quot;</span>
+<span class="w">   </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span><span class="w"> </span><span class="c1"># Optional, default: 80</span>
+<span class="w">   </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="c1">#!secret rt2_api_key</span>
+<span class="w">   </span><span class="nt">update_after_switch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w">   </span><span class="c1"># Optional, default: 0 (seconds)</span>
+<span class="w">   </span><span class="nt">scan_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">   </span><span class="nt">devices</span><span class="p">:</span>
 
-<span class="w">     </span><span class="c1">#### API Example</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Elec Index HC (from API)</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;api&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;sensor&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">api_get</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Index&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">api_get_value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;All&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">api_get_entry</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Index_TI1&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">device_class</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;energy&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;kWh&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">state_class</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;total_increasing&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mdi:flash&quot;</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnOcean Switch 1 (from API)</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;api&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;switch&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">api_get</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Get&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">api_get_value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;XENO&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">api_get_entry</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ENO</span><span class="nv"> </span><span class="s">ACTIONNEUR1&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">api_on_get</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;SetEnoPC&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">api_on_get_value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">api_off_get</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ClearEnoPC&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">api_off_get_value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="w"></span>
+<span class="w">     </span><span class="c1">#### API Example</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Elec Index HC (from API)</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;api&quot;</span>
+<span class="w">       </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;sensor&quot;</span>
+<span class="w">       </span><span class="nt">api_get</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Index&quot;</span>
+<span class="w">       </span><span class="nt">api_get_value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;All&quot;</span>
+<span class="w">       </span><span class="nt">api_get_entry</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Index_TI1&quot;</span>
+<span class="w">       </span><span class="nt">device_class</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;energy&quot;</span>
+<span class="w">       </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;kWh&quot;</span>
+<span class="w">       </span><span class="nt">state_class</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;total_increasing&quot;</span>
+<span class="w">       </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mdi:flash&quot;</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnOcean Switch 1 (from API)</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;api&quot;</span>
+<span class="w">       </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;switch&quot;</span>
+<span class="w">       </span><span class="nt">api_get</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Get&quot;</span>
+<span class="w">       </span><span class="nt">api_get_value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;XENO&quot;</span>
+<span class="w">       </span><span class="nt">api_get_entry</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ENO</span><span class="nv"> </span><span class="s">ACTIONNEUR1&quot;</span>
+<span class="w">       </span><span class="nt">api_on_get</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;SetEnoPC&quot;</span>
+<span class="w">       </span><span class="nt">api_on_get_value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="w">       </span><span class="nt">api_off_get</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ClearEnoPC&quot;</span>
+<span class="w">       </span><span class="nt">api_off_get_value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
 
-<span class="w">     </span><span class="c1">#### Counter Example</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Counter 1</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;counter&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">     </span><span class="c1">#### Counter Example</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Counter 1</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;counter&quot;</span>
+<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 
-<span class="w">     </span><span class="c1">#### DigitalInput Example</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DigitalInput 1</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;digitalinput&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">     </span><span class="c1">#### DigitalInput Example</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DigitalInput 1</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;digitalinput&quot;</span>
+<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 
-<span class="w">     </span><span class="c1">#### EnOcean Switch or Sensor Example</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bedroom temperature</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;enocean&quot;</span><span class="w">           </span><span class="c1"># Using default component `sensor`</span><span class="w"></span>
-<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">       </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;°C&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">device_class</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;temperature&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:thermometer</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnOcean Switch 1</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;enocean&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;switch&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnOcean Switch 2 as Light</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;enocean&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;light&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
+<span class="w">     </span><span class="c1">#### EnOcean Switch or Sensor Example</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bedroom temperature</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;enocean&quot;</span><span class="w">           </span><span class="c1"># Using default component `sensor`</span>
+<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">       </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;°C&quot;</span>
+<span class="w">       </span><span class="nt">device_class</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;temperature&quot;</span>
+<span class="w">       </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:thermometer</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnOcean Switch 1</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;enocean&quot;</span>
+<span class="w">       </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;switch&quot;</span>
+<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnOcean Switch 2 as Light</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;enocean&quot;</span>
+<span class="w">       </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;light&quot;</span>
+<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
 
-<span class="w">     </span><span class="c1">#### Post and Sub-Post Example</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Post 1</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Subpost 2 of Post 1</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">       </span><span class="nt">subpost</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
+<span class="w">     </span><span class="c1">#### Post and Sub-Post Example</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Post 1</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post&quot;</span>
+<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Subpost 2 of Post 1</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;post&quot;</span>
+<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">       </span><span class="nt">subpost</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
 
-<span class="w">     </span><span class="c1">#### Relay Example</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Relay 1</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;relay&quot;</span><span class="w">             </span><span class="c1"># Using default component `sensor`</span><span class="w"></span>
-<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Relay 2 as Light</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;relay&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;light&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
+<span class="w">     </span><span class="c1">#### Relay Example</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Relay 1</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;relay&quot;</span><span class="w">             </span><span class="c1"># Using default component `sensor`</span>
+<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Relay 2 as Light</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;relay&quot;</span>
+<span class="w">       </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;light&quot;</span>
+<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
 
-<span class="w">     </span><span class="c1">#### SupplierIndex Example</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Supplier Index 1 (EDF Info)</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;supplierindex&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">     </span><span class="c1">#### SupplierIndex Example</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Supplier Index 1 (EDF Info)</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;supplierindex&quot;</span>
+<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 
-<span class="w">     </span><span class="c1">#### Toroid Example</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Toroid 1</span><span class="w">  </span><span class="c1"># 4 sensors: 2 Consumption + 2 Production</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;toroid&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Toroid 5</span><span class="w">  </span><span class="c1"># 2 sensors</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;toroid&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w"></span>
+<span class="w">     </span><span class="c1">#### Toroid Example</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Toroid 1</span><span class="w">  </span><span class="c1"># 4 sensors: 2 Consumption + 2 Production</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;toroid&quot;</span>
+<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Toroid 5</span><span class="w">  </span><span class="c1"># 2 sensors</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;toroid&quot;</span>
+<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
 
-<span class="w">     </span><span class="c1">#### VirtualOutput Example</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Virtual Output 1</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;virtualoutput&quot;</span><span class="w">      </span><span class="c1"># Using default component `sensor`</span><span class="w"></span>
-<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Virtual Output 2 as Light</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;virtualoutput&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;light&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
+<span class="w">     </span><span class="c1">#### VirtualOutput Example</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Virtual Output 1</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;virtualoutput&quot;</span><span class="w">      </span><span class="c1"># Using default component `sensor`</span>
+<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Virtual Output 2 as Light</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;virtualoutput&quot;</span>
+<span class="w">       </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;light&quot;</span>
+<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
 
-<span class="w">     </span><span class="c1">#### X4FP (Heaters) Example</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Heater Module 1 Zone 1</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;x4fp&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;climate&quot;</span><span class="w">       </span><span class="c1"># Can be omitted since default value</span><span class="w"></span>
-<span class="w">       </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">       </span><span class="nt">zone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Heater Module 1 Zone 2 as Switch</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;x4fp&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;switch&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">       </span><span class="nt">zone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
+<span class="w">     </span><span class="c1">#### X4FP (Heaters) Example</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Heater Module 1 Zone 1</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;x4fp&quot;</span>
+<span class="w">       </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;climate&quot;</span><span class="w">       </span><span class="c1"># Can be omitted since default value</span>
+<span class="w">       </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">       </span><span class="nt">zone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Heater Module 1 Zone 2 as Switch</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;x4fp&quot;</span>
+<span class="w">       </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;switch&quot;</span>
+<span class="w">       </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">       </span><span class="nt">zone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
 
-<span class="w">     </span><span class="c1">#### XTHL Example</span><span class="w"></span>
-<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XHTL 1</span><span class="w"></span>
-<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;xthl&quot;</span><span class="w"></span>
-<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">     </span><span class="c1">#### XTHL Example</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XHTL 1</span>
+<span class="w">       </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;xthl&quot;</span>
+<span class="w">       </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 </pre></div>
 </div>
 </section>

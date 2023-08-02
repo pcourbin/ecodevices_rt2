@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contributing &mdash; ecodevices_rt2 2.2.7 documentation</title>
@@ -12,12 +12,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=5beea284"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -30,14 +29,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> ecodevices_rt2
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ecodevices_rt2
           </a>
               <div class="version">
                 2.2.7
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -80,8 +83,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Contributing</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Contributing</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/contributing.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -142,12 +145,12 @@ are welcome :)</p></li>
 <ol class="arabic">
 <li><p>Fork the <cite>ecodevices_rt2</cite> repo on GitHub.</p></li>
 <li><p>Clone your fork locally:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ git clone git@github.com:your_name_here/ecodevices_rt2.git
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:your_name_here/ecodevices_rt2.git
 </pre></div>
 </div>
 </li>
 <li><p>Create a branch for local development:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ git checkout -b name-of-your-bugfix-or-feature
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>name-of-your-bugfix-or-feature
 </pre></div>
 </div>
 <p>Now you can make your changes locally.</p>
@@ -164,23 +167,23 @@ you are asked to “Reopen in Container”, this will start the build of the con
 </div></blockquote>
 <ol class="arabic" start="5">
 <li><p>Configure your tests and pre-commit environnement:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ pip install -r requirements_dev.txt
-$ pre-commit install
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements_dev.txt
+$<span class="w"> </span>pre-commit<span class="w"> </span>install
 </pre></div>
 </div>
 </li>
 <li><p>When you’re done making changes, check that your changes pass lint and the
 tests, including testing other Python versions with tox:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ make lint
-.. $ python setup.py <span class="nb">test</span> or pytest
-.. $ tox
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>make<span class="w"> </span>lint
+..<span class="w"> </span>$<span class="w"> </span>python<span class="w"> </span>setup.py<span class="w"> </span><span class="nb">test</span><span class="w"> </span>or<span class="w"> </span>pytest
+..<span class="w"> </span>$<span class="w"> </span>tox
 </pre></div>
 </div>
 </li>
 <li><p>Commit your changes and push your branch to GitHub:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ git add .
-$ git commit -m <span class="s2">&quot;Your detailed description of your changes.&quot;</span>
-$ git push origin name-of-your-bugfix-or-feature
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.
+$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Your detailed description of your changes.&quot;</span>
+$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>name-of-your-bugfix-or-feature
 </pre></div>
 </div>
 </li>
@@ -202,9 +205,9 @@ feature to the list in README.rst.</p></li>
 <p>A reminder for the maintainers on how to deploy.
 Make sure all your changes are committed (including an entry in HISTORY.rst).
 Then run:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ bump2version patch <span class="c1"># possible: major / minor / patch</span>
-$ git push
-$ git push --tags
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bump2version<span class="w"> </span>patch<span class="w"> </span><span class="c1"># possible: major / minor / patch</span>
+$<span class="w"> </span>git<span class="w"> </span>push
+$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>--tags
 </pre></div>
 </div>
 </section>
