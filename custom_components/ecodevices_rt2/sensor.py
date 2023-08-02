@@ -56,6 +56,7 @@ async def async_setup_entry(
         if device.get(CONF_TYPE) == TYPE_API:
             entities.append(
                 Sensor_API(
+                    hass,
                     device,
                     controller,
                     coordinator,
@@ -65,25 +66,29 @@ async def async_setup_entry(
                 )
             )
         elif device.get(CONF_TYPE) == TYPE_COUNTER:
-            entities.append(Sensor_Counter_Index(device, controller, coordinator))
-            entities.append(Sensor_Counter_Price(device, controller, coordinator))
+            entities.append(Sensor_Counter_Index(hass, device, controller, coordinator))
+            entities.append(Sensor_Counter_Price(hass, device, controller, coordinator))
         elif device.get(CONF_TYPE) == TYPE_ENOCEAN:
-            entities.append(Sensor_EnOcean(device, controller, coordinator))
+            entities.append(Sensor_EnOcean(hass, device, controller, coordinator))
         elif device.get(CONF_TYPE) == TYPE_POST:
-            entities.append(Sensor_Post_Index(device, controller, coordinator))
-            entities.append(Sensor_Post_Price(device, controller, coordinator))
-            entities.append(Sensor_Post_IndexDay(device, controller, coordinator))
-            entities.append(Sensor_Post_PriceDay(device, controller, coordinator))
-            entities.append(Sensor_Post_Instant(device, controller, coordinator))
+            entities.append(Sensor_Post_Index(hass, device, controller, coordinator))
+            entities.append(Sensor_Post_Price(hass, device, controller, coordinator))
+            entities.append(Sensor_Post_IndexDay(hass, device, controller, coordinator))
+            entities.append(Sensor_Post_PriceDay(hass, device, controller, coordinator))
+            entities.append(Sensor_Post_Instant(hass, device, controller, coordinator))
         elif device.get(CONF_TYPE) == TYPE_SUPPLIERINDEX:
-            entities.append(Sensor_SupplierIndex_Index(device, controller, coordinator))
-            entities.append(Sensor_SupplierIndex_Price(device, controller, coordinator))
+            entities.append(
+                Sensor_SupplierIndex_Index(hass, device, controller, coordinator)
+            )
+            entities.append(
+                Sensor_SupplierIndex_Price(hass, device, controller, coordinator)
+            )
         elif device.get(CONF_TYPE) == TYPE_TOROID:
-            entities.append(Sensor_Toroid_Index(device, controller, coordinator))
-            entities.append(Sensor_Toroid_Price(device, controller, coordinator))
+            entities.append(Sensor_Toroid_Index(hass, device, controller, coordinator))
+            entities.append(Sensor_Toroid_Price(hass, device, controller, coordinator))
         elif device.get(CONF_TYPE) == TYPE_XTHL:
-            entities.append(Sensor_XTHL_Temp(device, controller, coordinator))
-            entities.append(Sensor_XTHL_Hum(device, controller, coordinator))
-            entities.append(Sensor_XTHL_Lum(device, controller, coordinator))
+            entities.append(Sensor_XTHL_Temp(hass, device, controller, coordinator))
+            entities.append(Sensor_XTHL_Hum(hass, device, controller, coordinator))
+            entities.append(Sensor_XTHL_Lum(hass, device, controller, coordinator))
 
     async_add_entities(entities, True)

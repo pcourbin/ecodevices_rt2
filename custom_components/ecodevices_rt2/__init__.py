@@ -35,11 +35,23 @@ from .const import CONF_API_ON_GET_VALUE
 from .const import CONF_COMPONENT
 from .const import CONF_COMPONENT_ALLOWED
 from .const import CONF_DEVICES
+from .const import CONF_ICON_HUMIDITY
+from .const import CONF_ICON_ILLUMINANCE
+from .const import CONF_ICON_INDEX
+from .const import CONF_ICON_INSTANT
+from .const import CONF_ICON_PRICE
+from .const import CONF_ICON_TEMPERATURE
 from .const import CONF_ID
 from .const import CONF_MODULE_ID
 from .const import CONF_SUBPOST_ID
 from .const import CONF_TYPE
-from .const import CONF_TYPE_COMPONENT_ALLOWED
+from .const import CONF_TYPE_COMPONENT_NEEDED
+from .const import CONF_UNIT_HUMIDITY
+from .const import CONF_UNIT_ILLUMINANCE
+from .const import CONF_UNIT_INDEX
+from .const import CONF_UNIT_INSTANT
+from .const import CONF_UNIT_PRICE
+from .const import CONF_UNIT_TEMPERATURE
 from .const import CONF_UPDATE_AFTER_SWITCH
 from .const import CONF_ZONE_ID
 from .const import CONTROLLER
@@ -75,6 +87,18 @@ DEVICE_CONFIG_SCHEMA_ENTRY = vol.Schema(
         vol.Optional(CONF_DEVICE_CLASS): cv.string,
         vol.Optional(CONF_STATE_CLASS): cv.string,
         vol.Optional(CONF_UNIT_OF_MEASUREMENT): cv.string,
+        vol.Optional(CONF_UNIT_PRICE): cv.string,
+        vol.Optional(CONF_UNIT_INDEX): cv.string,
+        vol.Optional(CONF_UNIT_HUMIDITY): cv.string,
+        vol.Optional(CONF_UNIT_TEMPERATURE): cv.string,
+        vol.Optional(CONF_UNIT_ILLUMINANCE): cv.string,
+        vol.Optional(CONF_UNIT_INSTANT): cv.string,
+        vol.Optional(CONF_ICON_PRICE): cv.string,
+        vol.Optional(CONF_ICON_INDEX): cv.string,
+        vol.Optional(CONF_ICON_INSTANT): cv.string,
+        vol.Optional(CONF_ICON_HUMIDITY): cv.string,
+        vol.Optional(CONF_ICON_TEMPERATURE): cv.string,
+        vol.Optional(CONF_ICON_ILLUMINANCE): cv.string,
     }
 )
 
@@ -237,7 +261,7 @@ def build_device_list(devices_config: list) -> list:
         _LOGGER.debug("Read device name: %s", device_config.get(CONF_NAME))
 
         # Check if TYPE is defined
-        if device_config[CONF_TYPE] not in CONF_TYPE_COMPONENT_ALLOWED:
+        if device_config[CONF_TYPE] not in CONF_TYPE_COMPONENT_NEEDED:
             _LOGGER.error(
                 "Device '%s' skipped: '%s' defined by '%s' not correct or supported.",
                 device_config[CONF_NAME],
@@ -246,7 +270,7 @@ def build_device_list(devices_config: list) -> list:
             )
             continue
         else:
-            conf_default_allowed = CONF_TYPE_COMPONENT_ALLOWED[device_config[CONF_TYPE]]
+            conf_default_allowed = CONF_TYPE_COMPONENT_NEEDED[device_config[CONF_TYPE]]
             # Define/Get component if not set, using default value
             if CONF_COMPONENT not in device_config:
                 device_config[CONF_COMPONENT] = conf_default_allowed["default"]

@@ -1,14 +1,13 @@
 from homeassistant.components.sensor import SensorDeviceClass
-from homeassistant.components.sensor import STATE_CLASS_MEASUREMENT
-from homeassistant.components.sensor import STATE_CLASS_TOTAL_INCREASING
+from homeassistant.const import UnitOfEnergy
+from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import EcoDevicesRT2
 from pyecodevices_rt2 import Post
 
 from . import Sensor_EcoDevicesRT2
 from ..const import CONF_SUBPOST_ID
-from ..const import DEFAULT_ICON_CURRENCY
-from ..const import DEFAULT_ICON_ENERGY
+from ..const import CONF_UNIT_INDEX
 
 
 class Sensor_Post(Sensor_EcoDevicesRT2):
@@ -16,44 +15,42 @@ class Sensor_Post(Sensor_EcoDevicesRT2):
 
     def __init__(
         self,
+        hass: HomeAssistant,
         device_config: dict,
         ecort2: EcoDevicesRT2,
         coordinator: DataUpdateCoordinator,
         device_class: str,
         suffix_name: str,
     ):
-        super().__init__(device_config, ecort2, coordinator, suffix_name)
+        super().__init__(
+            hass, device_config, ecort2, coordinator, device_class, suffix_name
+        )
         if CONF_SUBPOST_ID in device_config:
             self.control = Post(ecort2, self._id, device_config[CONF_SUBPOST_ID])
         else:
             self.control = Post(ecort2, self._id)
-        self._device_class = device_class
-        # Allow overriding of currency unit and icon if specified in the conf
-        if device_class == SensorDeviceClass.MONETARY:
-            if not self._unit_of_measurement:
-                self._unit_of_measurement = "€"
-            if not self._icon:
-                self._icon = DEFAULT_ICON_CURRENCY
-            self._state_class = STATE_CLASS_TOTAL_INCREASING
-        elif device_class == SensorDeviceClass.ENERGY:
-            self._unit_of_measurement = "kWh"
-            self._icon = DEFAULT_ICON_ENERGY
-            self._state_class = STATE_CLASS_TOTAL_INCREASING
-        elif device_class == SensorDeviceClass.POWER:
-            self._unit_of_measurement = "W"
-            self._icon = DEFAULT_ICON_ENERGY
-            self._state_class = STATE_CLASS_MEASUREMENT
+
+        if device_class == SensorDeviceClass.ENERGY and not device_config.get(
+            CONF_UNIT_INDEX
+        ):
+            self._unit_of_measurement = UnitOfEnergy.KILO_WATT_HOUR
 
 
 class Sensor_Post_Index(Sensor_Post):
     def __init__(
         self,
+        hass,
         device_config: dict,
         ecort2: EcoDevicesRT2,
         coordinator: DataUpdateCoordinator,
     ):
         super().__init__(
-            device_config, ecort2, coordinator, SensorDeviceClass.ENERGY, "Index"
+            hass,
+            device_config,
+            ecort2,
+            coordinator,
+            SensorDeviceClass.ENERGY,
+            "Index",
         )
 
     def get_property(self, cached_ms: int = None):
@@ -65,11 +62,13 @@ class Sensor_Post_Index(Sensor_Post):
 class Sensor_Post_Price(Sensor_Post):
     def __init__(
         self,
+        hass,
         device_config: dict,
         ecort2: EcoDevicesRT2,
         coordinator: DataUpdateCoordinator,
     ):
         super().__init__(
+            hass,
             device_config,
             ecort2,
             coordinator,
@@ -86,11 +85,13 @@ class Sensor_Post_Price(Sensor_Post):
 class Sensor_Post_IndexDay(Sensor_Post):
     def __init__(
         self,
+        hass,
         device_config: dict,
         ecort2: EcoDevicesRT2,
         coordinator: DataUpdateCoordinator,
     ):
         super().__init__(
+            hass,
             device_config,
             ecort2,
             coordinator,
@@ -107,11 +108,13 @@ class Sensor_Post_IndexDay(Sensor_Post):
 class Sensor_Post_PriceDay(Sensor_Post):
     def __init__(
         self,
+        hass,
         device_config: dict,
         ecort2: EcoDevicesRT2,
         coordinator: DataUpdateCoordinator,
     ):
         super().__init__(
+            hass,
             device_config,
             ecort2,
             coordinator,
@@ -128,11 +131,13 @@ class Sensor_Post_PriceDay(Sensor_Post):
 class Sensor_Post_Instant(Sensor_Post):
     def __init__(
         self,
+        hass,
         device_config: dict,
         ecort2: EcoDevicesRT2,
         coordinator: DataUpdateCoordinator,
     ):
         super().__init__(
+            hass,
             device_config,
             ecort2,
             coordinator,

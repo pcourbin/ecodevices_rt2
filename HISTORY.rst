@@ -2,6 +2,11 @@
 History
 =======
 
+2.2.8 (2023-08-02)
+-------------------------
+
+* Improve the definition of units and icons for sensors, in particular when a configuration generates several sensors (Counter which creates a sensor with index and another with the price) (See issue `#130 <https://github.com/pcourbin/ecodevices_rt2/issues/130>`_)
+
 2.2.7 (2022-10-10)
 -------------------------
 

@@ -36,6 +36,18 @@ CONF_ID = "id"
 CONF_SUBPOST_ID = "subpost"
 CONF_ZONE_ID = "zone"
 CONF_MODULE_ID = "module"
+CONF_UNIT_PRICE = "price_unit_of_measurement"
+CONF_UNIT_INDEX = "index_unit_of_measurement"
+CONF_UNIT_INSTANT = "instant_unit_of_measurement"
+CONF_UNIT_HUMIDITY = "humidity_unit_of_measurement"
+CONF_UNIT_TEMPERATURE = "temperature_unit_of_measurement"
+CONF_UNIT_ILLUMINANCE = "illuminance_unit_of_measurement"
+CONF_ICON_PRICE = "price_icon"
+CONF_ICON_INDEX = "index_icon"
+CONF_ICON_INSTANT = "instant_icon"
+CONF_ICON_HUMIDITY = "humidity_icon"
+CONF_ICON_TEMPERATURE = "temperature_icon"
+CONF_ICON_ILLUMINANCE = "illuminance_icon"
 
 CONF_ALLOW_ZERO = "allow_zero"
 
@@ -59,7 +71,7 @@ CONF_COMPONENT_ALLOWED = [
     "light",
 ]
 
-CONF_TYPE_COMPONENT_ALLOWED = {
+CONF_TYPE_COMPONENT_NEEDED = {
     TYPE_API: {
         "default": "sensor",
         "parameters": {

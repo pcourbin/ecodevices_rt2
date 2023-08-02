@@ -1,12 +1,10 @@
 from homeassistant.components.sensor import SensorDeviceClass
-from homeassistant.components.sensor import STATE_CLASS_TOTAL_INCREASING
+from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import Counter
 from pyecodevices_rt2 import EcoDevicesRT2
 
 from . import Sensor_EcoDevicesRT2
-from ..const import DEFAULT_ICON_CURRENCY
-from ..const import DEFAULT_ICON_ENERGY
 
 
 class Sensor_Counter(Sensor_EcoDevicesRT2):
@@ -14,38 +12,37 @@ class Sensor_Counter(Sensor_EcoDevicesRT2):
 
     def __init__(
         self,
+        hass: HomeAssistant,
         device_config: dict,
         ecort2: EcoDevicesRT2,
         coordinator: DataUpdateCoordinator,
         device_class: str,
         suffix_name: str,
     ):
-        super().__init__(device_config, ecort2, coordinator, suffix_name)
+        super().__init__(
+            hass, device_config, ecort2, coordinator, device_class, suffix_name
+        )
         self.control = Counter(ecort2, self._id)
-        self._device_class = device_class
-
-        # Allow overriding of currency unit and icon if specified in the conf
-        if device_class == SensorDeviceClass.MONETARY:
-            if not self._unit_of_measurement:
-                self._unit_of_measurement = "€"
-            if not self._icon:
-                self._icon = DEFAULT_ICON_CURRENCY
-            self._state_class = STATE_CLASS_TOTAL_INCREASING
-        elif device_class == SensorDeviceClass.ENERGY:
-            self._unit_of_measurement = "Wh"
-            self._icon = DEFAULT_ICON_ENERGY
-            self._state_class = STATE_CLASS_TOTAL_INCREASING
 
 
 class Sensor_Counter_Index(Sensor_Counter):
     def __init__(
         self,
+        hass: HomeAssistant,
         device_config: dict,
         ecort2: EcoDevicesRT2,
         coordinator: DataUpdateCoordinator,
     ):
+        device_class = SensorDeviceClass.ENERGY
+        if device_config.get("device_class"):
+            device_class = device_config.get("device_class")
         super().__init__(
-            device_config, ecort2, coordinator, SensorDeviceClass.ENERGY, "Index"
+            hass,
+            device_config,
+            ecort2,
+            coordinator,
+            device_class,
+            "Index",
         )
 
     def get_property(self, cached_ms: int = None):
@@ -57,11 +54,13 @@ class Sensor_Counter_Index(Sensor_Counter):
 class Sensor_Counter_Price(Sensor_Counter):
     def __init__(
         self,
+        hass: HomeAssistant,
         device_config: dict,
         ecort2: EcoDevicesRT2,
         coordinator: DataUpdateCoordinator,
     ):
         super().__init__(
+            hass,
             device_config,
             ecort2,
             coordinator,
