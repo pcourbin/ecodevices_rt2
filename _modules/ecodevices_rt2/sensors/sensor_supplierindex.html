@@ -80,9 +80,8 @@
            <div itemprop="articleBody">
              
   <h1>Source code for ecodevices_rt2.sensors.sensor_supplierindex</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">homeassistant.components.sensor</span> <span class="kn">import</span> <span class="n">STATE_CLASS_TOTAL_INCREASING</span>
-<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">DEVICE_CLASS_ENERGY</span>
-<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">DEVICE_CLASS_MONETARY</span>
+<span></span><span class="kn">from</span> <span class="nn">homeassistant.components.sensor</span> <span class="kn">import</span> <span class="n">SensorDeviceClass</span>
+<span class="kn">from</span> <span class="nn">homeassistant.components.sensor</span> <span class="kn">import</span> <span class="n">STATE_CLASS_TOTAL_INCREASING</span>
 <span class="kn">from</span> <span class="nn">homeassistant.helpers.update_coordinator</span> <span class="kn">import</span> <span class="n">DataUpdateCoordinator</span>
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="kn">import</span> <span class="n">EcoDevicesRT2</span>
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="kn">import</span> <span class="n">SupplierIndex</span>
@@ -108,13 +107,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span> <span class="o">=</span> <span class="n">device_class</span>
 
         <span class="c1"># Allow overriding of currency unit and icon if specified in the conf</span>
-        <span class="k">if</span> <span class="n">device_class</span> <span class="o">==</span> <span class="n">DEVICE_CLASS_MONETARY</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">device_class</span> <span class="o">==</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">MONETARY</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unit_of_measurement</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_unit_of_measurement</span> <span class="o">=</span> <span class="s2">&quot;€&quot;</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_icon</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_icon</span> <span class="o">=</span> <span class="n">DEFAULT_ICON_CURRENCY</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_state_class</span> <span class="o">=</span> <span class="n">STATE_CLASS_TOTAL_INCREASING</span>
-        <span class="k">elif</span> <span class="n">device_class</span> <span class="o">==</span> <span class="n">DEVICE_CLASS_ENERGY</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">device_class</span> <span class="o">==</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">ENERGY</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_unit_of_measurement</span> <span class="o">=</span> <span class="s2">&quot;Wh&quot;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_icon</span> <span class="o">=</span> <span class="n">DEFAULT_ICON_ENERGY</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_state_class</span> <span class="o">=</span> <span class="n">STATE_CLASS_TOTAL_INCREASING</span></div>
@@ -128,7 +127,7 @@
         <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="n">DEVICE_CLASS_ENERGY</span><span class="p">,</span> <span class="s2">&quot;Index&quot;</span>
+            <span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">ENERGY</span><span class="p">,</span> <span class="s2">&quot;Index&quot;</span>
         <span class="p">)</span>
 
 <div class="viewcode-block" id="Sensor_SupplierIndex_Index.get_property"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_supplierindex.Sensor_SupplierIndex_Index.get_property">[docs]</a>    <span class="k">def</span> <span class="nf">get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -148,7 +147,7 @@
             <span class="n">device_config</span><span class="p">,</span>
             <span class="n">ecort2</span><span class="p">,</span>
             <span class="n">coordinator</span><span class="p">,</span>
-            <span class="n">DEVICE_CLASS_MONETARY</span><span class="p">,</span>
+            <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">MONETARY</span><span class="p">,</span>
             <span class="s2">&quot;Price&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
