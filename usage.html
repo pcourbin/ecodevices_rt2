@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage &mdash; ecodevices_rt2 2.2.7 documentation</title>
+  <title>Usage &mdash; ecodevices_rt2 2.2.8 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/table.css" type="text/css" />
@@ -14,7 +14,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=5beea284"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3f40146"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/js/theme.js"></script>
@@ -36,7 +36,7 @@
             ecodevices_rt2
           </a>
               <div class="version">
-                2.2.7
+                2.2.8
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -144,9 +144,9 @@
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Friendly Name Of Entity</span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;_TYPE_&quot;</span>
 <span class="w">        </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;_COMPONENT_&quot;</span><span class="w">  </span><span class="c1"># Optional</span>
-<span class="w">        </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:water-boiler</span><span class="w">    </span><span class="c1"># Optional</span>
+<span class="w">        </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:water-boiler</span><span class="w">    </span><span class="c1"># Optional, or depending on the case: price_icon, instant_icon, index_icon, humidity_icon, temperature_icon, illuminance_icon</span>
 <span class="w">        </span><span class="nt">device_class</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;power&quot;</span><span class="w">     </span><span class="c1"># Optional</span>
-<span class="w">        </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;W&quot;</span><span class="w">  </span><span class="c1"># Optional</span>
+<span class="w">        </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;W&quot;</span><span class="w">  </span><span class="c1"># Optional, or depending on the case: price_unit_of_measurement, instant_unit_of_measurement, index_unit_of_measurement, humidity_unit_of_measurement, temperature_unit_of_measurement, illuminance_unit_of_measurement</span>
 </pre></div>
 </div>
 <table class="docutils align-default" id="id12">
@@ -411,6 +411,10 @@
 <td><ul class="simple">
 <li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the counter (between 1 and 12)</p></li>
 <li><p><cite>allow_zero</cite>: <em>OPTIONAL</em> True/False</p></li>
+<li><p><cite>index_unit_of_measurement</cite>: <em>OPTIONAL</em>, unit for <cite>Index</cite> sensor. Default: “Wh”.</p></li>
+<li><p><cite>index_icon</cite>: <em>OPTIONAL</em>, icon for <cite>Index</cite> sensor.</p></li>
+<li><p><cite>price_unit_of_measurement</cite>: <em>OPTIONAL</em>, unit for <cite>Price</cite> sensor. Default: currency defined in Home Assistant.</p></li>
+<li><p><cite>price_icon</cite>: <em>OPTIONAL</em>, icon for <cite>Price</cite> sensor.</p></li>
 </ul>
 </td>
 </tr>
@@ -427,6 +431,10 @@
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;counter&quot;</span>
 <span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 <span class="w">        </span><span class="nt">allow_zero</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span>
+<span class="w">        </span><span class="nt">price_unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;USD&quot;</span><span class="w"> </span><span class="c1"># Optional</span>
+<span class="w">        </span><span class="nt">price_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:account-cash</span><span class="w"> </span><span class="c1"># Optional</span>
+<span class="w">        </span><span class="nt">index_unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;kW&quot;</span><span class="w"> </span><span class="c1"># Optional</span>
+<span class="w">        </span><span class="nt">index_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:transmission-tower</span><span class="w"> </span><span class="c1"># Optional</span>
 </pre></div>
 </div>
 </section>
@@ -568,6 +576,12 @@
 <li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the post (between 1 and 8)</p></li>
 <li><p><cite>subpost</cite>: <em>OPTIONAL</em> Number of the subpost of the post (between 1 and 8)</p></li>
 <li><p><cite>allow_zero</cite>: <em>OPTIONAL</em> True/False</p></li>
+<li><p><cite>index_unit_of_measurement</cite>: <em>OPTIONAL</em>, unit for <cite>Index</cite> and <cite>ÌndexDay</cite> sensors. Default: “kWh”.</p></li>
+<li><p><cite>index_icon</cite>: <em>OPTIONAL</em>, icon for <cite>Index</cite> and <cite>ÌndexDay</cite> sensors.</p></li>
+<li><p><cite>price_unit_of_measurement</cite>: <em>OPTIONAL</em>, unit for <cite>Price</cite> and <cite>PriceDay</cite> sensors. Default: currency defined in Home Assistant.</p></li>
+<li><p><cite>price_icon</cite>: <em>OPTIONAL</em>, icon for <cite>Price</cite> and <cite>PriceDay</cite> sensors.</p></li>
+<li><p><cite>instant_unit_of_measurement</cite>: <em>OPTIONAL</em>, unit for <cite>Instant</cite> sensor. Default: “W”.</p></li>
+<li><p><cite>instant_icon</cite>: <em>OPTIONAL</em>, icon for <cite>Instant</cite> sensor.</p></li>
 </ul>
 </td>
 </tr>
@@ -669,6 +683,10 @@
 <td><ul class="simple">
 <li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the SupplierIndex (between 1 and 8)</p></li>
 <li><p><cite>allow_zero</cite>: <em>OPTIONAL</em> True/False</p></li>
+<li><p><cite>index_unit_of_measurement</cite>: <em>OPTIONAL</em>, unit for <cite>Index</cite> sensor. Default: “Wh”.</p></li>
+<li><p><cite>index_icon</cite>: <em>OPTIONAL</em>, icon for <cite>Index</cite> sensor.</p></li>
+<li><p><cite>price_unit_of_measurement</cite>: <em>OPTIONAL</em>, unit for <cite>Price</cite> sensor. Default: currency defined in Home Assistant.</p></li>
+<li><p><cite>price_icon</cite>: <em>OPTIONAL</em>, icon for <cite>Price</cite> sensor.</p></li>
 </ul>
 </td>
 </tr>
@@ -684,6 +702,10 @@
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Supplier Index 1 (EDF Info)</span>
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;supplierindex&quot;</span>
 <span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">price_unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EUR&quot;</span><span class="w"> </span><span class="c1"># Optional</span>
+<span class="w">      </span><span class="nt">price_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:currency-btc</span><span class="w"> </span><span class="c1"># Optional</span>
+<span class="w">      </span><span class="nt">index_unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;kW&quot;</span><span class="w"> </span><span class="c1"># Optional</span>
+<span class="w">      </span><span class="nt">index_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:transmission-tower</span><span class="w"> </span><span class="c1"># Optional</span>
 </pre></div>
 </div>
 </section>
@@ -730,6 +752,10 @@
 <td><ul class="simple">
 <li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the Toroid (between 1 and 8)</p></li>
 <li><p><cite>allow_zero</cite>: <em>OPTIONAL</em> True/False</p></li>
+<li><p><cite>index_unit_of_measurement</cite>: <em>OPTIONAL</em>, unit for all <cite>Index</cite> sensors. Default: “Wh”.</p></li>
+<li><p><cite>index_icon</cite>: <em>OPTIONAL</em>, icon for all <cite>Index</cite> sensors.</p></li>
+<li><p><cite>price_unit_of_measurement</cite>: <em>OPTIONAL</em>, unit for all <cite>Price</cite> sensors. Default: currency defined in Home Assistant.</p></li>
+<li><p><cite>price_icon</cite>: <em>OPTIONAL</em>, icon for all <cite>Price</cite> sensors.</p></li>
 </ul>
 </td>
 </tr>
@@ -887,6 +913,12 @@
 <td><ul class="simple">
 <li><p><cite>id</cite>: <strong>REQUIRED</strong> Number of the XTHL (between 1 and 2)</p></li>
 <li><p><cite>allow_zero</cite>: <em>OPTIONAL</em> True/False</p></li>
+<li><p><cite>temperature_unit_of_measurement</cite>: <em>OPTIONAL</em>, unit for <cite>Temperature</cite> sensor. Default: “°C”.</p></li>
+<li><p><cite>temperature_icon</cite>: <em>OPTIONAL</em>, icon for <cite>Temperature</cite> sensor.</p></li>
+<li><p><cite>humidity_unit_of_measurement</cite>: <em>OPTIONAL</em>, unit for <cite>Humidity</cite> sensor. Default: “%”.</p></li>
+<li><p><cite>humidity_icon</cite>: <em>OPTIONAL</em>, icon for <cite>Humidity</cite> sensor.</p></li>
+<li><p><cite>illuminance_unit_of_measurement</cite>: <em>OPTIONAL</em>, unit for <cite>Luminance</cite> sensor. Default: “lx”.</p></li>
+<li><p><cite>illuminance_icon</cite>: <em>OPTIONAL</em>, icon for <cite>Luminance</cite> sensor.</p></li>
 </ul>
 </td>
 </tr>
@@ -902,6 +934,12 @@
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XHTL 1</span>
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;xthl&quot;</span>
 <span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">illuminance_unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;lux&quot;</span><span class="w"> </span><span class="c1"># Optional</span>
+<span class="w">      </span><span class="nt">illuminance_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:sun-wireless-outline</span><span class="w"> </span><span class="c1"># Optional</span>
+<span class="w">      </span><span class="nt">temperature_unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;°F&quot;</span><span class="w"> </span><span class="c1"># Optional</span>
+<span class="w">      </span><span class="nt">temperature_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:coolant-temperature</span><span class="w"> </span><span class="c1"># Optional</span>
+<span class="w">      </span><span class="nt">humidity_unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/100&quot;</span><span class="w"> </span><span class="c1"># Optional</span>
+<span class="w">      </span><span class="nt">humidity_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:cloud-percent</span><span class="w"> </span><span class="c1"># Optional</span>
 </pre></div>
 </div>
 </section>

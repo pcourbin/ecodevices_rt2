@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ecodevices_rt2.sensors.sensor_toroid &mdash; ecodevices_rt2 2.2.7 documentation</title>
+  <title>ecodevices_rt2.sensors.sensor_toroid &mdash; ecodevices_rt2 2.2.8 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/table.css" type="text/css" />
@@ -13,7 +13,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=5beea284"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=b3f40146"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -33,7 +33,7 @@
             ecodevices_rt2
           </a>
               <div class="version">
-                2.2.7
+                2.2.8
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -81,14 +81,12 @@
              
   <h1>Source code for ecodevices_rt2.sensors.sensor_toroid</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">homeassistant.components.sensor</span> <span class="kn">import</span> <span class="n">SensorDeviceClass</span>
-<span class="kn">from</span> <span class="nn">homeassistant.components.sensor</span> <span class="kn">import</span> <span class="n">STATE_CLASS_TOTAL_INCREASING</span>
+<span class="kn">from</span> <span class="nn">homeassistant.core</span> <span class="kn">import</span> <span class="n">HomeAssistant</span>
 <span class="kn">from</span> <span class="nn">homeassistant.helpers.update_coordinator</span> <span class="kn">import</span> <span class="n">DataUpdateCoordinator</span>
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="kn">import</span> <span class="n">EcoDevicesRT2</span>
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="kn">import</span> <span class="n">Toroid</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">Sensor_EcoDevicesRT2</span>
-<span class="kn">from</span> <span class="nn">..const</span> <span class="kn">import</span> <span class="n">DEFAULT_ICON_CURRENCY</span>
-<span class="kn">from</span> <span class="nn">..const</span> <span class="kn">import</span> <span class="n">DEFAULT_ICON_ENERGY</span>
 
 
 <div class="viewcode-block" id="Sensor_Toroid"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_toroid.Sensor_Toroid">[docs]</a><span class="k">class</span> <span class="nc">Sensor_Toroid</span><span class="p">(</span><span class="n">Sensor_EcoDevicesRT2</span><span class="p">):</span>
@@ -96,38 +94,39 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="n">hass</span><span class="p">:</span> <span class="n">HomeAssistant</span><span class="p">,</span>
         <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
         <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
         <span class="n">device_class</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">suffix_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="n">suffix_name</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="n">Toroid</span><span class="p">(</span><span class="n">ecort2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span> <span class="o">=</span> <span class="n">device_class</span>
-
-        <span class="c1"># Allow overriding of currency unit and icon if specified in the conf</span>
-        <span class="k">if</span> <span class="n">device_class</span> <span class="o">==</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">MONETARY</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unit_of_measurement</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_unit_of_measurement</span> <span class="o">=</span> <span class="s2">&quot;€&quot;</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_icon</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_icon</span> <span class="o">=</span> <span class="n">DEFAULT_ICON_CURRENCY</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_state_class</span> <span class="o">=</span> <span class="n">STATE_CLASS_TOTAL_INCREASING</span>
-        <span class="k">elif</span> <span class="n">device_class</span> <span class="o">==</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">ENERGY</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_unit_of_measurement</span> <span class="o">=</span> <span class="s2">&quot;Wh&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_icon</span> <span class="o">=</span> <span class="n">DEFAULT_ICON_ENERGY</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_state_class</span> <span class="o">=</span> <span class="n">STATE_CLASS_TOTAL_INCREASING</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">hass</span><span class="p">,</span>
+            <span class="n">device_config</span><span class="p">,</span>
+            <span class="n">ecort2</span><span class="p">,</span>
+            <span class="n">coordinator</span><span class="p">,</span>
+            <span class="n">device_class</span><span class="p">,</span>
+            <span class="n">suffix_name</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="n">Toroid</span><span class="p">(</span><span class="n">ecort2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Sensor_Toroid_Index"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_toroid.Sensor_Toroid_Index">[docs]</a><span class="k">class</span> <span class="nc">Sensor_Toroid_Index</span><span class="p">(</span><span class="n">Sensor_Toroid</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="n">hass</span><span class="p">:</span> <span class="n">HomeAssistant</span><span class="p">,</span>
         <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
         <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">ENERGY</span><span class="p">,</span> <span class="s2">&quot;Index&quot;</span>
+            <span class="n">hass</span><span class="p">,</span>
+            <span class="n">device_config</span><span class="p">,</span>
+            <span class="n">ecort2</span><span class="p">,</span>
+            <span class="n">coordinator</span><span class="p">,</span>
+            <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">ENERGY</span><span class="p">,</span>
+            <span class="s2">&quot;Index&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
 <div class="viewcode-block" id="Sensor_Toroid_Index.get_property"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_toroid.Sensor_Toroid_Index.get_property">[docs]</a>    <span class="k">def</span> <span class="nf">get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -139,11 +138,13 @@
 <div class="viewcode-block" id="Sensor_Toroid_Price"><a class="viewcode-back" href="../../../ecodevices_rt2.sensors.html#ecodevices_rt2.sensors.sensor_toroid.Sensor_Toroid_Price">[docs]</a><span class="k">class</span> <span class="nc">Sensor_Toroid_Price</span><span class="p">(</span><span class="n">Sensor_Toroid</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="n">hass</span><span class="p">:</span> <span class="n">HomeAssistant</span><span class="p">,</span>
         <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
         <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">hass</span><span class="p">,</span>
             <span class="n">device_config</span><span class="p">,</span>
             <span class="n">ecort2</span><span class="p">,</span>
             <span class="n">coordinator</span><span class="p">,</span>

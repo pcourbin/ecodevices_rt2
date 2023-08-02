@@ -19,9 +19,9 @@ Default definition of platform in your configuration file:
           - name: Friendly Name Of Entity
             type: "_TYPE_"
             component: "_COMPONENT_"  # Optional
-            icon: mdi:water-boiler    # Optional
+            icon: mdi:water-boiler    # Optional, or depending on the case: price_icon, instant_icon, index_icon, humidity_icon, temperature_icon, illuminance_icon
             device_class: "power"     # Optional
-            unit_of_measurement: "W"  # Optional
+            unit_of_measurement: "W"  # Optional, or depending on the case: price_unit_of_measurement, instant_unit_of_measurement, index_unit_of_measurement, humidity_unit_of_measurement, temperature_unit_of_measurement, illuminance_unit_of_measurement
 
 .. list-table:: Parameter for a the integration `ecodevices_rt2`
    :widths: 15 45 40
@@ -228,6 +228,10 @@ You can define a Counter (see from the `GCE Ecodevices RT2 API`_ (or `PDF`_)).
        #. `Price` of the counter
      - - `id`: **REQUIRED** Number of the counter (between 1 and 12)
        - `allow_zero`: *OPTIONAL* True/False
+       - `index_unit_of_measurement`: *OPTIONAL*, unit for `Index` sensor. Default: "Wh".
+       - `index_icon`: *OPTIONAL*, icon for `Index` sensor.
+       - `price_unit_of_measurement`: *OPTIONAL*, unit for `Price` sensor. Default: currency defined in Home Assistant.
+       - `price_icon`: *OPTIONAL*, icon for `Price` sensor.
 
 
 ----------
@@ -244,6 +248,10 @@ Example
             type: "counter"
             id: 1
             allow_zero: False
+            price_unit_of_measurement: "USD" # Optional
+            price_icon: mdi:account-cash # Optional
+            index_unit_of_measurement: "kW" # Optional
+            index_icon: mdi:transmission-tower # Optional
 
 DigitalInput
 ------------
@@ -346,6 +354,12 @@ You can define a Post and Sub-post (see from the `GCE Ecodevices RT2 API`_ (or `
      - - `id`: **REQUIRED** Number of the post (between 1 and 8)
        - `subpost`: *OPTIONAL* Number of the subpost of the post (between 1 and 8)
        - `allow_zero`: *OPTIONAL* True/False
+       - `index_unit_of_measurement`: *OPTIONAL*, unit for `Index` and `ÌndexDay` sensors. Default: "kWh".
+       - `index_icon`: *OPTIONAL*, icon for `Index` and `ÌndexDay` sensors.
+       - `price_unit_of_measurement`: *OPTIONAL*, unit for `Price` and `PriceDay` sensors. Default: currency defined in Home Assistant.
+       - `price_icon`: *OPTIONAL*, icon for `Price` and `PriceDay` sensors.
+       - `instant_unit_of_measurement`: *OPTIONAL*, unit for `Instant` sensor. Default: "W".
+       - `instant_icon`: *OPTIONAL*, icon for `Instant` sensor.
 
 
 ----------
@@ -423,6 +437,10 @@ You can define a SupplierIndex (see from the `GCE Ecodevices RT2 API`_ (or `PDF`
 
      - - `id`: **REQUIRED** Number of the SupplierIndex (between 1 and 8)
        - `allow_zero`: *OPTIONAL* True/False
+       - `index_unit_of_measurement`: *OPTIONAL*, unit for `Index` sensor. Default: "Wh".
+       - `index_icon`: *OPTIONAL*, icon for `Index` sensor.
+       - `price_unit_of_measurement`: *OPTIONAL*, unit for `Price` sensor. Default: currency defined in Home Assistant.
+       - `price_icon`: *OPTIONAL*, icon for `Price` sensor.
 
 ----------
 Example
@@ -437,6 +455,10 @@ Example
         - name: Supplier Index 1 (EDF Info)
           type: "supplierindex"
           id: 1
+          price_unit_of_measurement: "EUR" # Optional
+          price_icon: mdi:currency-btc # Optional
+          index_unit_of_measurement: "kW" # Optional
+          index_icon: mdi:transmission-tower # Optional
 
 
 Toroid
@@ -464,6 +486,10 @@ You can define a Toroid (see from the `GCE Ecodevices RT2 API`_ (or `PDF`_)).
 
      - - `id`: **REQUIRED** Number of the Toroid (between 1 and 8)
        - `allow_zero`: *OPTIONAL* True/False
+       - `index_unit_of_measurement`: *OPTIONAL*, unit for all `Index` sensors. Default: "Wh".
+       - `index_icon`: *OPTIONAL*, icon for all `Index` sensors.
+       - `price_unit_of_measurement`: *OPTIONAL*, unit for all `Price` sensors. Default: currency defined in Home Assistant.
+       - `price_icon`: *OPTIONAL*, icon for all `Price` sensors.
 
 ----------
 Example
@@ -581,6 +607,12 @@ You can define a XTHL (see from the `GCE Ecodevices RT2 API`_ (or `PDF`_)).
 
      - - `id`: **REQUIRED** Number of the XTHL (between 1 and 2)
        - `allow_zero`: *OPTIONAL* True/False
+       - `temperature_unit_of_measurement`: *OPTIONAL*, unit for `Temperature` sensor. Default: "°C".
+       - `temperature_icon`: *OPTIONAL*, icon for `Temperature` sensor.
+       - `humidity_unit_of_measurement`: *OPTIONAL*, unit for `Humidity` sensor. Default: "%".
+       - `humidity_icon`: *OPTIONAL*, icon for `Humidity` sensor.
+       - `illuminance_unit_of_measurement`: *OPTIONAL*, unit for `Luminance` sensor. Default: "lx".
+       - `illuminance_icon`: *OPTIONAL*, icon for `Luminance` sensor.
 
 ----------
 Example
@@ -595,6 +627,12 @@ Example
         - name: XHTL 1
           type: "xthl"
           id: 1
+          illuminance_unit_of_measurement: "lux" # Optional
+          illuminance_icon: mdi:sun-wireless-outline # Optional
+          temperature_unit_of_measurement: "°F" # Optional
+          temperature_icon: mdi:coolant-temperature # Optional
+          humidity_unit_of_measurement: "/100" # Optional
+          humidity_icon: mdi:cloud-percent # Optional
 
 .. _`GCE Ecodevices RT2 API`: https://gce.ovh/wiki/index.php?title=API_EDRT
 .. _`PDF`: https://forum.gce-electronics.com/uploads/default/original/2X/1/1471f212a720581eb3a04c5ea632bb961783b9a0.pdf
