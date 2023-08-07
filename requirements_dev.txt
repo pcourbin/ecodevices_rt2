@@ -1,4 +1,4 @@
-homeassistant==2023.7.3
+homeassistant==2023.8.1
 pre-commit
 black
 reorder-python-imports
