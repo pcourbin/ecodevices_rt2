@@ -132,3 +132,4 @@ dmypy.json
 config/*
 config/secrets.yaml
 !config/configuration.yaml
+!config/secrets.yaml.example
