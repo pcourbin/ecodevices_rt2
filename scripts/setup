@@ -2,6 +2,8 @@
 
 set -e
 
+sudo apt update && sudo apt install -y tcpdump libpcap0.8-dev ffmpeg libturbojpeg0
+
 cd "$(dirname "$0")/.."
 
 python3 -m pip install --requirement requirements_dev.txt
