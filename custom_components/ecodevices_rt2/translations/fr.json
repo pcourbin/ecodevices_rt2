@@ -7,5 +7,19 @@
         "description": "La configuration de l'intégration se fait via le fichier configuration.yaml. Voir la documentation pour plus d'informations : https://github.com/pcourbin/ecodevices_rt2."
       }
     }
+  },
+  "entity": {
+    "climate": {
+      "climate__x4fp": {
+        "state_attributes": {
+          "preset_mode": {
+            "state": {
+              "Comfort-1": "Confort -1",
+              "Comfort-2": "Confort -2"
+            }
+          }
+        }
+      }
+    }
   }
 }

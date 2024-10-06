@@ -1,5 +1,5 @@
 """Support for the GCE Ecodevices RT2.
-Based on work of @Mati24 -- https://github.com/Aohzan/ecodevices"""
+Based on work of @Mati24 -- https://github.com/Aohzan/ecodevices"""  # fmt: skip
 import logging
 
 from homeassistant.config_entries import ConfigEntry

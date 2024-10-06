@@ -1,4 +1,4 @@
-"""Support for the GCE Ecodevices RT2 controller."""
+"""Support for the GCE Ecodevices RT2 controller."""  # fmt: skip
 import logging
 
 from homeassistant.config_entries import ConfigEntry
@@ -30,7 +30,6 @@ async def async_setup_entry(
     entities = []
 
     for device in devices:
-
         if device.get(CONF_TYPE) == TYPE_X4FP:
             entities.append(
                 Climate_X4FP(

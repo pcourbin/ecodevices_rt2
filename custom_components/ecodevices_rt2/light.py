@@ -1,4 +1,4 @@
-"""Support for the GCE Ecodevices RT2 controller."""
+"""Support for the GCE Ecodevices RT2 controller."""  # fmt: skip
 import logging
 
 from homeassistant.config_entries import ConfigEntry
@@ -41,7 +41,6 @@ async def async_setup_entry(
     entities = []
 
     for device in devices:
-
         if device.get(CONF_TYPE) == TYPE_API:
             entities.append(
                 Light_API(

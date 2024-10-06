@@ -1,4 +1,5 @@
 """Constants for the GCE Ecodevices RT2 component."""
+
 DOMAIN = "ecodevices_rt2"
 
 CONTROLLER = "controller"
@@ -15,8 +16,8 @@ DEFAULT_ICON_CURRENCY = "mdi:currency-eur"
 DEFAULT_ICON_ENERGY = "mdi:flash"
 DEFAULT_ICON_HEATER = "mdi:radiator"
 
-PRESET_COMFORT_1 = "Comfort -1"
-PRESET_COMFORT_2 = "Comfort -2"
+PRESET_COMFORT_1 = "Comfort-1"
+PRESET_COMFORT_2 = "Comfort-2"
 
 
 CONF_API_RESPONSE_ENTRY = "status"
@@ -62,14 +63,6 @@ TYPE_TOROID = "toroid"
 TYPE_VIRTUALOUTPUT = "virtualoutput"
 TYPE_X4FP = "x4fp"
 TYPE_XTHL = "xthl"
-
-CONF_COMPONENT_ALLOWED = [
-    "switch",
-    "sensor",
-    "climate",
-    "binary_sensor",
-    "light",
-]
 
 CONF_TYPE_COMPONENT_NEEDED = {
     TYPE_API: {

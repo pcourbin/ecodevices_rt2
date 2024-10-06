@@ -1,4 +1,5 @@
 """Get information from GCE Ecodevices RT2."""
+
 from .switch_ecodevicesrt2 import Switch_EcoDevicesRT2  # noreorder
 from .switch_api import Switch_API
 from .switch_enocean import Switch_EnOcean

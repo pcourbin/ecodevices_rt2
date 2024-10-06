@@ -1,4 +1,4 @@
-"""Support for the GCE Ecodevices RT2 controller."""
+"""Support for the GCE Ecodevices RT2 controller."""  # fmt: skip
 import logging
 
 from homeassistant.config_entries import ConfigEntry

@@ -3,8 +3,7 @@ import logging
 from homeassistant.components.sensor import DEVICE_CLASS_UNITS
 from homeassistant.components.sensor import SensorDeviceClass
 from homeassistant.components.sensor import SensorEntity
-from homeassistant.components.sensor import STATE_CLASS_MEASUREMENT
-from homeassistant.components.sensor import STATE_CLASS_TOTAL_INCREASING
+from homeassistant.components.sensor import SensorStateClass
 from homeassistant.const import UnitOfEnergy
 from homeassistant.const import UnitOfPower
 from homeassistant.const import UnitOfTemperature
@@ -78,7 +77,7 @@ class Sensor_EcoDevicesRT2(EcoDevicesRT2Device, SensorEntity):
                     hass.config.currency,
                     CONF_ICON_PRICE,
                 )
-                self._state_class = STATE_CLASS_TOTAL_INCREASING
+                self._state_class = SensorStateClass.TOTAL_INCREASING
             elif device_class == SensorDeviceClass.ENERGY:
                 update_unit_icon(
                     self,
@@ -87,7 +86,7 @@ class Sensor_EcoDevicesRT2(EcoDevicesRT2Device, SensorEntity):
                     UnitOfEnergy.WATT_HOUR,
                     CONF_ICON_INDEX,
                 )
-                self._state_class = STATE_CLASS_TOTAL_INCREASING
+                self._state_class = SensorStateClass.TOTAL_INCREASING
             elif device_class == SensorDeviceClass.POWER:
                 update_unit_icon(
                     self,
@@ -96,7 +95,7 @@ class Sensor_EcoDevicesRT2(EcoDevicesRT2Device, SensorEntity):
                     UnitOfPower.WATT,
                     CONF_ICON_INSTANT,
                 )
-                self._state_class = STATE_CLASS_MEASUREMENT
+                self._state_class = SensorStateClass.MEASUREMENT
             elif device_class == SensorDeviceClass.TEMPERATURE:
                 if hass.config.units == METRIC_SYSTEM:
                     default_unit = UnitOfTemperature.CELSIUS
@@ -110,7 +109,7 @@ class Sensor_EcoDevicesRT2(EcoDevicesRT2Device, SensorEntity):
                     default_unit,
                     CONF_ICON_TEMPERATURE,
                 )
-                self._state_class = STATE_CLASS_MEASUREMENT
+                self._state_class = SensorStateClass.MEASUREMENT
             elif device_class == SensorDeviceClass.HUMIDITY:
                 update_unit_icon(
                     self,
@@ -119,7 +118,7 @@ class Sensor_EcoDevicesRT2(EcoDevicesRT2Device, SensorEntity):
                     default_unit,
                     CONF_ICON_HUMIDITY,
                 )
-                self._state_class = STATE_CLASS_MEASUREMENT
+                self._state_class = SensorStateClass.MEASUREMENT
             elif device_class == SensorDeviceClass.ILLUMINANCE:
                 update_unit_icon(
                     self,
@@ -128,7 +127,7 @@ class Sensor_EcoDevicesRT2(EcoDevicesRT2Device, SensorEntity):
                     default_unit,
                     CONF_ICON_ILLUMINANCE,
                 )
-                self._state_class = STATE_CLASS_MEASUREMENT
+                self._state_class = SensorStateClass.MEASUREMENT
             else:
                 if not self._unit_of_measurement:
                     self._unit_of_measurement = default_unit

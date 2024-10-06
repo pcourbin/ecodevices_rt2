@@ -1,4 +1,4 @@
-"""Support for the GCE Ecodevices RT2."""
+"""Support for the GCE Ecodevices RT2."""  # fmt: skip
 import logging
 from datetime import timedelta
 
@@ -14,11 +14,12 @@ from homeassistant.const import CONF_NAME
 from homeassistant.const import CONF_PORT
 from homeassistant.const import CONF_SCAN_INTERVAL
 from homeassistant.const import CONF_UNIT_OF_MEASUREMENT
+from homeassistant.const import Platform
+from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.debounce import Debouncer
 from homeassistant.helpers.typing import ConfigType
-from homeassistant.helpers.typing import HomeAssistantType
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from homeassistant.helpers.update_coordinator import UpdateFailed
 from pyecodevices_rt2 import EcoDevicesRT2
@@ -33,7 +34,6 @@ from .const import CONF_API_OFF_GET_VALUE
 from .const import CONF_API_ON_GET
 from .const import CONF_API_ON_GET_VALUE
 from .const import CONF_COMPONENT
-from .const import CONF_COMPONENT_ALLOWED
 from .const import CONF_DEVICES
 from .const import CONF_ICON_HUMIDITY
 from .const import CONF_ICON_ILLUMINANCE
@@ -60,6 +60,14 @@ from .const import DEFAULT_SCAN_INTERVAL
 from .const import DEFAULT_UPDATE_AFTER_SWITCH
 from .const import DOMAIN
 from .const import UNDO_UPDATE_LISTENER
+
+PLATFORMS = [
+    Platform.SWITCH,
+    Platform.SENSOR,
+    Platform.CLIMATE,
+    Platform.BINARY_SENSOR,
+    Platform.LIGHT,
+]
 
 # from homeassistant.components.sensor import CONF_STATE_CLASS
 CONF_STATE_CLASS = "state_class"
@@ -127,7 +135,7 @@ CONFIG_SCHEMA = vol.Schema(
 )
 
 
-async def async_setup(hass: HomeAssistantType, config: ConfigType) -> bool:
+async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     """Set up the GCE Ecodevices RT2 from config file."""
     hass.data.setdefault(DOMAIN, {})
 
@@ -141,7 +149,7 @@ async def async_setup(hass: HomeAssistantType, config: ConfigType) -> bool:
     return True
 
 
-async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool:
+async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up the GCE Ecodevices RT2."""
     hass.data.setdefault(DOMAIN, {})
 
@@ -225,21 +233,20 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
     # Load each supported component entities from their devices
     devices = build_device_list(entry.data[CONF_DEVICES])
 
-    for component in CONF_COMPONENT_ALLOWED:
+    for component in PLATFORMS:
         _LOGGER.debug("Load component %s.", component)
         hass.data[DOMAIN][entry.entry_id][CONF_DEVICES][component] = filter_device_list(
             devices, component
         )
-        hass.async_create_task(
-            hass.config_entries.async_forward_entry_setup(entry, component)
-        )
+
+    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
     return True
 
 
-async def async_unload_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool:
+async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
-    for component in CONF_COMPONENT_ALLOWED:
+    for component in PLATFORMS:
         await hass.config_entries.async_forward_entry_unload(entry, component)
 
     del hass.data[DOMAIN]

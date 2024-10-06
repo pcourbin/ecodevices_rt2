@@ -1,6 +1,7 @@
 import inspect
 import logging
 
+from homeassistant.components.light import ColorMode
 from homeassistant.components.light import LightEntity
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import EcoDevicesRT2
@@ -21,6 +22,8 @@ class Light_EcoDevicesRT2(EcoDevicesRT2Device, LightEntity):
         super().__init__(device_config, ecort2, coordinator, suffix_name)
         self._available = True
         self._is_on = False
+        self._attr_supported_color_modes = {ColorMode.ONOFF}
+        self._attr_color_mode = ColorMode.ONOFF
 
     @property
     def is_on(self) -> bool:

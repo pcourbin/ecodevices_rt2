@@ -6,5 +6,19 @@
         "description": "Setup have to be done from configuration.yaml. See documentation: https://github.com/pcourbin/ecodevices_rt2."
       }
     }
+  },
+  "entity": {
+    "climate": {
+      "climate__x4fp": {
+        "state_attributes": {
+          "preset_mode": {
+            "state": {
+              "Comfort-1": "Comfort -1",
+              "Comfort-2": "Comfort -2"
+            }
+          }
+        }
+      }
+    }
   }
 }
