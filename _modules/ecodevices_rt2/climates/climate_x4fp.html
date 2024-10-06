@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ecodevices_rt2.climates.climate_x4fp &mdash; ecodevices_rt2 2.2.8 documentation</title>
+  <title>ecodevices_rt2.climates.climate_x4fp &mdash; ecodevices_rt2 2.2.9 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/table.css?v=d445d2b1" />
@@ -15,7 +15,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=918ed70e"></script>
+        <script src="../../../_static/documentation_options.js?v=35f65317"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -35,7 +35,7 @@
             ecodevices_rt2
           </a>
               <div class="version">
-                2.2.8
+                2.2.9
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -86,14 +86,13 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">from</span> <span class="nn">homeassistant.components.climate</span> <span class="kn">import</span> <span class="n">ClimateEntity</span>
-<span class="kn">from</span> <span class="nn">homeassistant.components.climate.const</span> <span class="kn">import</span> <span class="n">HVAC_MODE_HEAT</span>
-<span class="kn">from</span> <span class="nn">homeassistant.components.climate.const</span> <span class="kn">import</span> <span class="n">HVAC_MODE_OFF</span>
-<span class="kn">from</span> <span class="nn">homeassistant.components.climate.const</span> <span class="kn">import</span> <span class="n">PRESET_AWAY</span>
-<span class="kn">from</span> <span class="nn">homeassistant.components.climate.const</span> <span class="kn">import</span> <span class="n">PRESET_COMFORT</span>
-<span class="kn">from</span> <span class="nn">homeassistant.components.climate.const</span> <span class="kn">import</span> <span class="n">PRESET_ECO</span>
-<span class="kn">from</span> <span class="nn">homeassistant.components.climate.const</span> <span class="kn">import</span> <span class="n">PRESET_NONE</span>
-<span class="kn">from</span> <span class="nn">homeassistant.components.climate.const</span> <span class="kn">import</span> <span class="n">SUPPORT_PRESET_MODE</span>
-<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">TEMP_CELSIUS</span>
+<span class="kn">from</span> <span class="nn">homeassistant.components.climate</span> <span class="kn">import</span> <span class="n">ClimateEntityFeature</span>
+<span class="kn">from</span> <span class="nn">homeassistant.components.climate</span> <span class="kn">import</span> <span class="n">HVACMode</span>
+<span class="kn">from</span> <span class="nn">homeassistant.components.climate</span> <span class="kn">import</span> <span class="n">PRESET_AWAY</span>
+<span class="kn">from</span> <span class="nn">homeassistant.components.climate</span> <span class="kn">import</span> <span class="n">PRESET_COMFORT</span>
+<span class="kn">from</span> <span class="nn">homeassistant.components.climate</span> <span class="kn">import</span> <span class="n">PRESET_ECO</span>
+<span class="kn">from</span> <span class="nn">homeassistant.components.climate</span> <span class="kn">import</span> <span class="n">PRESET_NONE</span>
+<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">UnitOfTemperature</span>
 <span class="kn">from</span> <span class="nn">homeassistant.helpers.update_coordinator</span> <span class="kn">import</span> <span class="n">DataUpdateCoordinator</span>
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="kn">import</span> <span class="n">EcoDevicesRT2</span>
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="kn">import</span> <span class="n">X4FP</span>
@@ -105,7 +104,7 @@
 
 <span class="n">_LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-<span class="n">MODE_LIST</span> <span class="o">=</span> <span class="p">[</span><span class="n">HVAC_MODE_HEAT</span><span class="p">,</span> <span class="n">HVAC_MODE_OFF</span><span class="p">]</span>
+<span class="n">MODE_LIST</span> <span class="o">=</span> <span class="p">[</span><span class="n">HVACMode</span><span class="o">.</span><span class="n">HEAT</span><span class="p">,</span> <span class="n">HVACMode</span><span class="o">.</span><span class="n">OFF</span><span class="p">]</span>
 <span class="n">PRESET_LIST</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">PRESET_NONE</span><span class="p">,</span>
     <span class="n">PRESET_COMFORT</span><span class="p">,</span>
@@ -152,6 +151,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="n">X4FP</span><span class="p">(</span><span class="n">ecort2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_module_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_zone_id</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span> <span class="o">=</span> <span class="s2">&quot;climate__x4fp&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_fp_state</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_enable_turn_on_off_backwards_compatibility</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_attr_supported_features</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">ClimateEntityFeature</span><span class="o">.</span><span class="n">TARGET_TEMPERATURE</span>
+            <span class="o">|</span> <span class="n">ClimateEntityFeature</span><span class="o">.</span><span class="n">TURN_OFF</span>
+            <span class="o">|</span> <span class="n">ClimateEntityFeature</span><span class="o">.</span><span class="n">TURN_ON</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_attr_translation_key</span> <span class="o">=</span> <span class="s2">&quot;climate__x4fp&quot;</span>
 
 <div class="viewcode-block" id="Climate_X4FP.get_mode">
 <a class="viewcode-back" href="../../../ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.get_mode">[docs]</a>
@@ -168,12 +174,12 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">temperature_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the unit of measurement used by the platform.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">TEMP_CELSIUS</span>
+        <span class="k">return</span> <span class="n">UnitOfTemperature</span><span class="o">.</span><span class="n">CELSIUS</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">supported_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the list of supported features.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">SUPPORT_PRESET_MODE</span>
+        <span class="k">return</span> <span class="n">ClimateEntityFeature</span><span class="o">.</span><span class="n">PRESET_MODE</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">available</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -195,8 +201,8 @@
 <span class="sd">        Need to be one of HVAC_MODE_*.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preset_mode</span> <span class="o">==</span> <span class="n">PRESET_NONE</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">HVAC_MODE_OFF</span>
-        <span class="k">return</span> <span class="n">HVAC_MODE_HEAT</span>
+            <span class="k">return</span> <span class="n">HVACMode</span><span class="o">.</span><span class="n">OFF</span>
+        <span class="k">return</span> <span class="n">HVACMode</span><span class="o">.</span><span class="n">HEAT</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">preset_modes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -229,9 +235,9 @@
 <a class="viewcode-back" href="../../../ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.async_set_hvac_mode">[docs]</a>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">async_set_hvac_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hvac_mode</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set new hvac mode.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">hvac_mode</span> <span class="o">==</span> <span class="n">HVAC_MODE_OFF</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">hvac_mode</span> <span class="o">==</span> <span class="n">HVACMode</span><span class="o">.</span><span class="n">OFF</span><span class="p">:</span>
             <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_turn_off</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="n">hvac_mode</span> <span class="o">==</span> <span class="n">HVAC_MODE_HEAT</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">hvac_mode</span> <span class="o">==</span> <span class="n">HVACMode</span><span class="o">.</span><span class="n">HEAT</span><span class="p">:</span>
             <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_turn_on</span><span class="p">()</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinator</span><span class="o">.</span><span class="n">async_request_refresh</span><span class="p">()</span></div>
 
