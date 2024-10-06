@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ecodevices_rt2.climates.climate_x4fp &mdash; ecodevices_rt2 2.2.8 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/table.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/table.css?v=d445d2b1" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=b3f40146"></script>
-        <script src="../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../_static/documentation_options.js?v=918ed70e"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -114,7 +116,9 @@
 <span class="p">]</span>
 
 
-<div class="viewcode-block" id="Climate_X4FP"><a class="viewcode-back" href="../../../ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP">[docs]</a><span class="k">class</span> <span class="nc">Climate_X4FP</span><span class="p">(</span><span class="n">EcoDevicesRT2Device</span><span class="p">,</span> <span class="n">ClimateEntity</span><span class="p">):</span>
+<div class="viewcode-block" id="Climate_X4FP">
+<a class="viewcode-back" href="../../../ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP">[docs]</a>
+<span class="k">class</span> <span class="nc">Climate_X4FP</span><span class="p">(</span><span class="n">EcoDevicesRT2Device</span><span class="p">,</span> <span class="n">ClimateEntity</span><span class="p">):</span>
     <span class="n">RT2_TO_HA_STATE</span> <span class="o">=</span> <span class="p">{</span>
         <span class="mi">0</span><span class="p">:</span> <span class="n">PRESET_COMFORT</span><span class="p">,</span>
         <span class="mi">1</span><span class="p">:</span> <span class="n">PRESET_ECO</span><span class="p">,</span>
@@ -149,11 +153,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span> <span class="o">=</span> <span class="s2">&quot;climate__x4fp&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_fp_state</span> <span class="o">=</span> <span class="mi">0</span>
 
-<div class="viewcode-block" id="Climate_X4FP.get_mode"><a class="viewcode-back" href="../../../ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.get_mode">[docs]</a>    <span class="k">def</span> <span class="nf">get_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Climate_X4FP.get_mode">
+<a class="viewcode-back" href="../../../ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.get_mode">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cached_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">get_mode</span><span class="p">(</span><span class="n">cached_ms</span><span class="o">=</span><span class="n">cached_ms</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Climate_X4FP.set_mode"><a class="viewcode-back" href="../../../ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.set_mode">[docs]</a>    <span class="k">def</span> <span class="nf">set_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Climate_X4FP.set_mode">
+<a class="viewcode-back" href="../../../ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.set_mode">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span></div>
+
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">temperature_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -215,7 +225,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_available</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">RT2_TO_HA_STATE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fp_state</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Climate_X4FP.async_set_hvac_mode"><a class="viewcode-back" href="../../../ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.async_set_hvac_mode">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_set_hvac_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hvac_mode</span><span class="p">):</span>
+<div class="viewcode-block" id="Climate_X4FP.async_set_hvac_mode">
+<a class="viewcode-back" href="../../../ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.async_set_hvac_mode">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_set_hvac_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hvac_mode</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set new hvac mode.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">hvac_mode</span> <span class="o">==</span> <span class="n">HVAC_MODE_OFF</span><span class="p">:</span>
             <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_turn_off</span><span class="p">()</span>
@@ -223,15 +235,24 @@
             <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_turn_on</span><span class="p">()</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinator</span><span class="o">.</span><span class="n">async_request_refresh</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Climate_X4FP.async_turn_on"><a class="viewcode-back" href="../../../ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.async_turn_on">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_turn_on</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Climate_X4FP.async_turn_on">
+<a class="viewcode-back" href="../../../ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.async_turn_on">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_turn_on</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Turn device on.&quot;&quot;&quot;</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_set_preset_mode</span><span class="p">(</span><span class="n">PRESET_COMFORT</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Climate_X4FP.async_turn_off"><a class="viewcode-back" href="../../../ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.async_turn_off">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_turn_off</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Climate_X4FP.async_turn_off">
+<a class="viewcode-back" href="../../../ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.async_turn_off">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_turn_off</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Turn device off.&quot;&quot;&quot;</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_set_preset_mode</span><span class="p">(</span><span class="n">PRESET_NONE</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Climate_X4FP.async_set_preset_mode"><a class="viewcode-back" href="../../../ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.async_set_preset_mode">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_set_preset_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preset_mode</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Climate_X4FP.async_set_preset_mode">
+<a class="viewcode-back" href="../../../ecodevices_rt2.climates.html#ecodevices_rt2.climates.climate_x4fp.Climate_X4FP.async_set_preset_mode">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_set_preset_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preset_mode</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set new preset mode.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">hass</span><span class="o">.</span><span class="n">async_add_executor_job</span><span class="p">(</span>
@@ -249,7 +270,9 @@
             <span class="n">_LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Device data no retrieve </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_available</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinator</span><span class="o">.</span><span class="n">async_request_refresh</span><span class="p">()</span></div></div>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinator</span><span class="o">.</span><span class="n">async_request_refresh</span><span class="p">()</span></div>
+</div>
+
 </pre></div>
 
            </div>
