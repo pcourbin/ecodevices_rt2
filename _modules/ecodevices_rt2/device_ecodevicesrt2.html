@@ -121,7 +121,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_ecort2_type</span> <span class="o">=</span> <span class="n">device_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_TYPE</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_component</span> <span class="o">=</span> <span class="n">device_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_COMPONENT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="n">device_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_ID</span><span class="p">)</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">_zone_id</span> <span class="o">=</span> <span class="n">device_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_ZONE_ID</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_subpost_id</span> <span class="o">=</span> <span class="n">device_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_SUBPOST_ID</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 
@@ -140,7 +139,22 @@
             <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="s2">&quot;Ecodevices RT2&quot;</span><span class="p">,</span>
             <span class="s2">&quot;via_device&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">DOMAIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ecort2</span><span class="o">.</span><span class="n">host</span><span class="p">),</span>
             <span class="s2">&quot;configuration_url&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_configuration_url</span><span class="p">,</span>
-        <span class="p">}</span></div>
+        <span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">icon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Icon to use in the frontend, if any.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_icon</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">device_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the device class.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">unit_of_measurement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the unit of measurement.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unit_of_measurement</span></div>
 
 </pre></div>
 
