@@ -20,6 +20,7 @@ from ..const import CONF_ICON_INDEX
 from ..const import CONF_ICON_INSTANT
 from ..const import CONF_ICON_PRICE
 from ..const import CONF_ICON_TEMPERATURE
+from ..const import CONF_STATE_CLASS
 from ..const import CONF_UNIT_HUMIDITY
 from ..const import CONF_UNIT_ILLUMINANCE
 from ..const import CONF_UNIT_INDEX
@@ -27,9 +28,6 @@ from ..const import CONF_UNIT_INSTANT
 from ..const import CONF_UNIT_PRICE
 from ..const import CONF_UNIT_TEMPERATURE
 from ..device_ecodevicesrt2 import EcoDevicesRT2Device
-
-# from homeassistant.components.sensor import CONF_STATE_CLASS
-CONF_STATE_CLASS = "state_class"
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -52,7 +50,6 @@ class Sensor_EcoDevicesRT2(EcoDevicesRT2Device, SensorEntity):
         device_config: dict,
         ecort2: EcoDevicesRT2,
         coordinator: DataUpdateCoordinator,
-        device_class: str = "",
         suffix_name: str = "",
     ):
         super().__init__(device_config, ecort2, coordinator, suffix_name)
@@ -60,77 +57,54 @@ class Sensor_EcoDevicesRT2(EcoDevicesRT2Device, SensorEntity):
         self._state = None
         self._state_class = device_config.get(CONF_STATE_CLASS)
 
-        if device_class == "" and self._device_class:
-            device_class = self._device_class
-
-        if device_class != "":
-            if device_class in DEVICE_CLASS_UNITS:
-                default_unit = list(DEVICE_CLASS_UNITS[device_class])[0]
+        if self._device_class != "":
+            if self._device_class in DEVICE_CLASS_UNITS:
+                default_unit = list(DEVICE_CLASS_UNITS[self._device_class])[0]
             else:
                 default_unit = UNDEFINED
-            self._device_class = device_class
-            if device_class == SensorDeviceClass.MONETARY:
-                update_unit_icon(
-                    self,
-                    device_config,
-                    CONF_UNIT_PRICE,
-                    hass.config.currency,
-                    CONF_ICON_PRICE,
-                )
-                self._state_class = SensorStateClass.TOTAL_INCREASING
-            elif device_class == SensorDeviceClass.ENERGY:
-                update_unit_icon(
-                    self,
-                    device_config,
-                    CONF_UNIT_INDEX,
-                    UnitOfEnergy.WATT_HOUR,
-                    CONF_ICON_INDEX,
-                )
-                self._state_class = SensorStateClass.TOTAL_INCREASING
-            elif device_class == SensorDeviceClass.POWER:
-                update_unit_icon(
-                    self,
-                    device_config,
-                    CONF_UNIT_INSTANT,
-                    UnitOfPower.WATT,
-                    CONF_ICON_INSTANT,
-                )
-                self._state_class = SensorStateClass.MEASUREMENT
-            elif device_class == SensorDeviceClass.TEMPERATURE:
+
+            conf_unit = UNDEFINED
+            conf_icon = UNDEFINED
+
+            if self._device_class == SensorDeviceClass.MONETARY:
+                default_unit = hass.config.currency
+                conf_unit = CONF_UNIT_PRICE
+                conf_icon = CONF_ICON_PRICE
+            elif self._device_class == SensorDeviceClass.TEMPERATURE:
                 if hass.config.units == METRIC_SYSTEM:
                     default_unit = UnitOfTemperature.CELSIUS
                 else:
                     default_unit = UnitOfTemperature.FAHRENHEIT
+                conf_unit = CONF_UNIT_TEMPERATURE
+                conf_icon = CONF_ICON_TEMPERATURE
+            elif self._device_class == SensorDeviceClass.HUMIDITY:
+                conf_unit = CONF_UNIT_HUMIDITY
+                conf_icon = CONF_ICON_HUMIDITY
+            elif self._device_class == SensorDeviceClass.ILLUMINANCE:
+                conf_unit = CONF_UNIT_ILLUMINANCE
+                conf_icon = CONF_ICON_ILLUMINANCE
+            elif self._device_class == SensorDeviceClass.ENERGY:
+                default_unit = UnitOfEnergy.WATT_HOUR  # default_unit
+                conf_unit = CONF_UNIT_INDEX
+                conf_icon = CONF_ICON_INDEX
+            elif self._device_class == SensorDeviceClass.POWER:
+                default_unit = UnitOfPower.WATT  # default_unit
+                conf_unit = CONF_UNIT_INSTANT
+                conf_icon = CONF_ICON_INSTANT
+            elif self._state_class == SensorStateClass.MEASUREMENT:
+                conf_unit = CONF_UNIT_INSTANT
+                conf_icon = CONF_ICON_INSTANT
+            elif self._state_class == SensorStateClass.TOTAL_INCREASING:
+                conf_unit = CONF_UNIT_INDEX
+                conf_icon = CONF_ICON_INDEX
 
-                update_unit_icon(
-                    self,
-                    device_config,
-                    CONF_UNIT_TEMPERATURE,
-                    default_unit,
-                    CONF_ICON_TEMPERATURE,
-                )
-                self._state_class = SensorStateClass.MEASUREMENT
-            elif device_class == SensorDeviceClass.HUMIDITY:
-                update_unit_icon(
-                    self,
-                    device_config,
-                    CONF_UNIT_HUMIDITY,
-                    default_unit,
-                    CONF_ICON_HUMIDITY,
-                )
-                self._state_class = SensorStateClass.MEASUREMENT
-            elif device_class == SensorDeviceClass.ILLUMINANCE:
-                update_unit_icon(
-                    self,
-                    device_config,
-                    CONF_UNIT_ILLUMINANCE,
-                    default_unit,
-                    CONF_ICON_ILLUMINANCE,
-                )
-                self._state_class = SensorStateClass.MEASUREMENT
-            else:
-                if not self._unit_of_measurement:
-                    self._unit_of_measurement = default_unit
+            update_unit_icon(
+                self,
+                device_config,
+                conf_unit,
+                default_unit,
+                conf_icon,
+            )
 
     @property
     def state(self) -> str:

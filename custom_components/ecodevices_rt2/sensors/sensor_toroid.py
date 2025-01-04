@@ -1,10 +1,13 @@
 from homeassistant.components.sensor import SensorDeviceClass
+from homeassistant.components.sensor import SensorStateClass
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pyecodevices_rt2 import EcoDevicesRT2
 from pyecodevices_rt2 import Toroid
 
 from . import Sensor_EcoDevicesRT2
+from ..const import CONF_DEVICE_CLASS
+from ..const import CONF_STATE_CLASS
 
 
 class Sensor_Toroid(Sensor_EcoDevicesRT2):
@@ -16,7 +19,6 @@ class Sensor_Toroid(Sensor_EcoDevicesRT2):
         device_config: dict,
         ecort2: EcoDevicesRT2,
         coordinator: DataUpdateCoordinator,
-        device_class: str,
         suffix_name: str,
     ):
         super().__init__(
@@ -24,7 +26,6 @@ class Sensor_Toroid(Sensor_EcoDevicesRT2):
             device_config,
             ecort2,
             coordinator,
-            device_class,
             suffix_name,
         )
         self.control = Toroid(ecort2, self._id)
@@ -34,16 +35,19 @@ class Sensor_Toroid_Index(Sensor_Toroid):
     def __init__(
         self,
         hass: HomeAssistant,
-        device_config: dict,
+        device_config_g: dict,
         ecort2: EcoDevicesRT2,
         coordinator: DataUpdateCoordinator,
     ):
+        device_config = dict(device_config_g)
+        if CONF_DEVICE_CLASS not in device_config:
+            device_config[CONF_DEVICE_CLASS] = SensorDeviceClass.ENERGY
+        device_config[CONF_STATE_CLASS] = SensorStateClass.TOTAL_INCREASING
         super().__init__(
             hass,
             device_config,
             ecort2,
             coordinator,
-            SensorDeviceClass.ENERGY,
             "Index",
         )
 
@@ -57,16 +61,18 @@ class Sensor_Toroid_Price(Sensor_Toroid):
     def __init__(
         self,
         hass: HomeAssistant,
-        device_config: dict,
+        device_config_g: dict,
         ecort2: EcoDevicesRT2,
         coordinator: DataUpdateCoordinator,
     ):
+        device_config = dict(device_config_g)
+        device_config[CONF_DEVICE_CLASS] = SensorDeviceClass.MONETARY
+        device_config[CONF_STATE_CLASS] = SensorStateClass.TOTAL_INCREASING
         super().__init__(
             hass,
             device_config,
             ecort2,
             coordinator,
-            SensorDeviceClass.MONETARY,
             "Price",
         )
 

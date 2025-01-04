@@ -45,6 +45,15 @@ ecodevices_rt2:
         price_unit_of_measurement: "USD"
         price_icon: mdi:account-cash
 
+      - name: Counter 2
+        type: "counter"
+        id: 1
+        price_unit_of_measurement: €
+        index_unit_of_measurement: L
+        price_icon: mdi:currency-eur
+        index_icon: mdi:water
+        device_class: "water"
+
       #### DigitalInput Example
       - name: DigitalInput 1
         type: "digitalinput"
@@ -74,6 +83,13 @@ ecodevices_rt2:
       - name: Post 1
         type: "post"
         id: 1
+
+      - name: Post 2
+        type: "post"
+        id: 2
+        index_unit_of_measurement: "L"
+        instant_unit_of_measurement: "L/min"
+        device_class: "water"
 
       - name: Subpost 2 of Post 1
         type: "post"
@@ -135,3 +151,7 @@ ecodevices_rt2:
         illuminance_icon: mdi:sun-wireless-outline
         temperature_icon: mdi:coolant-temperature
         humidity_icon: mdi:cloud-percent
+
+      - name: XHTL 2
+        type: "xthl"
+        id: 2

@@ -6,6 +6,9 @@ CONTROLLER = "controller"
 COORDINATOR = "coordinator"
 CONFIG = "config"
 
+CONF_STATE_CLASS = "state_class"
+CONF_DEVICE_CLASS = "device_class"
+
 UNDO_UPDATE_LISTENER = "undo_update_listener"
 DEFAULT_SCAN_INTERVAL = 15
 DEFAULT_UPDATE_AFTER_SWITCH = 0.1
