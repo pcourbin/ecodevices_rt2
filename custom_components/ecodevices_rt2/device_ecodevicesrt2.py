@@ -46,7 +46,7 @@ class EcoDevicesRT2Device(CoordinatorEntity):
 
         self._supported_features = 0
 
-        self._configuration_url = f"http://{self.ecort2.host}:{self.ecort2.port}"
+        self._configuration_url = f"http://{self.ecort2.host}:{self.ecort2._port}"
 
         self._attr_unique_id = "_".join(
             [DOMAIN, self.ecort2.host, self._component, slugify(self._attr_name)]
