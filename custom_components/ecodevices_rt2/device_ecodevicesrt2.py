@@ -1,11 +1,10 @@
-import re
-
 from homeassistant.const import CONF_DEVICE_CLASS
 from homeassistant.const import CONF_ICON
 from homeassistant.const import CONF_NAME
 from homeassistant.const import CONF_UNIT_OF_MEASUREMENT
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from homeassistant.util import slugify
 from pyecodevices_rt2 import EcoDevicesRT2
 
 from .const import CONF_COMPONENT
@@ -31,10 +30,9 @@ class EcoDevicesRT2Device(CoordinatorEntity):
 
         self.ecort2 = ecort2
 
-        self._name = device_config.get(CONF_NAME)
-        self._device_name = self._name
+        self._attr_name: str = device_config[CONF_NAME]
         if suffix_name:
-            self._name += f" {suffix_name}"
+            self._attr_name = f"{self._attr_name} {suffix_name}"
 
         self._device_class = device_config.get(CONF_DEVICE_CLASS)
         self._unit_of_measurement = device_config.get(CONF_UNIT_OF_MEASUREMENT)
@@ -42,57 +40,23 @@ class EcoDevicesRT2Device(CoordinatorEntity):
         self._ecort2_type = device_config.get(CONF_TYPE)
         self._component = device_config.get(CONF_COMPONENT)
         self._id = device_config.get(CONF_ID)
+
         self._zone_id = device_config.get(CONF_ZONE_ID, "")
         self._subpost_id = device_config.get(CONF_SUBPOST_ID, "")
 
         self._supported_features = 0
 
-    @property
-    def name(self):
-        """Return the display name."""
-        return self._name
+        self._configuration_url = f"http://{self.ecort2.host}:{self.ecort2.port}"
 
-    @property
-    def unique_id(self):
-        """Return an unique id."""
-        return "_".join(
-            [
-                DOMAIN,
-                self.ecort2.host,
-                self._component,
-                re.sub("[^A-Za-z0-9_]+", "", self._name.replace(" ", "_")).lower(),
-            ]
+        self._attr_unique_id = "_".join(
+            [DOMAIN, self.ecort2.host, self._component, slugify(self._attr_name)]
         )
 
-    @property
-    def device_info(self):
-        """Return device info."""
-        return {
-            "identifiers": {
-                (
-                    DOMAIN,
-                    re.sub(
-                        "[^A-Za-z0-9_]+", "", self._device_name.replace(" ", "_")
-                    ).lower(),
-                )
-            },
-            "name": self._device_name,
+        self._attr_device_info = {
+            "identifiers": {(DOMAIN, slugify(device_config[CONF_NAME]))},
+            "name": device_config[CONF_NAME],
             "manufacturer": "GCE",
             "model": "Ecodevices RT2",
             "via_device": (DOMAIN, self.ecort2.host),
+            "configuration_url": self._configuration_url,
         }
-
-    @property
-    def icon(self):
-        """Icon to use in the frontend, if any."""
-        return self._icon
-
-    @property
-    def device_class(self):
-        """Return the device class."""
-        return self._device_class
-
-    @property
-    def unit_of_measurement(self):
-        """Return the unit of measurement."""
-        return self._unit_of_measurement

@@ -221,6 +221,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         manufacturer="GCE",
         model="Ecodevices RT2",
         name=entry.data[CONF_NAME],
+        configuration_url=f"http://{entry.data[CONF_HOST]}:{entry.data[CONF_PORT]}",
     )
 
     if CONF_DEVICES not in entry.data:
