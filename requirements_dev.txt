@@ -1,4 +1,4 @@
-homeassistant==2024.10.1
+homeassistant==2024.12.5
 pre-commit
 black
 reorder-python-imports
@@ -7,5 +7,5 @@ Sphinx>=1.8.5
 sphinx_rtd_theme
 bump2version==1.0.1
 python-dotenv==1.0.1
-colorlog==6.7.0
+colorlog==6.9.0
 #git+https://github.com/boto/botocore
