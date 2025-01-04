@@ -99,6 +99,7 @@
 <span class="kn">from</span> <span class="nn">..const</span> <span class="kn">import</span> <span class="n">CONF_ICON_INSTANT</span>
 <span class="kn">from</span> <span class="nn">..const</span> <span class="kn">import</span> <span class="n">CONF_ICON_PRICE</span>
 <span class="kn">from</span> <span class="nn">..const</span> <span class="kn">import</span> <span class="n">CONF_ICON_TEMPERATURE</span>
+<span class="kn">from</span> <span class="nn">..const</span> <span class="kn">import</span> <span class="n">CONF_STATE_CLASS</span>
 <span class="kn">from</span> <span class="nn">..const</span> <span class="kn">import</span> <span class="n">CONF_UNIT_HUMIDITY</span>
 <span class="kn">from</span> <span class="nn">..const</span> <span class="kn">import</span> <span class="n">CONF_UNIT_ILLUMINANCE</span>
 <span class="kn">from</span> <span class="nn">..const</span> <span class="kn">import</span> <span class="n">CONF_UNIT_INDEX</span>
@@ -106,9 +107,6 @@
 <span class="kn">from</span> <span class="nn">..const</span> <span class="kn">import</span> <span class="n">CONF_UNIT_PRICE</span>
 <span class="kn">from</span> <span class="nn">..const</span> <span class="kn">import</span> <span class="n">CONF_UNIT_TEMPERATURE</span>
 <span class="kn">from</span> <span class="nn">..device_ecodevicesrt2</span> <span class="kn">import</span> <span class="n">EcoDevicesRT2Device</span>
-
-<span class="c1"># from homeassistant.components.sensor import CONF_STATE_CLASS</span>
-<span class="n">CONF_STATE_CLASS</span> <span class="o">=</span> <span class="s2">&quot;state_class&quot;</span>
 
 <span class="n">_LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -136,7 +134,6 @@
         <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
         <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
-        <span class="n">device_class</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">suffix_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="n">suffix_name</span><span class="p">)</span>
@@ -144,77 +141,54 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_state_class</span> <span class="o">=</span> <span class="n">device_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_STATE_CLASS</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">device_class</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span><span class="p">:</span>
-            <span class="n">device_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span>
-
-        <span class="k">if</span> <span class="n">device_class</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">device_class</span> <span class="ow">in</span> <span class="n">DEVICE_CLASS_UNITS</span><span class="p">:</span>
-                <span class="n">default_unit</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">DEVICE_CLASS_UNITS</span><span class="p">[</span><span class="n">device_class</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span> <span class="ow">in</span> <span class="n">DEVICE_CLASS_UNITS</span><span class="p">:</span>
+                <span class="n">default_unit</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">DEVICE_CLASS_UNITS</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">default_unit</span> <span class="o">=</span> <span class="n">UNDEFINED</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span> <span class="o">=</span> <span class="n">device_class</span>
-            <span class="k">if</span> <span class="n">device_class</span> <span class="o">==</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">MONETARY</span><span class="p">:</span>
-                <span class="n">update_unit_icon</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="p">,</span>
-                    <span class="n">device_config</span><span class="p">,</span>
-                    <span class="n">CONF_UNIT_PRICE</span><span class="p">,</span>
-                    <span class="n">hass</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">currency</span><span class="p">,</span>
-                    <span class="n">CONF_ICON_PRICE</span><span class="p">,</span>
-                <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_state_class</span> <span class="o">=</span> <span class="n">SensorStateClass</span><span class="o">.</span><span class="n">TOTAL_INCREASING</span>
-            <span class="k">elif</span> <span class="n">device_class</span> <span class="o">==</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">ENERGY</span><span class="p">:</span>
-                <span class="n">update_unit_icon</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="p">,</span>
-                    <span class="n">device_config</span><span class="p">,</span>
-                    <span class="n">CONF_UNIT_INDEX</span><span class="p">,</span>
-                    <span class="n">UnitOfEnergy</span><span class="o">.</span><span class="n">WATT_HOUR</span><span class="p">,</span>
-                    <span class="n">CONF_ICON_INDEX</span><span class="p">,</span>
-                <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_state_class</span> <span class="o">=</span> <span class="n">SensorStateClass</span><span class="o">.</span><span class="n">TOTAL_INCREASING</span>
-            <span class="k">elif</span> <span class="n">device_class</span> <span class="o">==</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">POWER</span><span class="p">:</span>
-                <span class="n">update_unit_icon</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="p">,</span>
-                    <span class="n">device_config</span><span class="p">,</span>
-                    <span class="n">CONF_UNIT_INSTANT</span><span class="p">,</span>
-                    <span class="n">UnitOfPower</span><span class="o">.</span><span class="n">WATT</span><span class="p">,</span>
-                    <span class="n">CONF_ICON_INSTANT</span><span class="p">,</span>
-                <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_state_class</span> <span class="o">=</span> <span class="n">SensorStateClass</span><span class="o">.</span><span class="n">MEASUREMENT</span>
-            <span class="k">elif</span> <span class="n">device_class</span> <span class="o">==</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">TEMPERATURE</span><span class="p">:</span>
+
+            <span class="n">conf_unit</span> <span class="o">=</span> <span class="n">UNDEFINED</span>
+            <span class="n">conf_icon</span> <span class="o">=</span> <span class="n">UNDEFINED</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span> <span class="o">==</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">MONETARY</span><span class="p">:</span>
+                <span class="n">default_unit</span> <span class="o">=</span> <span class="n">hass</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">currency</span>
+                <span class="n">conf_unit</span> <span class="o">=</span> <span class="n">CONF_UNIT_PRICE</span>
+                <span class="n">conf_icon</span> <span class="o">=</span> <span class="n">CONF_ICON_PRICE</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span> <span class="o">==</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">TEMPERATURE</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">hass</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">units</span> <span class="o">==</span> <span class="n">METRIC_SYSTEM</span><span class="p">:</span>
                     <span class="n">default_unit</span> <span class="o">=</span> <span class="n">UnitOfTemperature</span><span class="o">.</span><span class="n">CELSIUS</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">default_unit</span> <span class="o">=</span> <span class="n">UnitOfTemperature</span><span class="o">.</span><span class="n">FAHRENHEIT</span>
+                <span class="n">conf_unit</span> <span class="o">=</span> <span class="n">CONF_UNIT_TEMPERATURE</span>
+                <span class="n">conf_icon</span> <span class="o">=</span> <span class="n">CONF_ICON_TEMPERATURE</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span> <span class="o">==</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">HUMIDITY</span><span class="p">:</span>
+                <span class="n">conf_unit</span> <span class="o">=</span> <span class="n">CONF_UNIT_HUMIDITY</span>
+                <span class="n">conf_icon</span> <span class="o">=</span> <span class="n">CONF_ICON_HUMIDITY</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span> <span class="o">==</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">ILLUMINANCE</span><span class="p">:</span>
+                <span class="n">conf_unit</span> <span class="o">=</span> <span class="n">CONF_UNIT_ILLUMINANCE</span>
+                <span class="n">conf_icon</span> <span class="o">=</span> <span class="n">CONF_ICON_ILLUMINANCE</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span> <span class="o">==</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">ENERGY</span><span class="p">:</span>
+                <span class="n">default_unit</span> <span class="o">=</span> <span class="n">UnitOfEnergy</span><span class="o">.</span><span class="n">WATT_HOUR</span>  <span class="c1"># default_unit</span>
+                <span class="n">conf_unit</span> <span class="o">=</span> <span class="n">CONF_UNIT_INDEX</span>
+                <span class="n">conf_icon</span> <span class="o">=</span> <span class="n">CONF_ICON_INDEX</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span> <span class="o">==</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">POWER</span><span class="p">:</span>
+                <span class="n">default_unit</span> <span class="o">=</span> <span class="n">UnitOfPower</span><span class="o">.</span><span class="n">WATT</span>  <span class="c1"># default_unit</span>
+                <span class="n">conf_unit</span> <span class="o">=</span> <span class="n">CONF_UNIT_INSTANT</span>
+                <span class="n">conf_icon</span> <span class="o">=</span> <span class="n">CONF_ICON_INSTANT</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state_class</span> <span class="o">==</span> <span class="n">SensorStateClass</span><span class="o">.</span><span class="n">MEASUREMENT</span><span class="p">:</span>
+                <span class="n">conf_unit</span> <span class="o">=</span> <span class="n">CONF_UNIT_INSTANT</span>
+                <span class="n">conf_icon</span> <span class="o">=</span> <span class="n">CONF_ICON_INSTANT</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state_class</span> <span class="o">==</span> <span class="n">SensorStateClass</span><span class="o">.</span><span class="n">TOTAL_INCREASING</span><span class="p">:</span>
+                <span class="n">conf_unit</span> <span class="o">=</span> <span class="n">CONF_UNIT_INDEX</span>
+                <span class="n">conf_icon</span> <span class="o">=</span> <span class="n">CONF_ICON_INDEX</span>
 
-                <span class="n">update_unit_icon</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="p">,</span>
-                    <span class="n">device_config</span><span class="p">,</span>
-                    <span class="n">CONF_UNIT_TEMPERATURE</span><span class="p">,</span>
-                    <span class="n">default_unit</span><span class="p">,</span>
-                    <span class="n">CONF_ICON_TEMPERATURE</span><span class="p">,</span>
-                <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_state_class</span> <span class="o">=</span> <span class="n">SensorStateClass</span><span class="o">.</span><span class="n">MEASUREMENT</span>
-            <span class="k">elif</span> <span class="n">device_class</span> <span class="o">==</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">HUMIDITY</span><span class="p">:</span>
-                <span class="n">update_unit_icon</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="p">,</span>
-                    <span class="n">device_config</span><span class="p">,</span>
-                    <span class="n">CONF_UNIT_HUMIDITY</span><span class="p">,</span>
-                    <span class="n">default_unit</span><span class="p">,</span>
-                    <span class="n">CONF_ICON_HUMIDITY</span><span class="p">,</span>
-                <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_state_class</span> <span class="o">=</span> <span class="n">SensorStateClass</span><span class="o">.</span><span class="n">MEASUREMENT</span>
-            <span class="k">elif</span> <span class="n">device_class</span> <span class="o">==</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">ILLUMINANCE</span><span class="p">:</span>
-                <span class="n">update_unit_icon</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="p">,</span>
-                    <span class="n">device_config</span><span class="p">,</span>
-                    <span class="n">CONF_UNIT_ILLUMINANCE</span><span class="p">,</span>
-                    <span class="n">default_unit</span><span class="p">,</span>
-                    <span class="n">CONF_ICON_ILLUMINANCE</span><span class="p">,</span>
-                <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_state_class</span> <span class="o">=</span> <span class="n">SensorStateClass</span><span class="o">.</span><span class="n">MEASUREMENT</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unit_of_measurement</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_unit_of_measurement</span> <span class="o">=</span> <span class="n">default_unit</span>
+            <span class="n">update_unit_icon</span><span class="p">(</span>
+                <span class="bp">self</span><span class="p">,</span>
+                <span class="n">device_config</span><span class="p">,</span>
+                <span class="n">conf_unit</span><span class="p">,</span>
+                <span class="n">default_unit</span><span class="p">,</span>
+                <span class="n">conf_icon</span><span class="p">,</span>
+            <span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>

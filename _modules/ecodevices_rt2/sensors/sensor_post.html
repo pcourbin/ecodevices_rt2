@@ -78,6 +78,7 @@
              
   <h1>Source code for ecodevices_rt2.sensors.sensor_post</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">homeassistant.components.sensor</span> <span class="kn">import</span> <span class="n">SensorDeviceClass</span>
+<span class="kn">from</span> <span class="nn">homeassistant.components.sensor</span> <span class="kn">import</span> <span class="n">SensorStateClass</span>
 <span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">UnitOfEnergy</span>
 <span class="kn">from</span> <span class="nn">homeassistant.core</span> <span class="kn">import</span> <span class="n">HomeAssistant</span>
 <span class="kn">from</span> <span class="nn">homeassistant.helpers.update_coordinator</span> <span class="kn">import</span> <span class="n">DataUpdateCoordinator</span>
@@ -85,6 +86,8 @@
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="kn">import</span> <span class="n">Post</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">Sensor_EcoDevicesRT2</span>
+<span class="kn">from</span> <span class="nn">..const</span> <span class="kn">import</span> <span class="n">CONF_DEVICE_CLASS</span>
+<span class="kn">from</span> <span class="nn">..const</span> <span class="kn">import</span> <span class="n">CONF_STATE_CLASS</span>
 <span class="kn">from</span> <span class="nn">..const</span> <span class="kn">import</span> <span class="n">CONF_SUBPOST_ID</span>
 <span class="kn">from</span> <span class="nn">..const</span> <span class="kn">import</span> <span class="n">CONF_UNIT_INDEX</span>
 
@@ -100,18 +103,22 @@
         <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
         <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
-        <span class="n">device_class</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">suffix_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">hass</span><span class="p">,</span> <span class="n">device_config</span><span class="p">,</span> <span class="n">ecort2</span><span class="p">,</span> <span class="n">coordinator</span><span class="p">,</span> <span class="n">device_class</span><span class="p">,</span> <span class="n">suffix_name</span>
+            <span class="n">hass</span><span class="p">,</span>
+            <span class="n">device_config</span><span class="p">,</span>
+            <span class="n">ecort2</span><span class="p">,</span>
+            <span class="n">coordinator</span><span class="p">,</span>
+            <span class="n">suffix_name</span><span class="p">,</span>
         <span class="p">)</span>
+
         <span class="k">if</span> <span class="n">CONF_SUBPOST_ID</span> <span class="ow">in</span> <span class="n">device_config</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="n">Post</span><span class="p">(</span><span class="n">ecort2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span> <span class="n">device_config</span><span class="p">[</span><span class="n">CONF_SUBPOST_ID</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="n">Post</span><span class="p">(</span><span class="n">ecort2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">device_class</span> <span class="o">==</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">ENERGY</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">device_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span> <span class="o">==</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">ENERGY</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">device_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="n">CONF_UNIT_INDEX</span>
         <span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_unit_of_measurement</span> <span class="o">=</span> <span class="n">UnitOfEnergy</span><span class="o">.</span><span class="n">KILO_WATT_HOUR</span></div>
@@ -124,16 +131,20 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">hass</span><span class="p">,</span>
-        <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">device_config_g</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
         <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
     <span class="p">):</span>
+        <span class="n">device_config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">device_config_g</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">CONF_DEVICE_CLASS</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">device_config</span><span class="p">:</span>
+            <span class="n">device_config</span><span class="p">[</span><span class="n">CONF_DEVICE_CLASS</span><span class="p">]</span> <span class="o">=</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">ENERGY</span>
+        <span class="n">device_config</span><span class="p">[</span><span class="n">CONF_STATE_CLASS</span><span class="p">]</span> <span class="o">=</span> <span class="n">SensorStateClass</span><span class="o">.</span><span class="n">TOTAL_INCREASING</span>
+
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">hass</span><span class="p">,</span>
             <span class="n">device_config</span><span class="p">,</span>
             <span class="n">ecort2</span><span class="p">,</span>
             <span class="n">coordinator</span><span class="p">,</span>
-            <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">ENERGY</span><span class="p">,</span>
             <span class="s2">&quot;Index&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
@@ -153,16 +164,19 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">hass</span><span class="p">,</span>
-        <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">device_config_g</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
         <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
     <span class="p">):</span>
+        <span class="n">device_config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">device_config_g</span><span class="p">)</span>
+        <span class="n">device_config</span><span class="p">[</span><span class="n">CONF_DEVICE_CLASS</span><span class="p">]</span> <span class="o">=</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">MONETARY</span>
+        <span class="n">device_config</span><span class="p">[</span><span class="n">CONF_STATE_CLASS</span><span class="p">]</span> <span class="o">=</span> <span class="n">SensorStateClass</span><span class="o">.</span><span class="n">TOTAL_INCREASING</span>
+
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">hass</span><span class="p">,</span>
             <span class="n">device_config</span><span class="p">,</span>
             <span class="n">ecort2</span><span class="p">,</span>
             <span class="n">coordinator</span><span class="p">,</span>
-            <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">MONETARY</span><span class="p">,</span>
             <span class="s2">&quot;Price&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
@@ -182,16 +196,20 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">hass</span><span class="p">,</span>
-        <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">device_config_g</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
         <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
     <span class="p">):</span>
+        <span class="n">device_config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">device_config_g</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">CONF_DEVICE_CLASS</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">device_config</span><span class="p">:</span>
+            <span class="n">device_config</span><span class="p">[</span><span class="n">CONF_DEVICE_CLASS</span><span class="p">]</span> <span class="o">=</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">ENERGY</span>
+        <span class="n">device_config</span><span class="p">[</span><span class="n">CONF_STATE_CLASS</span><span class="p">]</span> <span class="o">=</span> <span class="n">SensorStateClass</span><span class="o">.</span><span class="n">TOTAL_INCREASING</span>
+
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">hass</span><span class="p">,</span>
             <span class="n">device_config</span><span class="p">,</span>
             <span class="n">ecort2</span><span class="p">,</span>
             <span class="n">coordinator</span><span class="p">,</span>
-            <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">ENERGY</span><span class="p">,</span>
             <span class="s2">&quot;IndexDay&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
@@ -211,16 +229,19 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">hass</span><span class="p">,</span>
-        <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">device_config_g</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
         <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
     <span class="p">):</span>
+        <span class="n">device_config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">device_config_g</span><span class="p">)</span>
+        <span class="n">device_config</span><span class="p">[</span><span class="n">CONF_DEVICE_CLASS</span><span class="p">]</span> <span class="o">=</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">MONETARY</span>
+        <span class="n">device_config</span><span class="p">[</span><span class="n">CONF_STATE_CLASS</span><span class="p">]</span> <span class="o">=</span> <span class="n">SensorStateClass</span><span class="o">.</span><span class="n">TOTAL_INCREASING</span>
+
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">hass</span><span class="p">,</span>
             <span class="n">device_config</span><span class="p">,</span>
             <span class="n">ecort2</span><span class="p">,</span>
             <span class="n">coordinator</span><span class="p">,</span>
-            <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">MONETARY</span><span class="p">,</span>
             <span class="s2">&quot;PriceDay&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
@@ -240,16 +261,20 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">hass</span><span class="p">,</span>
-        <span class="n">device_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">device_config_g</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">ecort2</span><span class="p">:</span> <span class="n">EcoDevicesRT2</span><span class="p">,</span>
         <span class="n">coordinator</span><span class="p">:</span> <span class="n">DataUpdateCoordinator</span><span class="p">,</span>
     <span class="p">):</span>
+        <span class="n">device_config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">device_config_g</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">CONF_DEVICE_CLASS</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">device_config</span><span class="p">:</span>
+            <span class="n">device_config</span><span class="p">[</span><span class="n">CONF_DEVICE_CLASS</span><span class="p">]</span> <span class="o">=</span> <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">POWER</span>
+        <span class="n">device_config</span><span class="p">[</span><span class="n">CONF_STATE_CLASS</span><span class="p">]</span> <span class="o">=</span> <span class="n">SensorStateClass</span><span class="o">.</span><span class="n">MEASUREMENT</span>
+
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">hass</span><span class="p">,</span>
             <span class="n">device_config</span><span class="p">,</span>
             <span class="n">ecort2</span><span class="p">,</span>
             <span class="n">coordinator</span><span class="p">,</span>
-            <span class="n">SensorDeviceClass</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
             <span class="s2">&quot;Instant&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
