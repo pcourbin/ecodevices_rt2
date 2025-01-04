@@ -2,7 +2,15 @@
 History
 =======
 
-2.2.8 (2024-10-06)
+2.2.10 (2025-01-04)
+-------------------------
+
+* Update use of unit/icon for sensors - Try to solve issue #130
+* Update configuration of device
+    * Add link to configuration page of EcoRT2
+    * Try to update configuration to solve #182
+
+2.2.9 (2024-10-06)
 -------------------------
 
 * Fix deprecated code
