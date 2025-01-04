@@ -40,7 +40,6 @@ class EcoDevicesRT2Device(CoordinatorEntity):
         self._ecort2_type = device_config.get(CONF_TYPE)
         self._component = device_config.get(CONF_COMPONENT)
         self._id = device_config.get(CONF_ID)
-
         self._zone_id = device_config.get(CONF_ZONE_ID, "")
         self._subpost_id = device_config.get(CONF_SUBPOST_ID, "")
 
@@ -60,3 +59,18 @@ class EcoDevicesRT2Device(CoordinatorEntity):
             "via_device": (DOMAIN, self.ecort2.host),
             "configuration_url": self._configuration_url,
         }
+
+    @property
+    def icon(self):
+        """Icon to use in the frontend, if any."""
+        return self._icon
+
+    @property
+    def device_class(self):
+        """Return the device class."""
+        return self._device_class
+
+    @property
+    def unit_of_measurement(self):
+        """Return the unit of measurement."""
+        return self._unit_of_measurement
