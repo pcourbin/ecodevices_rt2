@@ -77,14 +77,13 @@
            <div itemprop="articleBody">
              
   <h1>Source code for ecodevices_rt2.device_ecodevicesrt2</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">re</span>
-
-<span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">CONF_DEVICE_CLASS</span>
+<span></span><span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">CONF_DEVICE_CLASS</span>
 <span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">CONF_ICON</span>
 <span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">CONF_NAME</span>
 <span class="kn">from</span> <span class="nn">homeassistant.const</span> <span class="kn">import</span> <span class="n">CONF_UNIT_OF_MEASUREMENT</span>
 <span class="kn">from</span> <span class="nn">homeassistant.helpers.update_coordinator</span> <span class="kn">import</span> <span class="n">CoordinatorEntity</span>
 <span class="kn">from</span> <span class="nn">homeassistant.helpers.update_coordinator</span> <span class="kn">import</span> <span class="n">DataUpdateCoordinator</span>
+<span class="kn">from</span> <span class="nn">homeassistant.util</span> <span class="kn">import</span> <span class="n">slugify</span>
 <span class="kn">from</span> <span class="nn">pyecodevices_rt2</span> <span class="kn">import</span> <span class="n">EcoDevicesRT2</span>
 
 <span class="kn">from</span> <span class="nn">.const</span> <span class="kn">import</span> <span class="n">CONF_COMPONENT</span>
@@ -112,10 +111,9 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">ecort2</span> <span class="o">=</span> <span class="n">ecort2</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">device_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_NAME</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_device_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_attr_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">device_config</span><span class="p">[</span><span class="n">CONF_NAME</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">suffix_name</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">suffix_name</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_attr_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_attr_name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">suffix_name</span><span class="si">}</span><span class="s2">&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span> <span class="o">=</span> <span class="n">device_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_DEVICE_CLASS</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_unit_of_measurement</span> <span class="o">=</span> <span class="n">device_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_UNIT_OF_MEASUREMENT</span><span class="p">)</span>
@@ -123,60 +121,26 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_ecort2_type</span> <span class="o">=</span> <span class="n">device_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_TYPE</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_component</span> <span class="o">=</span> <span class="n">device_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_COMPONENT</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="n">device_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_ID</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_zone_id</span> <span class="o">=</span> <span class="n">device_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_ZONE_ID</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_subpost_id</span> <span class="o">=</span> <span class="n">device_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">CONF_SUBPOST_ID</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_supported_features</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the display name.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_configuration_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;http://</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ecort2</span><span class="o">.</span><span class="n">host</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ecort2</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s2">&quot;</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">unique_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return an unique id.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="p">[</span>
-                <span class="n">DOMAIN</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ecort2</span><span class="o">.</span><span class="n">host</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_component</span><span class="p">,</span>
-                <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;[^A-Za-z0-9_]+&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
-            <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_attr_unique_id</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">DOMAIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ecort2</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_component</span><span class="p">,</span> <span class="n">slugify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_attr_name</span><span class="p">)]</span>
         <span class="p">)</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">device_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return device info.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;identifiers&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="p">(</span>
-                    <span class="n">DOMAIN</span><span class="p">,</span>
-                    <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
-                        <span class="s2">&quot;[^A-Za-z0-9_]+&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
-                    <span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
-                <span class="p">)</span>
-            <span class="p">},</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_name</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_attr_device_info</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;identifiers&quot;</span><span class="p">:</span> <span class="p">{(</span><span class="n">DOMAIN</span><span class="p">,</span> <span class="n">slugify</span><span class="p">(</span><span class="n">device_config</span><span class="p">[</span><span class="n">CONF_NAME</span><span class="p">]))},</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">device_config</span><span class="p">[</span><span class="n">CONF_NAME</span><span class="p">],</span>
             <span class="s2">&quot;manufacturer&quot;</span><span class="p">:</span> <span class="s2">&quot;GCE&quot;</span><span class="p">,</span>
             <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="s2">&quot;Ecodevices RT2&quot;</span><span class="p">,</span>
             <span class="s2">&quot;via_device&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">DOMAIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ecort2</span><span class="o">.</span><span class="n">host</span><span class="p">),</span>
-        <span class="p">}</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">icon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Icon to use in the frontend, if any.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_icon</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">device_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the device class.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device_class</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">unit_of_measurement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the unit of measurement.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unit_of_measurement</span></div>
+            <span class="s2">&quot;configuration_url&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_configuration_url</span><span class="p">,</span>
+        <span class="p">}</span></div>
 
 </pre></div>
 
